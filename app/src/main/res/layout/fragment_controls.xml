@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="horizontal"
+    tools:context="com.test.platformerse1.Controls">
+
+    <Button
+        android:id="@+id/left_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:padding="0dp"
+        android:text="L"
+        android:textSize="60dp" />
+
+    <Button
+        android:id="@+id/right_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/left_button"
+        android:padding="0dp"
+        android:text="R"
+        android:textSize="60dp" />
+
+    <Button
+        android:id="@+id/jump_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:padding="0dp"
+        android:text="^"
+        android:textSize="70dp" />
+
+    <Button
+        android:id="@+id/shoot_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/jump_button"
+        android:padding="0dp"
+        android:text="X"
+        android:textSize="60dp" />
+
+
+</RelativeLayout>
