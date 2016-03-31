@@ -47,7 +47,13 @@ public class Entity {
     }
 
     public void setLocation(Point location) {
-        this.location = location;
+        if (this.location == null) {
+            this.location = new Point(location);
+        }
+        else {
+            this.location.x = location.x;
+            this.location.y = location.y;
+        }
     }
 
     public int getDirection() {
@@ -63,7 +69,13 @@ public class Entity {
     }
 
     public void setDimensions(Point dimensions) {
-        this.dimensions = dimensions;
+        if (this.dimensions == null) {
+            this.dimensions = new Point(dimensions);
+        }
+        else {
+            this.dimensions.x = dimensions.x;
+            this.dimensions.y = dimensions.y;
+        }
     }
 
     public int getDefense() {

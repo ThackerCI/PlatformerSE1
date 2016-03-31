@@ -16,36 +16,18 @@ public class Character extends Entity {
     private int shotCoolDown;
     //max cooldown time after each shot
     private final int maxShotCoolDown = 10;
-    //location of the character
-    private Point location;
     //Time the character began his jump
     private double initialJump;
     //Time character will be moving vertically in case of jump
     private int jumpTime;
     //maximum time the character will move vertically in case of jump
     private final int maxJumpTime = 24;
-    // direction is -1 for left, 1 for right
-    private int direction;
-    //dimensions of the character
-    private Point dimensions;
-    //Scalar multiple effecting "damage" taken
-    private int defense;
-    //Max horizontal Velocity of the character = speed
-    private int speed;
-    //velocity of character
-    private Point velocity;
-    //Scalar multiple affecting character attack
-    private int strength;
-    //Current health of character
-    private int health;
-    //Max health of character
-    private int maxHealth;
 
     public Character() {
-        location = new Point(0, 0);
-        dimensions = new Point(0, 0);
-        velocity = new Point(0, 0);
-        direction = 1;
+        setLocation(new Point(0,0));
+        setDimensions(new Point(0,0));
+        setVelocity(new Point(0, 0));
+        setDirection(1);
     }
 
     /**
@@ -53,14 +35,14 @@ public class Character extends Entity {
      */
     public Character(Point location, Point dimensions, int strength,
                      int speed, int defense, int maxHealth) {
-        this.location = new Point(location.x * 30, location.y * 30);
-        this.dimensions = new Point(dimensions);
-        this.setStrength(strength);
-        this.setSpeed(speed);
-        this.setDefense(defense);
-        this.setMaxHealth(maxHealth);
-        this.setVelocity(new Point(0, 0));
-        this.jumpTime = 0;
+        setLocation(new Point(location.x * 30, location.y * 30));
+        setDimensions(new Point(dimensions));
+        setStrength(strength);
+        setSpeed(speed);
+        setDefense(defense);
+        setMaxHealth(maxHealth);
+        setVelocity(new Point(0, 0));
+        jumpTime = 0;
     }
 
     /**
@@ -147,7 +129,7 @@ public class Character extends Entity {
         w = w / 2;
         Point center = new Point(x + w, y + h);
         // get the velocity for the bullet
-        Point vel = new Point(this.direction * 5, 0);
+        Point vel = new Point(this.getDirection() * 5, 0);
         // return the new bullet
         return new Bullet(center, this.getStrength(), vel, false);
     }
