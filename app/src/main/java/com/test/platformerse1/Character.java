@@ -2,8 +2,8 @@ package com.test.platformerse1;
 
 
 // Author: John Hale
-// Last Modified: 3/20/16 by Isaiah Thacker
-// Iteration 2
+// Last Modified: 3/31/16 by Isaiah Thacker
+// Iteration 3
 // The Character class defines the object which will represent the data on the player's
 // controlled character.
 
@@ -11,7 +11,7 @@ package com.test.platformerse1;
 
 import android.graphics.Point;
 
-public class Character {
+public class Character extends Entity {
 
     //Cooldown time after each shot
     private int shotCoolDown;
@@ -29,7 +29,7 @@ public class Character {
     private int direction;
     //dimensions of the character
     private Point dimensions;
-    //Scalar multiple effecting enemy attack
+    //Scalar multiple effecting "damage" taken
     private int defense;
     //Max horizontal Velocity of the character = speed
     private int speed;
@@ -78,71 +78,7 @@ public class Character {
      * Get/Set Functions For Various Variables
      ************************************/
 
-    public void setVelocity(Point velocity) {
-        this.velocity = velocity;
-    }
 
-    public Point getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocityX(int x) {
-        this.velocity.x = x;
-    }
-
-    public void setVelocityY(int y) {
-        this.velocity.y = y;
-    }
-
-
-    public void setLocation(Point p) {
-        this.location.set(p.x, p.y);
-    }
-
-    public Point getLocation() {
-        return this.location;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public int getStrength() {
-        return this.strength;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public void setDimensions(Point p) {
-        dimensions.set(p.x, p.y);
-    }
-
-    public Point getDimensions() {
-        return dimensions;
-    }
 
     public int getShotCoolDown() {
         return shotCoolDown;
@@ -174,22 +110,6 @@ public class Character {
 
     public int getMaxJumpTime() {
         return maxJumpTime;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     /**************************
