@@ -28,4 +28,26 @@ public class Enemy extends Entity {
     private int maxHealth;
     //name of sprite to be used
     private String sprite;
+
+    public Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, String sprite){
+        this.location = new Point(location);
+        this.direction = direction;
+        this.dimensions = dimensions;
+        this.defense = defense;
+        this.speed = speed;
+        this.strength = strength;
+        this.maxHealth = maxHealth;
+        this.health = this.maxHealth;
+        this.sprite = sprite;
+        this.velocity = new Point(0,0);
+    }
+
+    // getter/setter auto-generated
+    public String getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(String sprite) {
+        this.sprite = sprite;
+    }
 }

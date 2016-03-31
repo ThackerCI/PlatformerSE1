@@ -4,8 +4,8 @@ import android.graphics.Point;
 import android.view.View;
 
 // Author: Aaron Trusty
-// Last Modified: 03/20/16 by Isaiah Thacker
-// Iteration 2
+// Last Modified: 03/31/16 by Isaiah Thacker
+// Iteration 3
 // The Bullet class defines objects representing player and enemy bullets within a level.
 
 public class Bullet {
@@ -21,14 +21,18 @@ public class Bullet {
     private int timeRemaining;
     // is the bullet flagged for removal? default: false
     private boolean flag = false;
+    // was the bullet fired by an enemy?
+    private boolean enemyBullet = false;
     // constant duration for the bullet
     private final int duration = 50;
-    //constant dimensions for bullet.
+    // constant dimensions for bullet.
     private final Point dimensions = new Point(3, 3);
+    // ID of sprite
+    private int sprite;
 
     //default constructor. Will include
     //  package from player class that will
-    //      make default bullet come from the players 
+    //      make default bullet come from the players
     //          position plus a few pixels to make it appear
     //              that the bullet is coming from the weapon.
     public Bullet() {
@@ -39,11 +43,13 @@ public class Bullet {
     }
 
     //overloaded constructor
-    public Bullet(Point coords, int nPower, Point nVelocity) {
+    public Bullet(Point coords, int nPower, Point nVelocity, boolean nEnemyBullet) {
         location = new Point(coords);
         power = nPower;
         velocity = new Point(nVelocity);
         timeRemaining = duration;
+        enemyBullet = nEnemyBullet;
+        //sprite = (enemyBullet) ? R.id.enemyBullet : R.id.playerBullet;
     }
 
     // clone a bullet
@@ -52,6 +58,8 @@ public class Bullet {
         power = b.getPower();
         velocity = new Point(b.getVelocity());
         timeRemaining = b.getTimeRemaining();
+        enemyBullet = b.isEnemyBullet();
+        sprite = b.getSprite();
     }
 
 
@@ -114,6 +122,23 @@ public class Bullet {
         return dimensions;
     }
 
+    // auto-generated getters and setter
+
+    public boolean isEnemyBullet() {
+        return enemyBullet;
+    }
+
+    public void setEnemyBullet(boolean enemyBullet) {
+        this.enemyBullet = enemyBullet;
+    }
+
+    public int getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(int sprite) {
+        this.sprite = sprite;
+    }
 
     //toString for class
     public String toString() {

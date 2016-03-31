@@ -1,6 +1,5 @@
 package com.test.platformerse1;
 
-
 // Author: John Hale
 // Last Modified: 3/31/16 by Isaiah Thacker
 // Iteration 3
@@ -150,6 +149,6 @@ public class Character extends Entity {
         // get the velocity for the bullet
         Point vel = new Point(this.direction * 5, 0);
         // return the new bullet
-        return new Bullet(center, this.getStrength(), vel);
+        return new Bullet(center, this.getStrength(), vel, false);
     }
 }
