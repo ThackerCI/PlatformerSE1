@@ -71,7 +71,8 @@ public class EnemyController {
         enemy.setLocation(tempLoc);   // set the character's new location
     }
 
-    // detectEnemyCollision(enemy) checks fo
+    // detectEnemyCollision(enemy) checks for collisions with player bullets and collisions with the
+    // player
     private static void detectEnemyCollision(Enemy enemy) {
         // iterate through all bullets
         for (int i = 0; i < bullets.size(); ++i) {
@@ -90,6 +91,17 @@ public class EnemyController {
                 enemy.setHealth(enemy.getHealth() - Math.max(0, (bullet.getPower() - enemy.getDefense())));
                 // flag the bullet for deletion
                 bullet.setFlag(true);
+            }
+        }
+        Character player = Character.getInstance();
+        // if the player charcter is not immune...
+        if (player.getImmunity() > 0) {
+            // check if we're intersecting the player character.
+            if (Environment.boxIntersect(enemy.getLocation(), enemy.getDimensions(), player.getLocation(), player.getDimensions())) {
+                // damage the player based on the enemy's strength
+                player.damage(enemy.getStrength());
+                // give the player two seconds of immunity
+                player.setImmunity(60);
             }
         }
     }

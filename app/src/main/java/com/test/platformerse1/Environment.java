@@ -75,10 +75,10 @@ public class Environment {
 
     // update(playerChar) calls updateBullets(), updateCharacter(playerChar),
     // updateRecords(playerChar), and updateEnemies(), then returns the iteration flag
-    public boolean update(Character playerChar) {
+    public boolean update() {
         updateBullets();
-        updateCharacter(playerChar);
-        updateRecords(playerChar);
+        updateCharacter();
+        updateRecords();
         EnemyController.updateEnemies();
         return iterationFlag;
     }
@@ -116,7 +116,8 @@ public class Environment {
 
     // Currently, updateRecords(playerChar) throws the iteration flag if character playerChar is
     // intersecting the goal record.
-    private void updateRecords(Character playerChar) {
+    private void updateRecords() {
+        Character playerChar = Character.getInstance();
 //    for (i = 0; i < this.records.size(); ++i){                 // iterate through all records. WILL BE ADDED WHEN
 //                                                               // WE ADD MORE RECORDS
 //    }
@@ -136,7 +137,8 @@ public class Environment {
     // updateCharacter(playerChar) then moves character playerChar vertically if doing so would not
     // cause the player to move into a block
     // If this condition is not satisfied, playerChar's vertical velocity is set to zero.
-    private void updateCharacter(Character playerChar) {
+    private void updateCharacter() {
+        Character playerChar = Character.getInstance();
         // load the character's current location into a temp variable
         Point tempLoc = new Point(playerChar.getLocation().x, playerChar.getLocation().y);
         // move the temp variable horizontally according to the character's velocity
@@ -176,6 +178,10 @@ public class Environment {
         }
 
         playerChar.setLocation(tempLoc);   // set the character's new location
+        // If the player is immune, decrement its immunity time
+        if (player.getImmunity() > 0){
+            player.decrementImmunity();
+        }
     }
 
 

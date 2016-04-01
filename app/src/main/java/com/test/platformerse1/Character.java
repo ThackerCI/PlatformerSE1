@@ -161,4 +161,8 @@ public class Character extends Entity {
         // return the new bullet
         return new Bullet(center, this.getStrength(), vel, false);
     }
+
+    // damage(dealt) adds dealt seconds to the environment timer
+    public void damage(int dealt){
+    }
 }
