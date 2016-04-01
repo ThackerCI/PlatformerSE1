@@ -49,8 +49,7 @@ public class Entity {
     public void setLocation(Point location) {
         if (this.location == null) {
             this.location = new Point(location);
-        }
-        else {
+        } else {
             this.location.x = location.x;
             this.location.y = location.y;
         }
@@ -71,8 +70,7 @@ public class Entity {
     public void setDimensions(Point dimensions) {
         if (this.dimensions == null) {
             this.dimensions = new Point(dimensions);
-        }
-        else {
+        } else {
             this.dimensions.x = dimensions.x;
             this.dimensions.y = dimensions.y;
         }

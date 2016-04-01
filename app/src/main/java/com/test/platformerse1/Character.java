@@ -24,8 +24,8 @@ public class Character extends Entity {
     private final int maxJumpTime = 24;
 
     public Character() {
-        setLocation(new Point(0,0));
-        setDimensions(new Point(0,0));
+        setLocation(new Point(0, 0));
+        setDimensions(new Point(0, 0));
         setVelocity(new Point(0, 0));
         setDirection(1);
     }
@@ -58,7 +58,6 @@ public class Character extends Entity {
     /**********************
      * Get/Set Functions For Various Variables
      ************************************/
-
 
 
     public int getShotCoolDown() {

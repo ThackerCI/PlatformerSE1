@@ -29,9 +29,6 @@ public class Environment {
     private boolean iterationFlag;
     // constant gravity strength
     public static final int GRAVITY = 3;
-    // constant dimensions of blocks. May be set to vary later
-    private final Point blockDimensions = new Point(30, 30);
-
 
     // creating a test character
     public static Character player = new Character(new Point(0, 0), new Point(30, 30), 3, 3, 3, 5);
@@ -41,41 +38,6 @@ public class Environment {
         blocks = new ArrayList<>();
         records = new ArrayList<>();
         bullets = new ArrayList<>();
-    }
-
-    // defining level one
-    public Level levelOne() {
-        List<Block> blocks1 = blocksOne();
-        Record goal1 = new Record(new Point(8, 1), false);
-        Point starting1 = new Point(150, 90);
-
-        return new Level(blocks1, new ArrayList<Record>(), goal1, starting1);
-    }
-
-    // defining the blocks of level one
-    private ArrayList<Block> blocksOne() {
-        ArrayList<Block> blocks1 = new ArrayList<>();
-        blocks1.add(new Block(new Point(3, 2), blockDimensions));
-        blocks1.add(new Block(new Point(4, 2), blockDimensions));
-        blocks1.add(new Block(new Point(4, 3), blockDimensions));
-        blocks1.add(new Block(new Point(4, 4), blockDimensions));
-        blocks1.add(new Block(new Point(4, 5), blockDimensions));
-        blocks1.add(new Block(new Point(4, 6), blockDimensions));
-        blocks1.add(new Block(new Point(5, 6), blockDimensions));
-        blocks1.add(new Block(new Point(2, 2), blockDimensions));
-        blocks1.add(new Block(new Point(6, 6), blockDimensions));
-        blocks1.add(new Block(new Point(7, 6), blockDimensions));
-        blocks1.add(new Block(new Point(8, 6), blockDimensions));
-        blocks1.add(new Block(new Point(9, 6), blockDimensions));
-        blocks1.add(new Block(new Point(8, 5), blockDimensions));
-        blocks1.add(new Block(new Point(9, 5), blockDimensions));
-        blocks1.add(new Block(new Point(9, 4), blockDimensions));
-        blocks1.add(new Block(new Point(10, 4), blockDimensions));
-        blocks1.add(new Block(new Point(11, 4), blockDimensions));
-        blocks1.add(new Block(new Point(11, 3), blockDimensions));
-        blocks1.add(new Block(new Point(11, 2), blockDimensions));
-        blocks1.add(new Block(new Point(11, 1), blockDimensions));
-        return blocks1;
     }
 
 

@@ -124,7 +124,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     // levels are added
     public void initLevel(int i) {
         // load the level and the player character into the environment
-        environment.initialize(environment.levelOne(), Environment.player);
+        environment.initialize(LevelVault.levelOne(), Environment.player);
         // signal that the level has started
         started = true;
         // initialize the ImageViews
