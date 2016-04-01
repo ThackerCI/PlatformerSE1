@@ -112,6 +112,9 @@ public class EnemyController {
             case 0:
                 crawlerAI(enemy);
                 break;
+            case 1:
+                turretAI(enemy);
+                break;
         }
     }
 
@@ -121,5 +124,30 @@ public class EnemyController {
             enemy.setVelocityX(-1 * enemy.getSpeed());
             enemy.setDirection(-1);
         }
+    }
+
+    // turretAI(enemy) causes enemy to fire a bullet in the direction of the player character
+    // if the character is within thirty units of  a horizontal line from enemy's center (doesn't
+    // account for obstructions.)
+    private static void turretAI(Enemy enemy) {
+        Character playerChar = Character.getInstance();     // get the locations of the player and enemy
+        Point playerLoc = playerChar.getLocation();
+        Point enemyLoc = enemy.getLocation();               // get the player's height
+        int playerHeight = playerChar.getDimensions().y;
+        // the enemy fires from its center, so its vertical firing level is equal to the y-coordinate
+        // of its top-left corner plus half of its height.
+        int enemyFiringLevel = enemyLoc.y + (enemy.getDimensions().y) / 2;
+        // calculate the minimum level for the player's top-left corner when its lower edge is within 30
+        // units of the enemy's firing level
+        int topBound = enemyFiringLevel - playerHeight - 30;
+        // calculate the maximum level for the player's top-left corner
+        int lowBound = enemyFiringLevel + 30;
+        // if the player character is within the specified boundaries...
+        if (topBound <= playerLoc.y && playerLoc.y <= lowBound){
+            // have enemy fire a new bullet, then add it to the environment
+            Bullet newShot = enemy.shoot();
+            Environment.getInstance().getBullets().add(newShot);
+        }
+
     }
 }
