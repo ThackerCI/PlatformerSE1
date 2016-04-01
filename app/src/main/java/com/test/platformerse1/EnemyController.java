@@ -1,7 +1,6 @@
 package com.test.platformerse1;
 
 import android.graphics.Point;
-import android.util.Log;
 
 import java.util.List;
 
