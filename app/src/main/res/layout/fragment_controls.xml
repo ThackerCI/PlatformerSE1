@@ -44,5 +44,14 @@
         android:text="X"
         android:textSize="60dp" />
 
+    <Chronometer
+        android:id="@+id/timeValues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="40sp" />
+
 
 </RelativeLayout>

@@ -45,6 +45,16 @@
             android:textSize="30sp"
             android:visibility="invisible" />
 
+        <TextView
+            android:id="@+id/current_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/return_button"
+            android:layout_centerHorizontal="true"
+            android:background="#bebebe"
+            android:text="__placeholder__"
+            android:textSize="30sp"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <fragment

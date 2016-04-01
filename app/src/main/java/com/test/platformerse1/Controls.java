@@ -7,12 +7,15 @@ package com.test.platformerse1;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import android.widget.Chronometer;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Controls extends Fragment {
     public Controls() {
@@ -31,6 +34,10 @@ public class Controls extends Fragment {
         Button rightButton = (Button) view.findViewById(R.id.right_button);
         Button jumpButton = (Button) view.findViewById(R.id.jump_button);
         Button shootButton = (Button) view.findViewById(R.id.shoot_button);
+        Chronometer timeKeeper = (Chronometer) view.findViewById(R.id.timeValues);
+        timeKeeper.setBase(SystemClock.elapsedRealtime());
+
+        levelActivity.setMeter(timeKeeper);
 
         // set the buttons to execute the proper functions on touch.
         leftButton.setOnTouchListener(new View.OnTouchListener() {

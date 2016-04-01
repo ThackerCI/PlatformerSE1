@@ -7,12 +7,14 @@ package com.test.platformerse1;
 // environment.
 
 import android.content.pm.ActivityInfo;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +23,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class LevelActivity extends AppCompatActivity implements Controls.controlListener {
+    double levelTime;
+    private Chronometer timeKeeper;
     // set up the game loop timer
     private Timer gameLoopTimer = new Timer();
     // integer used for testing purposes
@@ -96,6 +100,12 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     public void displayEndscreen() {
         // game is no longer running
         running = false;
+        timeKeeper.stop();
+        TextView time = (TextView) findViewById(R.id.current_time);
+        levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase())/1000.0; //convert milliseconds to seconds
+        time.setVisibility(View.VISIBLE);
+        time.setText("Your time for this level is: " + levelTime + "seconds.");
+        time.bringToFront();
         // display the congratulatory text and menu button
         TextView textView = (TextView) findViewById(R.id.congrats_text);
         textView.setVisibility(View.VISIBLE);
@@ -336,6 +346,12 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     // cause the player to fire a bullet
     public void shoot() {
         environment.getBullets().add(Environment.player.shoot());
+    }
+
+    public void setMeter(Chronometer timeKeeper)
+    {
+        this.timeKeeper = timeKeeper;
+        this.timeKeeper.start();
     }
 
     // stop the character's movement
