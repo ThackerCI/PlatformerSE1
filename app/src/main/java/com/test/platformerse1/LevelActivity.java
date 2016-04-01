@@ -271,6 +271,55 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
         imageView.setLayoutParams(layoutParams);
     }
 
+    // update the ImageViews for the enemies
+    public void updateEnemyView() {
+        // iterate through the bullets in the environment
+        for (int i = 0; i < environment.getBullets().size(); ++i) {
+            boolean flag = false;
+            ImageView imageView;
+            Bullet tempBullet = environment.getBullets().get(i); // get the current bullet
+            if (tempBullet.getBulletView() == null) {
+                flag = true;
+                imageView = new ImageView(LevelActivity.this); // create a new ImageView
+                tempBullet.setBulletView(imageView); // used for deleting said view on bullet despawn
+                imageView.setImageResource(R.drawable.block);          // set the "bullet" sprite to it
+            } else {
+                imageView = (ImageView) tempBullet.getBulletView();
+            }
+            // get the level layout
+            RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
+            // if the bullet is flagged for removal
+            if (tempBullet.getFlag()) {
+                // destroy its view and remove it from the bullet list
+                imageView.setVisibility(View.INVISIBLE);
+                environment.getBullets().remove(i);
+                --i;
+                continue;
+            }
+            // Much of the following code was adapted from principles on stackoverflow
+            // get the dimensions for the sprite and convert them for the device's screen
+            int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    tempBullet.getDimensions().x, getResources().getDisplayMetrics());
+            int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    tempBullet.getDimensions().y, getResources().getDisplayMetrics());
+            // create new layout parameters for the sprite
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
+            // get the location of the block and convert the coordinates for the device's screen
+            int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    tempBullet.getLocation().x, getResources().getDisplayMetrics());
+            int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    tempBullet.getLocation().y, getResources().getDisplayMetrics());
+            // set the margins for the ImageView (i.e. position on the screen)
+            layoutParams.setMargins(newX, newY, 0, 0);
+            // add the ImageView to the layout, or update it if it's already there.
+            if (flag) {
+                RL.addView(imageView, layoutParams);
+            } else {
+                imageView.setLayoutParams(layoutParams);
+            }
+        }
+    }
+
     // set the character moving in the given direction
     public void move(int direction) {
         // make the character move in the given direction.

@@ -17,6 +17,8 @@ public class Level {
     private List<Record> records;
     // the level's goal record
     private Record goal;
+    // list of enemies in the level
+    private List<Enemy> enemies;
     // the level's starting point
     private Point startingPoint;
 
@@ -42,6 +44,10 @@ public class Level {
 
     public Record getGoal() {
         return this.goal;
+    }
+
+    public List<Enemy> getEnemies(){
+        return this.enemies;
     }
 
 }

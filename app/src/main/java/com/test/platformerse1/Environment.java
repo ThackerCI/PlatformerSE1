@@ -23,6 +23,8 @@ public class Environment {
     private List<Bullet> bullets;
     // the goal record
     private Record goal;
+    // the enemies
+    private List<Enemy> enemies;
     // integer used for various loops
     private int i;
     // iterationFlag used for a variety of purposes
@@ -54,6 +56,7 @@ public class Environment {
         records.addAll(l.getRecords());              // add all of the records from the level to this list
         bullets.clear();                             // remove all bullets from this list
         goal = l.getGoal();                          // set the goal record
+        enemies.addAll(l.getEnemies());              // add all of the enemies from the level to this list
         Point tempPoint = new Point(l.getStartingPoint().x, l.getStartingPoint().y);
         c.reset();                                   // initialize the character's stats
         c.setLocation(tempPoint);                    // initialize the player's starting point
@@ -182,6 +185,11 @@ public class Environment {
     // getBlocks() returns the list of blocks in the current environment.
     public List<Block> getBlocks() {
         return this.blocks;
+    }
+
+    // getEnemies() returns the list of blocks in the current environment.
+    public List<Enemy> getEnemies() {
+        return this.enemies;
     }
 
     // boxIntersect(L1, S1, L2, S2) returns true if the box anchored at point L1 with dimensions S1 and the box
