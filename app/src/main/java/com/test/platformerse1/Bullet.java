@@ -49,7 +49,7 @@ public class Bullet {
         velocity = new Point(nVelocity);
         timeRemaining = duration;
         enemyBullet = nEnemyBullet;
-        //sprite = (enemyBullet) ? R.id.enemyBullet : R.id.playerBullet;
+        sprite = (enemyBullet) ? R.drawable.enemy_bullet : R.drawable.block;
     }
 
     // clone a bullet

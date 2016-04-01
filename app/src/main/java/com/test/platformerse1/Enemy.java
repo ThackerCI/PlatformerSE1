@@ -1,6 +1,8 @@
 package com.test.platformerse1;
 
 import android.graphics.Point;
+import android.util.Log;
+import android.view.View;
 
 // Author: Isaiah Thacker
 // Last Modified: 3/31/16 by Isaiah Thacker
@@ -8,13 +10,14 @@ import android.graphics.Point;
 // The Enemy class defines the template for all enemy entities
 
 public class Enemy extends Entity {
+    private View enemyView;
     //name of sprite to be used
-    private String sprite;
+    private int sprite;
     // what type of enemy is it? (0 = "crawler", 1 = "turret")
     private int enemyType;
 
-    public Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, String sprite, int enemyType) {
-        setLocation(location);
+    public Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, int sprite, int enemyType) {
+        setLocation(new Point(location.x * 30, location.y * 30));
         setDirection(direction);
         setDimensions(dimensions);
         setDefense(defense);
@@ -28,11 +31,20 @@ public class Enemy extends Entity {
     }
 
     // getter/setter auto-generated
-    public String getSprite() {
+
+    public View getEnemyView() {
+        return enemyView;
+    }
+
+    public void setEnemyView(View enemyView) {
+        this.enemyView = enemyView;
+    }
+
+    public int getSprite() {
         return sprite;
     }
 
-    public void setSprite(String sprite) {
+    public void setSprite(int sprite) {
         this.sprite = sprite;
     }
 

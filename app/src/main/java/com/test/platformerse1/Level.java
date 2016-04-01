@@ -23,10 +23,11 @@ public class Level {
     private Point startingPoint;
 
     // constructor
-    public Level(List<Block> b, List<Record> r, Record g, Point s) {
+    public Level(List<Block> b, List<Record> r, Record g, List<Enemy> e, Point s) {
         this.blocks = b;
         this.records = r;
         this.goal = g;
+        this.enemies = e;
         this.startingPoint = s;
     }
 

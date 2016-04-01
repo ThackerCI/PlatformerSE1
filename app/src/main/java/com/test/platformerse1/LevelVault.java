@@ -18,9 +18,10 @@ public class LevelVault {
     public static Level levelOne() {
         List<Block> blocks1 = blocksOne();
         Record goal1 = new Record(new Point(8, 1), false);
+        List<Enemy> enemies1 = enemiesOne();
         Point starting1 = new Point(150, 90);
 
-        return new Level(blocks1, new ArrayList<Record>(), goal1, starting1);
+        return new Level(blocks1, new ArrayList<Record>(), goal1, enemies1, starting1);
     }
 
     // defining the blocks of level one
@@ -47,5 +48,11 @@ public class LevelVault {
         blocks1.add(new Block(new Point(11, 2), blockDimensions));
         blocks1.add(new Block(new Point(11, 1), blockDimensions));
         return blocks1;
+    }
+
+    private static ArrayList<Enemy> enemiesOne(){
+        ArrayList<Enemy> enemies1 = new ArrayList<>();
+        enemies1.add(new Enemy(new Point(7,2), 1, new Point(30,30), 0, 1, 1, 3, R.drawable.crawler, 0));
+        return enemies1;
     }
 }

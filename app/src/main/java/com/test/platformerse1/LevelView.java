@@ -31,17 +31,17 @@ public class LevelView extends Fragment {
     public void initLevel(int i){
         environment.initialize(LevelVault.levelOne(), Environment.player);
         started = true;
-        initView();
+//        initView();
         running = true;
     }
 
-    public void initView() {
-        for (int i = 0; i < environment.getBlocks().size(); ++i) {
-//            ImageView imageView = new ImageView(LevelActivity.this);
-//            imageView.setImageResource(R.drawable.block);
-//            RelativeLayout r1 = (RelativeLayout) findViewById
-
-        }
-
-    }
+//    public void initView() {
+//        for (int i = 0; i < environment.getBlocks().size(); ++i) {
+////            ImageView imageView = new ImageView(LevelActivity.this);
+////            imageView.setImageResource(R.drawable.block);
+////            RelativeLayout r1 = (RelativeLayout) findViewById
+//
+//        }
+//
+//    }
 }

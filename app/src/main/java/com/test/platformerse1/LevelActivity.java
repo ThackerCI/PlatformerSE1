@@ -9,6 +9,7 @@ package com.test.platformerse1;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,7 +27,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     // integer used for testing purposes
     private int value = 0;
     // set up an environment
-    private Environment environment = new Environment();
+    private Environment environment = Environment.getInstance();
     // set up flags for if the level is started and running
     private boolean started = false;
     private boolean running = false;
@@ -73,6 +74,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
                             public void run() {
                                 updateCharacterView();
                                 updateBulletsView();
+                                updateEnemyView();
                             }
                         });
                     } // else, return to the main menu
@@ -137,6 +139,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     public void initView() {
         initBlocksView();
         initRecordsView();
+        updateEnemyView();
         updateCharacterView();
     }
 
@@ -273,42 +276,42 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
 
     // update the ImageViews for the enemies
     public void updateEnemyView() {
-        // iterate through the bullets in the environment
-        for (int i = 0; i < environment.getBullets().size(); ++i) {
+        // iterate through the enemies in the environment
+        for (int i = 0; i < environment.getEnemies().size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            Bullet tempBullet = environment.getBullets().get(i); // get the current bullet
-            if (tempBullet.getBulletView() == null) {
+            Enemy tempEnemy = environment.getEnemies().get(i); // get the current enemy
+            if (tempEnemy.getEnemyView() == null) {
                 flag = true;
                 imageView = new ImageView(LevelActivity.this); // create a new ImageView
-                tempBullet.setBulletView(imageView); // used for deleting said view on bullet despawn
-                imageView.setImageResource(R.drawable.block);          // set the "bullet" sprite to it
+                tempEnemy.setEnemyView(imageView); // used for deleting said view on enemy despawn
+                imageView.setImageResource(tempEnemy.getSprite());          // set the enemy's sprite to it
             } else {
-                imageView = (ImageView) tempBullet.getBulletView();
+                imageView = (ImageView) tempEnemy.getEnemyView();
             }
             // get the level layout
             RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
-            // if the bullet is flagged for removal
-            if (tempBullet.getFlag()) {
-                // destroy its view and remove it from the bullet list
+            // if the enemy is out of health
+            if (tempEnemy.getHealth() <= 0) {
+                // destroy its view and remove it from the enemy list
                 imageView.setVisibility(View.INVISIBLE);
-                environment.getBullets().remove(i);
+                environment.getEnemies().remove(i);
                 --i;
                 continue;
             }
             // Much of the following code was adapted from principles on stackoverflow
             // get the dimensions for the sprite and convert them for the device's screen
             int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBullet.getDimensions().x, getResources().getDisplayMetrics());
+                    tempEnemy.getDimensions().x, getResources().getDisplayMetrics());
             int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBullet.getDimensions().y, getResources().getDisplayMetrics());
+                    tempEnemy.getDimensions().y, getResources().getDisplayMetrics());
             // create new layout parameters for the sprite
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
             // get the location of the block and convert the coordinates for the device's screen
             int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBullet.getLocation().x, getResources().getDisplayMetrics());
+                    tempEnemy.getLocation().x, getResources().getDisplayMetrics());
             int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBullet.getLocation().y, getResources().getDisplayMetrics());
+                    tempEnemy.getLocation().y, getResources().getDisplayMetrics());
             // set the margins for the ImageView (i.e. position on the screen)
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout, or update it if it's already there.
@@ -328,7 +331,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
 
     public void jump() {
         // make the player jump if possible.
-        Environment.player.jump(environment.onBlock(Environment.player));
+        Environment.player.jump(Environment.onBlock(Environment.player));
     }
 
     // cause the player to fire a bullet

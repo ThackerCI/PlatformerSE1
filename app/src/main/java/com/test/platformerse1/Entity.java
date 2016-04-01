@@ -46,12 +46,12 @@ public class Entity {
         return location;
     }
 
-    public void setLocation(Point location) {
+    public void setLocation(Point newLocation) {
         if (this.location == null) {
-            this.location = new Point(location);
+            this.location = new Point(newLocation);
         } else {
-            this.location.x = location.x;
-            this.location.y = location.y;
+            this.location.x = newLocation.x;
+            this.location.y = newLocation.y;
         }
     }
 

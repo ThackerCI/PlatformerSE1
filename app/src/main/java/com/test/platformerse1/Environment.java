@@ -44,6 +44,7 @@ public class Environment {
         blocks = new ArrayList<>();
         records = new ArrayList<>();
         bullets = new ArrayList<>();
+        enemies = new ArrayList<>();
     }
 
     public static Environment getInstance(){
@@ -73,12 +74,13 @@ public class Environment {
     }
 
 
-    // update(playerChar) calls updateBullets(), updateCharacter(playerChar), and
-    // updateRecords(playerChar), returns the iteration flag
+    // update(playerChar) calls updateBullets(), updateCharacter(playerChar),
+    // updateRecords(playerChar), and updateEnemies(), then returns the iteration flag
     public boolean update(Character playerChar) {
         updateBullets();
         updateCharacter(playerChar);
         updateRecords(playerChar);
+        EnemyController.updateEnemies();
         return iterationFlag;
     }
 
@@ -215,12 +217,13 @@ public class Environment {
     }
 
     // onBlock(entity) returns true if character entity is standing on a block, and false otherwise
-    public boolean onBlock(Entity entity) {
+    public static boolean onBlock(Entity entity) {
         Point tempLoc = new Point(entity.getLocation());
+        List<Block> blocks = Environment.getInstance().getBlocks();
         tempLoc.offset(0, GRAVITY); // suppose the character falls
         // Iterate through all blocks, seeing if this movement would cause entity to intersect the block
-        for (i = 0; i < this.getBlocks().size(); ++i) {
-            Block tempBlock = this.getBlocks().get(i);
+        for (int i = 0; i < blocks.size(); ++i) {
+            Block tempBlock = blocks.get(i);
             // if one of the blocks WOULD intersect, return true
             if (boxIntersect(tempLoc, entity.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
                 return true;
