@@ -1,7 +1,7 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 3/21/16 by Isaiah Thacker
+// Last Modified: 4/01/16 by Isaiah Thacker
 // Iteration 2
 // LevelActivity defines the activity responsible for displaying and running the in-game
 // environment.

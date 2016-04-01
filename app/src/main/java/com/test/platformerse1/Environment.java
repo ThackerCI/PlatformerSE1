@@ -1,7 +1,7 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 3/21/16 by Isaiah Thacker
+// Last Modified: 4/01/16 by Isaiah Thacker
 // Iteration 2
 // The Environment class defines objects which contain all data on the current gameplay environment
 // (level layout, character locations, and so forth.) It can load data from levels into its fields,
@@ -46,8 +46,8 @@ public class Environment {
         enemies = new ArrayList<>();
     }
 
-    public static Environment getInstance(){
-        if (instance == null){
+    public static Environment getInstance() {
+        if (instance == null) {
             instance = new Environment();
         }
         return instance;
@@ -177,8 +177,6 @@ public class Environment {
 
         playerChar.setLocation(tempLoc);   // set the character's new location
     }
-
-
 
 
     // getGoal() returns the goal record in the current environment.

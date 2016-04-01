@@ -1,7 +1,7 @@
 package com.test.platformerse1;
 
 // Author: John Hale
-// Last Modified: 3/31/16 by Isaiah Thacker
+// Last Modified: 4/01/16 by Isaiah Thacker
 // Iteration 3
 // The Character class defines the object which will represent the data on the player's
 // controlled character.
@@ -22,12 +22,15 @@ public class Character extends Entity {
     private int jumpTime;
     //maximum time the character will move vertically in case of jump
     private final int maxJumpTime = 24;
+    //time the character is immune to damage
+    private int immunity;
 
     public Character() {
         setLocation(new Point(0, 0));
         setDimensions(new Point(0, 0));
         setVelocity(new Point(0, 0));
         setDirection(1);
+        immunity = 0;
     }
 
     /**
@@ -43,6 +46,7 @@ public class Character extends Entity {
         setMaxHealth(maxHealth);
         setVelocity(new Point(0, 0));
         jumpTime = 0;
+        immunity = 0;
     }
 
     /**
@@ -90,6 +94,19 @@ public class Character extends Entity {
 
     public int getMaxJumpTime() {
         return maxJumpTime;
+    }
+
+    public void setImmunity(int immunity) {
+        this.immunity = immunity;
+    }
+
+    public int getImmunity() {
+        return immunity;
+    }
+
+    // decrementImmunity() decrements this.immunity by 1
+    public void decrementImmunity() {
+        this.immunity = this.immunity - 1;
     }
 
     /**************************

@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.view.View;
 
 // Author: Isaiah Thacker
-// Last Modified: 3/31/16 by Isaiah Thacker
+// Last Modified: 4/01/16 by Isaiah Thacker
 // Iteration 3
 // The Enemy class defines the template for all enemy entities
 
@@ -47,7 +47,7 @@ public class Enemy extends Entity {
         this.sprite = sprite;
     }
 
-    public int getEnemyType(){
+    public int getEnemyType() {
         return enemyType;
     }
 

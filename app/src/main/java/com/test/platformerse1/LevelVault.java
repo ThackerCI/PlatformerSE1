@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 3/31/16 by Isaiah Thacker
+// Last Modified: 4/01/16 by Isaiah Thacker
 // Iteration 3
 // Records the layouts for all of the levels in the game.
 
@@ -50,9 +50,9 @@ public class LevelVault {
         return blocks1;
     }
 
-    private static ArrayList<Enemy> enemiesOne(){
+    private static ArrayList<Enemy> enemiesOne() {
         ArrayList<Enemy> enemies1 = new ArrayList<>();
-        enemies1.add(new Enemy(new Point(7,2), 1, new Point(30,30), 0, 1, 1, 3, R.drawable.crawler, 0));
+        enemies1.add(new Enemy(new Point(7, 2), 1, new Point(30, 30), 0, 1, 1, 3, R.drawable.crawler, 0));
         return enemies1;
     }
 }

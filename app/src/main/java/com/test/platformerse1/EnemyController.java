@@ -5,7 +5,7 @@ import android.graphics.Point;
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 3/31/16 by Isaiah Thacker
+// Last Modified: 4/01/16 by Isaiah Thacker
 // Iteration 3
 // The EnemyController class contains the methods for updating the state of all enemies.
 public class EnemyController {
@@ -64,8 +64,7 @@ public class EnemyController {
         // if the enemy isn't standing on a block, start him falling.
         if (!Environment.onBlock(enemy)) {
             enemy.setVelocityY(Environment.GRAVITY);
-        }
-        else { // otherwise, stop his falling
+        } else { // otherwise, stop his falling
             enemy.setVelocityY(0);
         }
 
@@ -75,11 +74,11 @@ public class EnemyController {
     // detectEnemyCollision(enemy) checks fo
     private static void detectEnemyCollision(Enemy enemy) {
         // iterate through all bullets
-        for (int i = 0; i < bullets.size(); ++i){
+        for (int i = 0; i < bullets.size(); ++i) {
             // get the current bullet
             Bullet bullet = bullets.get(i);
             // if the bullet is an enemy bullet
-            if(bullet.getSprite() == R.drawable.enemy_bullet) {
+            if (bullet.getSprite() == R.drawable.enemy_bullet) {
                 // break
                 break;
             }
@@ -97,7 +96,7 @@ public class EnemyController {
 
     // runAI(enemy) causes enemy to behave according to its AI type.
     private static void runAI(Enemy enemy) {
-        switch (enemy.getEnemyType()){
+        switch (enemy.getEnemyType()) {
             case 0:
                 crawlerAI(enemy);
                 break;
@@ -105,8 +104,8 @@ public class EnemyController {
     }
 
     // crawlerAI(enemy) causes enemy to start moving to the left if its horizontal velocity is zero
-    private static void crawlerAI(Enemy enemy){
-        if (enemy.getVelocity().x == 0){
+    private static void crawlerAI(Enemy enemy) {
+        if (enemy.getVelocity().x == 0) {
             enemy.setVelocityX(-1 * enemy.getSpeed());
             enemy.setDirection(-1);
         }
