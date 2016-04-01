@@ -67,7 +67,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
                 // if the game isn't paused (or stopped for some other reason)
                 if (running) {
                     // run the update function. If the player hasn't reached the goal, update the views
-                    if (!environment.update(Environment.player)) {
+                    if (!environment.update()) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

@@ -9,6 +9,7 @@ package com.test.platformerse1;
 // Help from Kevin Glass and Dr. Jerry Perez's Space Invader's project.
 
 import android.graphics.Point;
+import android.util.Log;
 
 public class Character extends Entity {
 
@@ -164,5 +165,6 @@ public class Character extends Entity {
 
     // damage(dealt) adds dealt seconds to the environment timer
     public void damage(int dealt){
+        Log.d("Damage:", Integer.toString(dealt));
     }
 }

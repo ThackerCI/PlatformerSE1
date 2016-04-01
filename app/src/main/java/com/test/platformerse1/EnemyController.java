@@ -95,13 +95,13 @@ public class EnemyController {
         }
         Character player = Character.getInstance();
         // if the player charcter is not immune...
-        if (player.getImmunity() > 0) {
+        if (player.getImmunity() == 0) {
             // check if we're intersecting the player character.
             if (Environment.boxIntersect(enemy.getLocation(), enemy.getDimensions(), player.getLocation(), player.getDimensions())) {
                 // damage the player based on the enemy's strength
                 player.damage(enemy.getStrength());
-                // give the player two seconds of immunity
-                player.setImmunity(60);
+                // give the player 1.5 seconds of immunity
+                player.setImmunity(45);
             }
         }
     }
