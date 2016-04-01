@@ -30,9 +30,9 @@ public class Character extends Entity {
     private static Character instance;
 
     // getInstance() for singleton character
-    public static Character getInstance(){
+    public static Character getInstance() {
         // if the character has not been instantiated, do so
-        if (instance == null){
+        if (instance == null) {
             instance = new Character(new Point(0, 0), new Point(30, 30), 3, 3, 3, 5);
         }
         return instance;
@@ -50,7 +50,7 @@ public class Character extends Entity {
      * Initializes new Character
      */
     private Character(Point location, Point dimensions, int strength,
-                     int speed, int defense, int maxHealth) {
+                      int speed, int defense, int maxHealth) {
         setLocation(new Point(location.x * 30, location.y * 30));
         setDimensions(new Point(dimensions));
         setStrength(strength);
@@ -164,7 +164,7 @@ public class Character extends Entity {
     }
 
     // damage(dealt) adds dealt seconds to the environment timer
-    public void damage(int dealt){
+    public void damage(int dealt) {
         Log.d("Damage:", Integer.toString(dealt));
     }
 }

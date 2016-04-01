@@ -95,6 +95,15 @@ public class Environment {
                 iterationFlag = true;                               // keep the now nonexistent bullet from moving
                 break;                                              // no need to check the other blocks
             } else {
+                if (tempBullet.isEnemyBullet()) {                   // if it's an enemy bullet
+                    // if it's intersecting the character
+                    if (boxIntersect(tempLoc, tempDims, player.getLocation(), player.getDimensions())) {
+                        player.damage(tempBullet.getPower());       // damage the character
+                        tempBullet.setFlag(true);                   // flag the bullet for removal
+                        iterationFlag = true;                       // keep the now nonexistent bullet from moving
+                        break;                                      // no need to check the blocks
+                    }
+                }
                 for (j = 0; j < this.blocks.size(); ++j) {              // iterate through the environment's blocks
                     Block curBlock = this.blocks.get(j);                // get the current block
                     if (boxIntersect(tempLoc, tempDims, curBlock.getLocation(), curBlock.getDimensions())) {// if this bullet is
@@ -179,7 +188,7 @@ public class Environment {
 
         playerChar.setLocation(tempLoc);   // set the character's new location
         // If the player is immune, decrement its immunity time
-        if (player.getImmunity() > 0){
+        if (player.getImmunity() > 0) {
             player.decrementImmunity();
         }
     }

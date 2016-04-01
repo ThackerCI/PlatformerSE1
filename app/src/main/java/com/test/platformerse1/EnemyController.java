@@ -79,7 +79,7 @@ public class EnemyController {
             // get the current bullet
             Bullet bullet = bullets.get(i);
             // if the bullet is an enemy bullet
-            if (bullet.getSprite() == R.drawable.enemy_bullet) {
+            if (bullet.isEnemyBullet()) {
                 // break
                 break;
             }
