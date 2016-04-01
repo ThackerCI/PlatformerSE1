@@ -193,19 +193,19 @@ public class Environment {
         return r1.intersect(r2);
     }
 
-    // onBlock(playerChar) returns true if character playerChar is standing on a block, and false otherwise
-    public boolean onBlock(Character playerChar) {
-        Point tempLoc = new Point(playerChar.getLocation());
+    // onBlock(entity) returns true if character entity is standing on a block, and false otherwise
+    public boolean onBlock(Entity entity) {
+        Point tempLoc = new Point(entity.getLocation());
         tempLoc.offset(0, GRAVITY); // suppose the character falls
-        // Iterate through all blocks, seeing if this movement would cause playerChar to intersect the block
+        // Iterate through all blocks, seeing if this movement would cause entity to intersect the block
         for (i = 0; i < this.getBlocks().size(); ++i) {
             Block tempBlock = this.getBlocks().get(i);
             // if one of the blocks WOULD intersect, return true
-            if (boxIntersect(tempLoc, playerChar.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
+            if (boxIntersect(tempLoc, entity.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
                 return true;
             }
         }
-        // if playerChar wouldn't intersect a block, return false.
+        // if entity wouldn't intersect a block, return false.
         return false;
     }
 }
