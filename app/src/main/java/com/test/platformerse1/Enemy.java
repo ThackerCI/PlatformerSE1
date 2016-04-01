@@ -14,6 +14,10 @@ public class Enemy extends Entity {
     private int sprite;
     // what type of enemy is it? (0 = "crawler", 1 = "turret")
     private int enemyType;
+    // how long between enemy shots?
+    private int shotInterval;
+    // how long until next shot is possible?
+    private int shotCooldown;
 
     public Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, int sprite, int enemyType) {
         setLocation(new Point(location.x * 30, location.y * 30));
@@ -51,6 +55,26 @@ public class Enemy extends Entity {
         return enemyType;
     }
 
+    public int getShotInterval() {
+        return shotInterval;
+    }
+
+    public void setShotInterval(int shotInterval) {
+        this.shotInterval = shotInterval;
+    }
+
+    public int getShotCooldown() {
+        return shotCooldown;
+    }
+
+    public void setShotCooldown(int shotCooldown) {
+        this.shotCooldown = shotCooldown;
+    }
+
+    public void decrementShotCooldown(){
+        shotCooldown = shotCooldown - 1;
+    }
+
     // create a new bullet at the enemy's center
     public Bullet shoot() {
         Point leftCorner = this.getLocation();
@@ -65,6 +89,8 @@ public class Enemy extends Entity {
         Point center = new Point(x + w, y + h);
         // get the velocity for the bullet
         Point vel = new Point(this.getDirection() * 5, 0);
+        // set the enemy's shot cooldown to its shot interval.
+        setShotCooldown(getShotInterval());
         // return the new bullet
         return new Bullet(center, this.getStrength(), vel, true);
     }

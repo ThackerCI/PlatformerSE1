@@ -130,6 +130,12 @@ public class EnemyController {
     // if the character is within thirty units of  a horizontal line from enemy's center (doesn't
     // account for obstructions.)
     private static void turretAI(Enemy enemy) {
+        // if the turret's cooldown isn't complete, it can't shoot, so decrement the cooldown
+        // and return
+        if (enemy.getShotCooldown() > 0){
+            enemy.decrementShotCooldown();
+            return;
+        }
         Character playerChar = Character.getInstance();     // get the locations of the player and enemy
         Point playerLoc = playerChar.getLocation();
         Point enemyLoc = enemy.getLocation();               // get the player's height

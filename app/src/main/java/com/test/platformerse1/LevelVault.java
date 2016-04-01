@@ -52,7 +52,10 @@ public class LevelVault {
 
     private static ArrayList<Enemy> enemiesOne() {
         ArrayList<Enemy> enemies1 = new ArrayList<>();
-        enemies1.add(new Enemy(new Point(7, 2), 1, new Point(30, 30), 0, 1, 1, 3, R.drawable.crawler, 0));
+        enemies1.add(new Enemy(new Point(7, 2), 1, new Point(30, 30), 0, 1, 1, 5, R.drawable.crawler, 0));
+        Enemy turret = new Enemy(new Point(10, 3), -1, new Point(30, 30), 0, 0, 2, 5, R.drawable.turret, 1);
+        turret.setShotInterval(45);
+        enemies1.add(turret);
         return enemies1;
     }
 }
