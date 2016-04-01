@@ -25,7 +25,19 @@ public class Character extends Entity {
     //time the character is immune to damage
     private int immunity;
 
-    public Character() {
+    // singleton instance of Character
+    private static Character instance;
+
+    // getInstance() for singleton character
+    public static Character getInstance(){
+        // if the character has not been instantiated, do so
+        if (instance == null){
+            instance = new Character(new Point(0, 0), new Point(30, 30), 3, 3, 3, 5);
+        }
+        return instance;
+    }
+
+    private Character() {
         setLocation(new Point(0, 0));
         setDimensions(new Point(0, 0));
         setVelocity(new Point(0, 0));
@@ -36,7 +48,7 @@ public class Character extends Entity {
     /**
      * Initializes new Character
      */
-    public Character(Point location, Point dimensions, int strength,
+    private Character(Point location, Point dimensions, int strength,
                      int speed, int defense, int maxHealth) {
         setLocation(new Point(location.x * 30, location.y * 30));
         setDimensions(new Point(dimensions));

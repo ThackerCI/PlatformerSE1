@@ -36,7 +36,7 @@ public class Environment {
     private static Environment instance;
 
     // creating a test character
-    public static Character player = new Character(new Point(0, 0), new Point(30, 30), 3, 3, 3, 5);
+    public static Character player = Character.getInstance();
 
 
     private Environment() {
