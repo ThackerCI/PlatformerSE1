@@ -29,7 +29,7 @@ public class LevelView extends Fragment {
     }
 
     public void initLevel(int i){
-        environment.initialize(environment.levelOne(), Environment.player);
+        environment.initialize(LevelVault.levelOne(), Environment.player);
         started = true;
         initView();
         running = true;
