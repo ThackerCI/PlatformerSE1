@@ -10,10 +10,10 @@ import android.graphics.Point;
 public class Enemy extends Entity {
     //name of sprite to be used
     private String sprite;
-    // can the enemy shoot?
-    private boolean shooter;
+    // what type of enemy is it? (0 = "crawler", 1 = "turret")
+    private int enemyType;
 
-    public Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, String sprite, boolean shooter) {
+    public Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, String sprite, int enemyType) {
         setLocation(location);
         setDirection(direction);
         setDimensions(dimensions);
@@ -24,7 +24,7 @@ public class Enemy extends Entity {
         setHealth(maxHealth);
         setSprite(sprite);
         setVelocity(new Point(0, 0));
-        this.shooter = shooter;
+        this.enemyType = enemyType;
     }
 
     // getter/setter auto-generated
@@ -36,12 +36,8 @@ public class Enemy extends Entity {
         this.sprite = sprite;
     }
 
-    public boolean isShooter() {
-        return shooter;
-    }
-
-    public void setShooter(boolean shooter) {
-        this.shooter = shooter;
+    public int getEnemyType(){
+        return enemyType;
     }
 
     // create a new bullet at the enemy's center

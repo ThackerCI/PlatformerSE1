@@ -9,6 +9,7 @@ package com.test.platformerse1;
 
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.audiofx.EnvironmentalReverb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +33,25 @@ public class Environment {
     // constant gravity strength
     public static final int GRAVITY = 3;
 
+    // The instance of Environment (Singleton design pattern)
+    private static Environment instance;
+
     // creating a test character
     public static Character player = new Character(new Point(0, 0), new Point(30, 30), 3, 3, 3, 5);
 
 
-    public Environment() {
+    private Environment() {
         blocks = new ArrayList<>();
         records = new ArrayList<>();
         bullets = new ArrayList<>();
     }
 
+    public static Environment getInstance(){
+        if (instance == null){
+            instance = new Environment();
+        }
+        return instance;
+    }
 
     // addBullet(b) adds bullet b to the current environment.
     public void addBullet(Bullet b) {
@@ -166,6 +176,9 @@ public class Environment {
 
         playerChar.setLocation(tempLoc);   // set the character's new location
     }
+
+
+
 
     // getGoal() returns the goal record in the current environment.
     public Record getGoal() {
