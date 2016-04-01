@@ -182,7 +182,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
                 flag = true;
                 imageView = new ImageView(LevelActivity.this); // create a new ImageView
                 tempBullet.setBulletView(imageView); // used for deleting said view on bullet despawn
-                imageView.setImageResource(R.drawable.block);          // set the "bullet" sprite to it
+                imageView.setImageResource(tempBullet.getSprite()); // set the bullet's sprite to it
             } else {
                 imageView = (ImageView) tempBullet.getBulletView();
             }
