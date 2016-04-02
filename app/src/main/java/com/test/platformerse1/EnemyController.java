@@ -1,6 +1,7 @@
 package com.test.platformerse1;
 
 import android.graphics.Point;
+import android.util.Log;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class EnemyController {
             detectEnemyCollision(enemy);
             // move the enemy
             moveEnemy(enemy);
+            // handle any new bullet collisions with the enemy
+            detectEnemyCollision(enemy);
             // run the enemy's AI
             runAI(enemy);
         }
@@ -78,10 +81,10 @@ public class EnemyController {
         for (int i = 0; i < bullets.size(); ++i) {
             // get the current bullet
             Bullet bullet = bullets.get(i);
-            // if the bullet is an enemy bullet
-            if (bullet.isEnemyBullet()) {
-                // break
-                break;
+            // if the bullet is an enemy bullet or has been flagged
+            if (bullet.isEnemyBullet() || bullet.getFlag()) {
+                // skip this bullet
+                continue;
             }
             Point bulletLoc = bullet.getLocation();    // get the bullet's current location
             Point bulletDims = bullet.getDimensions(); // get the bullet's dimensions
@@ -94,7 +97,7 @@ public class EnemyController {
             }
         }
         Character player = Character.getInstance();
-        // if the player charcter is not immune...
+        // if the player character is not immune...
         if (player.getImmunity() == 0) {
             // check if we're intersecting the player character.
             if (Environment.boxIntersect(enemy.getLocation(), enemy.getDimensions(), player.getLocation(), player.getDimensions())) {
