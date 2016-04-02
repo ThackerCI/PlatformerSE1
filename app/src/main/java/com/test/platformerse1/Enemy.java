@@ -20,7 +20,7 @@ public class Enemy extends Entity {
     private int shotCooldown;
 
     public Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, int sprite, int enemyType) {
-        setLocation(new Point(location.x * 30, location.y * 30));
+        setLocation(new Point(location.x * 20, location.y * 20));
         setDirection(direction);
         setDimensions(dimensions);
         setDefense(defense);
@@ -88,7 +88,7 @@ public class Enemy extends Entity {
         w = w / 2;
         Point center = new Point(x + w, y + h);
         // get the velocity for the bullet
-        Point vel = new Point(this.getDirection() * 5, 0);
+        Point vel = new Point(this.getDirection() * 3, 0);
         // set the enemy's shot cooldown to its shot interval.
         setShotCooldown(getShotInterval());
         // return the new bullet

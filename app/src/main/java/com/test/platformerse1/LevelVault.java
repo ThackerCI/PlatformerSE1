@@ -12,14 +12,14 @@ import java.util.List;
 
 public class LevelVault {
     // constant dimensions of blocks. May be set to vary later
-    private static final Point blockDimensions = new Point(30, 30);
+    private static final Point blockDimensions = new Point(20, 20);
 
     // defining level one
     public static Level levelOne() {
         List<Block> blocks1 = blocksOne();
-        Record goal1 = new Record(new Point(8, 1), false);
+        Record goal1 = new Record(new Point(26, 3), false);
         List<Enemy> enemies1 = enemiesOne();
-        Point starting1 = new Point(150, 90);
+        Point starting1 = new Point(20, 140);
 
         return new Level(blocks1, new ArrayList<Record>(), goal1, enemies1, starting1);
     }
@@ -27,33 +27,73 @@ public class LevelVault {
     // defining the blocks of level one
     private static ArrayList<Block> blocksOne() {
         ArrayList<Block> blocks1 = new ArrayList<>();
-        blocks1.add(new Block(new Point(3, 2), blockDimensions));
-        blocks1.add(new Block(new Point(4, 2), blockDimensions));
-        blocks1.add(new Block(new Point(4, 3), blockDimensions));
+        blocks1.add(new Block(new Point(0, 1), blockDimensions));
+        blocks1.add(new Block(new Point(0, 2), blockDimensions));
+        blocks1.add(new Block(new Point(0, 3), blockDimensions));
+        blocks1.add(new Block(new Point(0, 4), blockDimensions));
+        blocks1.add(new Block(new Point(0, 5), blockDimensions));
+        blocks1.add(new Block(new Point(0, 6), blockDimensions));
+        blocks1.add(new Block(new Point(0, 7), blockDimensions));
+        blocks1.add(new Block(new Point(0, 8), blockDimensions));
+        blocks1.add(new Block(new Point(1, 6), blockDimensions));
+        blocks1.add(new Block(new Point(1, 8), blockDimensions));
+        blocks1.add(new Block(new Point(2, 6), blockDimensions));
+        blocks1.add(new Block(new Point(2, 8), blockDimensions));
+        blocks1.add(new Block(new Point(3, 8), blockDimensions));
         blocks1.add(new Block(new Point(4, 4), blockDimensions));
-        blocks1.add(new Block(new Point(4, 5), blockDimensions));
-        blocks1.add(new Block(new Point(4, 6), blockDimensions));
-        blocks1.add(new Block(new Point(5, 6), blockDimensions));
-        blocks1.add(new Block(new Point(2, 2), blockDimensions));
+        blocks1.add(new Block(new Point(4, 8), blockDimensions));
+        blocks1.add(new Block(new Point(5, 4), blockDimensions));
+        blocks1.add(new Block(new Point(5, 8), blockDimensions));
+        blocks1.add(new Block(new Point(6, 4), blockDimensions));
+        blocks1.add(new Block(new Point(6, 5), blockDimensions));
         blocks1.add(new Block(new Point(6, 6), blockDimensions));
+        blocks1.add(new Block(new Point(6, 7), blockDimensions));
+        blocks1.add(new Block(new Point(6, 8), blockDimensions));
         blocks1.add(new Block(new Point(7, 6), blockDimensions));
         blocks1.add(new Block(new Point(8, 6), blockDimensions));
         blocks1.add(new Block(new Point(9, 6), blockDimensions));
-        blocks1.add(new Block(new Point(8, 5), blockDimensions));
-        blocks1.add(new Block(new Point(9, 5), blockDimensions));
-        blocks1.add(new Block(new Point(9, 4), blockDimensions));
-        blocks1.add(new Block(new Point(10, 4), blockDimensions));
-        blocks1.add(new Block(new Point(11, 4), blockDimensions));
-        blocks1.add(new Block(new Point(11, 3), blockDimensions));
-        blocks1.add(new Block(new Point(11, 2), blockDimensions));
-        blocks1.add(new Block(new Point(11, 1), blockDimensions));
+        blocks1.add(new Block(new Point(9, 7), blockDimensions));
+        blocks1.add(new Block(new Point(9, 8), blockDimensions));
+        blocks1.add(new Block(new Point(10, 8), blockDimensions));
+        blocks1.add(new Block(new Point(11, 8), blockDimensions));
+        blocks1.add(new Block(new Point(12, 8), blockDimensions));
+        blocks1.add(new Block(new Point(12, 7), blockDimensions));
+        blocks1.add(new Block(new Point(12, 6), blockDimensions));
+        blocks1.add(new Block(new Point(13, 6), blockDimensions));
+        blocks1.add(new Block(new Point(14, 6), blockDimensions));
+        blocks1.add(new Block(new Point(15, 6), blockDimensions));
+        blocks1.add(new Block(new Point(16, 6), blockDimensions));
+        blocks1.add(new Block(new Point(17, 8), blockDimensions));
+        blocks1.add(new Block(new Point(17, 7), blockDimensions));
+        blocks1.add(new Block(new Point(17, 6), blockDimensions));
+        blocks1.add(new Block(new Point(18, 8), blockDimensions));
+        blocks1.add(new Block(new Point(19, 8), blockDimensions));
+        blocks1.add(new Block(new Point(20, 8), blockDimensions));
+        blocks1.add(new Block(new Point(20, 7), blockDimensions));
+        blocks1.add(new Block(new Point(20, 6), blockDimensions));
+        blocks1.add(new Block(new Point(20, 5), blockDimensions));
+        blocks1.add(new Block(new Point(21, 6), blockDimensions));
+        blocks1.add(new Block(new Point(22, 6), blockDimensions));
+        blocks1.add(new Block(new Point(23, 6), blockDimensions));
+        blocks1.add(new Block(new Point(24, 6), blockDimensions));
+        blocks1.add(new Block(new Point(25, 6), blockDimensions));
+        blocks1.add(new Block(new Point(26, 6), blockDimensions));
+        blocks1.add(new Block(new Point(25, 5), blockDimensions));
+        blocks1.add(new Block(new Point(26, 5), blockDimensions));
+        blocks1.add(new Block(new Point(26, 4), blockDimensions));
+        blocks1.add(new Block(new Point(26, 1), blockDimensions));
+        blocks1.add(new Block(new Point(27, 1), blockDimensions));
+        blocks1.add(new Block(new Point(27, 2), blockDimensions));
+        blocks1.add(new Block(new Point(27, 3), blockDimensions));
+        blocks1.add(new Block(new Point(27, 4), blockDimensions));
         return blocks1;
     }
 
     private static ArrayList<Enemy> enemiesOne() {
         ArrayList<Enemy> enemies1 = new ArrayList<>();
-        enemies1.add(new Enemy(new Point(7, 2), 1, new Point(30, 30), 0, 1, 1, 5, R.drawable.crawler, 0));
-        Enemy turret = new Enemy(new Point(10, 3), -1, new Point(30, 30), 0, 0, 2, 5, R.drawable.turret, 1);
+        enemies1.add(new Enemy(new Point(5, 3), 1, new Point(20, 20), 0, 1, 1, 5, R.drawable.crawler, 0));
+        enemies1.add(new Enemy(new Point(24, 5), 1, new Point(20, 20), 0, 1, 1, 5, R.drawable.crawler, 0));
+        Enemy turret = new Enemy(new Point(15, 5), -1, new Point(20, 20), 0, 0, 2, 5, R.drawable.turret, 1);
         turret.setShotInterval(45);
         enemies1.add(turret);
         return enemies1;

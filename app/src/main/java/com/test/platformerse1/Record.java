@@ -16,13 +16,13 @@ public class Record {
     // has the record been collected?
     private boolean collected;
     // the constant dimensions of all records
-    private final Point dimensions = new Point(30, 30);
+    private final Point dimensions = new Point(20, 20);
 
     // Point is given in "grid cell" format for convenience.
     public Record(Point p, boolean c) {
         location = p;
-        p.x *= 30;
-        p.y *= 30;
+        p.x *= 20;
+        p.y *= 20;
         collected = c;
     }
 

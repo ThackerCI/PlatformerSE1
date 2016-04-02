@@ -22,7 +22,7 @@ public class Character extends Entity {
     //Time character will be moving vertically in case of jump
     private int jumpTime;
     //maximum time the character will move vertically in case of jump
-    private final int maxJumpTime = 24;
+    private final int maxJumpTime = 16;
     //time the character is immune to damage
     private int immunity;
 
@@ -33,7 +33,7 @@ public class Character extends Entity {
     public static Character getInstance() {
         // if the character has not been instantiated, do so
         if (instance == null) {
-            instance = new Character(new Point(0, 0), new Point(30, 30), 3, 3, 3, 5);
+            instance = new Character(new Point(0, 0), new Point(20, 20), 3, 3, 3, 5);
         }
         return instance;
     }
@@ -51,7 +51,7 @@ public class Character extends Entity {
      */
     private Character(Point location, Point dimensions, int strength,
                       int speed, int defense, int maxHealth) {
-        setLocation(new Point(location.x * 30, location.y * 30));
+        setLocation(new Point(location.x * 20, location.y * 20));
         setDimensions(new Point(dimensions));
         setStrength(strength);
         setSpeed(speed);
@@ -158,7 +158,7 @@ public class Character extends Entity {
         w = w / 2;
         Point center = new Point(x + w, y + h);
         // get the velocity for the bullet
-        Point vel = new Point(this.getDirection() * 5, 0);
+        Point vel = new Point(this.getDirection() * 3, 0);
         // return the new bullet
         return new Bullet(center, this.getStrength(), vel, false);
     }
