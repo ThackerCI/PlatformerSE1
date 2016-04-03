@@ -6,7 +6,7 @@ import android.util.Log;
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/01/16 by Isaiah Thacker
+// Last Modified: 4/03/16 by Isaiah Thacker
 // Iteration 3
 // The EnemyController class contains the methods for updating the state of all enemies.
 public class EnemyController {
@@ -44,7 +44,7 @@ public class EnemyController {
             // if a block would intersect enemy, move the temp location back, toggle the direction
             // and invert the horizontal velocity.
             // Also, break.
-            if (Environment.boxIntersect(tempLoc, enemy.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
+            if (EnvironmentController.boxIntersect(tempLoc, enemy.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
                 tempLoc.set(tempLoc.x - enemy.getVelocity().x, tempLoc.y);
                 enemy.setVelocityX(enemy.getVelocity().x * -1);
                 enemy.setDirection(enemy.getDirection() * -1);
@@ -58,15 +58,15 @@ public class EnemyController {
             Block tempBlock = blocks.get(i);
             // if a block would intersect enemy, move the temp location back and reduce enemy's vertical velocity to zero.
             // Also, break.
-            if (Environment.boxIntersect(tempLoc, enemy.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
+            if (EnvironmentController.boxIntersect(tempLoc, enemy.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
                 tempLoc.offset(0, -enemy.getVelocity().y);
                 enemy.setVelocityY(0);
                 break;
             }
         }
         // if the enemy isn't standing on a block, start him falling.
-        if (!Environment.onBlock(enemy)) {
-            enemy.setVelocityY(Environment.GRAVITY);
+        if (!EnvironmentController.onBlock(enemy)) {
+            enemy.setVelocityY(EnvironmentController.GRAVITY);
         } else { // otherwise, stop his falling
             enemy.setVelocityY(0);
         }
@@ -89,7 +89,7 @@ public class EnemyController {
             Point bulletLoc = bullet.getLocation();    // get the bullet's current location
             Point bulletDims = bullet.getDimensions(); // get the bullet's dimensions
             // if the bullet hit the enemy
-            if (Environment.boxIntersect(bulletLoc, bulletDims, enemy.getLocation(), enemy.getDimensions())) {
+            if (EnvironmentController.boxIntersect(bulletLoc, bulletDims, enemy.getLocation(), enemy.getDimensions())) {
                 // lower the enemy's health
                 enemy.setHealth(enemy.getHealth() - Math.max(0, (bullet.getPower() - enemy.getDefense())));
                 // flag the bullet for deletion
@@ -100,7 +100,7 @@ public class EnemyController {
         // if the player character is not immune...
         if (player.getImmunity() == 0) {
             // check if we're intersecting the player character.
-            if (Environment.boxIntersect(enemy.getLocation(), enemy.getDimensions(), player.getLocation(), player.getDimensions())) {
+            if (EnvironmentController.boxIntersect(enemy.getLocation(), enemy.getDimensions(), player.getLocation(), player.getDimensions())) {
                 // damage the player based on the enemy's strength
                 player.damage(enemy.getStrength());
                 // give the player 1.5 seconds of immunity

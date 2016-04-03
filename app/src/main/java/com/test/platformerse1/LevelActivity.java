@@ -1,10 +1,10 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/01/16 by Isaiah Thacker
-// Iteration 2
-// LevelActivity defines the activity responsible for displaying and running the in-game
-// environment.
+// Last Modified: 4/03/16 by Isaiah Thacker
+// Iteration 3
+// LevelActivity defines the class responsible for displaying the in-game
+// environment, and starts the game controllers running.
 
 import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
@@ -71,7 +71,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
                 // if the game isn't paused (or stopped for some other reason)
                 if (running) {
                     // run the update function. If the player hasn't reached the goal, update the views
-                    if (!environment.update()) {
+                    if (!EnvironmentController.update()) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -135,7 +135,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     // levels are added
     public void initLevel(int i) {
         // load the level and the player character into the environment
-        environment.initialize(LevelVault.levelOne(), Environment.player);
+        EnvironmentController.initialize(LevelVault.levelOne(), Character.getInstance());
         // signal that the level has started
         started = true;
         // initialize the ImageViews
@@ -268,14 +268,14 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
         ImageView imageView = (ImageView) findViewById(R.id.character_sprite);
 
         int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Environment.player.getDimensions().x, getResources().getDisplayMetrics());
+                Character.getInstance().getDimensions().x, getResources().getDisplayMetrics());
         int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Environment.player.getDimensions().y, getResources().getDisplayMetrics());
+                Character.getInstance().getDimensions().y, getResources().getDisplayMetrics());
         // get the location of the block and convert the coordinates for the device's screen
         int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Environment.player.getLocation().x, getResources().getDisplayMetrics());
+                Character.getInstance().getLocation().x, getResources().getDisplayMetrics());
         int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Environment.player.getLocation().y, getResources().getDisplayMetrics());
+                Character.getInstance().getLocation().y, getResources().getDisplayMetrics());
 
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
@@ -335,17 +335,17 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     // set the character moving in the given direction
     public void move(int direction) {
         // make the character move in the given direction.
-        Environment.player.horizontalMove(direction);
+        Character.getInstance().horizontalMove(direction);
     }
 
     public void jump() {
         // make the player jump if possible.
-        Environment.player.jump(Environment.onBlock(Environment.player));
+        Character.getInstance().jump(EnvironmentController.onBlock(Character.getInstance()));
     }
 
     // cause the player to fire a bullet
     public void shoot() {
-        environment.getBullets().add(Environment.player.shoot());
+        environment.getBullets().add(Character.getInstance().shoot());
     }
 
     public void setMeter(Chronometer timeKeeper)
@@ -356,7 +356,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
 
     // stop the character's movement
     public void stopCharacter() {
-        Environment.player.setVelocityX(0);
+        Character.getInstance().setVelocityX(0);
     }
 
 }

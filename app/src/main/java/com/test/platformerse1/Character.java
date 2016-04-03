@@ -1,7 +1,7 @@
 package com.test.platformerse1;
 
 // Author: John Hale
-// Last Modified: 4/01/16 by Isaiah Thacker
+// Last Modified: 4/03/16 by Isaiah Thacker
 // Iteration 3
 // The Character class defines the object which will represent the data on the player's
 // controlled character.
@@ -140,7 +140,7 @@ public class Character extends Entity {
     public void jump(boolean canJump) {
         if (canJump) {
 
-            this.setVelocityY(-Environment.GRAVITY);
+            this.setVelocityY(-EnvironmentController.GRAVITY);
             this.setJumpTime(this.maxJumpTime);
         }
     }
