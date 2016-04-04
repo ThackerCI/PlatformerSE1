@@ -22,7 +22,7 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LevelActivity extends AppCompatActivity implements Controls.controlListener {
+public class LevelActivity extends AppCompatActivity {
     double levelTime;
     private Chronometer timeKeeper;
     // set up the game loop timer
@@ -332,31 +332,10 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
         }
     }
 
-    // set the character moving in the given direction
-    public void move(int direction) {
-        // make the character move in the given direction.
-        Character.getInstance().horizontalMove(direction);
-    }
-
-    public void jump() {
-        // make the player jump if possible.
-        Character.getInstance().jump(EnvironmentController.onBlock(Character.getInstance()));
-    }
-
-    // cause the player to fire a bullet
-    public void shoot() {
-        environment.getBullets().add(Character.getInstance().shoot());
-    }
-
     public void setMeter(Chronometer timeKeeper)
     {
         this.timeKeeper = timeKeeper;
         this.timeKeeper.start();
-    }
-
-    // stop the character's movement
-    public void stopCharacter() {
-        Character.getInstance().setVelocityX(0);
     }
 
 }

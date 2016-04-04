@@ -44,9 +44,9 @@ public class Controls extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    levelActivity.move(-1);
+                    move(-1);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    levelActivity.stopCharacter();
+                    stopCharacter();
                 }
                 return true;
             }
@@ -55,9 +55,9 @@ public class Controls extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    levelActivity.move(1);
+                    move(1);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    levelActivity.stopCharacter();
+                    stopCharacter();
                 }
                 return true;
             }
@@ -67,7 +67,7 @@ public class Controls extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    levelActivity.jump();
+                    jump();
                 }
                 return true;
             }
@@ -77,7 +77,7 @@ public class Controls extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    levelActivity.shoot();
+                    shoot();
                 }
                 return true;
             }
@@ -86,14 +86,26 @@ public class Controls extends Fragment {
         return view;
     }
 
-    // LevelActivity functions which will be used by this class
-    public interface controlListener {
-        void move(int d);
+    // stop the character's movement
+    public void stopCharacter() {
+        Character.getInstance().setVelocityX(0);
+    }
 
-        void jump();
 
-        void shoot();
 
-        void stopCharacter();
+    // set the character moving in the given direction
+    public void move(int direction) {
+        // make the character move in the given direction.
+        Character.getInstance().horizontalMove(direction);
+    }
+
+    public void jump() {
+        // make the player jump if possible.
+        Character.getInstance().jump(EnvironmentController.onBlock(Character.getInstance()));
+    }
+
+    // cause the player to fire a bullet
+    public void shoot() {
+        Environment.getInstance().getBullets().add(Character.getInstance().shoot());
     }
 }
