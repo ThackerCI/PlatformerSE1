@@ -2,8 +2,10 @@ package com.test.platformerse1;
 
 
 // Author: Isaiah Thacker
-// Last Modified: 3/07/16
-// Platformer Iteration 2
+// Last Modified: 4/03/16
+// Iteration 3
+// The Controls class defines the fragment used for the player to control the character, and defines
+// the methods used by that fragment.
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -14,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class Controls extends Fragment {
     public Controls() {
@@ -90,7 +90,6 @@ public class Controls extends Fragment {
     public void stopCharacter() {
         Character.getInstance().setVelocityX(0);
     }
-
 
 
     // set the character moving in the given direction

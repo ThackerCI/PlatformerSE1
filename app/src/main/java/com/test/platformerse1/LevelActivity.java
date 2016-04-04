@@ -102,7 +102,7 @@ public class LevelActivity extends AppCompatActivity {
         running = false;
         timeKeeper.stop();
         TextView time = (TextView) findViewById(R.id.current_time);
-        levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase())/1000.0; //convert milliseconds to seconds
+        levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0; //convert milliseconds to seconds
         time.setVisibility(View.VISIBLE);
         time.setText("Your time for this level is: " + levelTime + "seconds.");
         time.bringToFront();
@@ -332,8 +332,7 @@ public class LevelActivity extends AppCompatActivity {
         }
     }
 
-    public void setMeter(Chronometer timeKeeper)
-    {
+    public void setMeter(Chronometer timeKeeper) {
         this.timeKeeper = timeKeeper;
         this.timeKeeper.start();
     }
