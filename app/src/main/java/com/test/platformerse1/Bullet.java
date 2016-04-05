@@ -49,7 +49,7 @@ public class Bullet {
         velocity = new Point(nVelocity);
         timeRemaining = duration;
         enemyBullet = nEnemyBullet;
-        sprite = (enemyBullet) ? R.drawable.enemy_bullet : R.drawable.block;
+        sprite = (enemyBullet) ? R.mipmap.ic_launcher : R.mipmap.user_bullet;
     }
 
     // clone a bullet

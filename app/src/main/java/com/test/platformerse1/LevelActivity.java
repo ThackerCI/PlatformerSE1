@@ -101,10 +101,11 @@ public class LevelActivity extends AppCompatActivity {
         // game is no longer running
         running = false;
         timeKeeper.stop();
+        //delete timeKeeper?
         TextView time = (TextView) findViewById(R.id.current_time);
         levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0; //convert milliseconds to seconds
         time.setVisibility(View.VISIBLE);
-        time.setText("Your time for this level is: " + levelTime + "seconds.");
+        time.setText("Your time for this level is: " + levelTime + " seconds.");
         time.bringToFront();
         // display the congratulatory text and menu button
         TextView textView = (TextView) findViewById(R.id.congrats_text);
@@ -237,7 +238,7 @@ public class LevelActivity extends AppCompatActivity {
         Record tempRecord = environment.getGoal(); // get the goal record
         // Much of the following code was adapted from principles on stackoverflow
         ImageView imageView = new ImageView(LevelActivity.this); // create a new ImageView
-        imageView.setImageResource(R.drawable.record);            // set the "block" sprite to it
+        imageView.setImageResource(R.mipmap.goal_record);            // set the "block" sprite to it
         // get the level layout
         RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
 
