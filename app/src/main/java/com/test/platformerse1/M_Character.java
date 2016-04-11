@@ -3,7 +3,7 @@ package com.test.platformerse1;
 // Author: John Hale
 // Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
-// The Character class defines the object which will represent the data on the player's
+// The M_Character class defines the object which will represent the data on the player's
 // controlled character.
 
 // Help from Kevin Glass and Dr. Jerry Perez's Space Invader's project.
@@ -11,7 +11,7 @@ package com.test.platformerse1;
 import android.graphics.Point;
 import android.util.Log;
 
-public class Character extends Entity {
+public class M_Character extends M_Entity {
 
     //Cooldown time after each shot
     private int shotCoolDown;
@@ -26,23 +26,23 @@ public class Character extends Entity {
     //time the character is immune to damage
     private int immunity;
 
-    // singleton instance of Character
-    private static Character instance;
+    // singleton instance of M_Character
+    private static M_Character instance;
 
     // getInstance() for singleton character
-    public static Character getInstance() {
+    public static M_Character getInstance() {
         // if the character has not been instantiated, do so
         if (instance == null) {
-            instance = new Character(new Point(0, 0), new Point(20, 20), 3, 3, 3, 5);
+            instance = new M_Character(new Point(0, 0), new Point(20, 20), 3, 3, 3, 5);
         }
         return instance;
     }
 
     /**
-     * Initializes new Character
+     * Initializes new M_Character
      */
-    private Character(Point location, Point dimensions, int strength,
-                      int speed, int defense, int maxHealth) {
+    private M_Character(Point location, Point dimensions, int strength,
+                        int speed, int defense, int maxHealth) {
         setLocation(new Point(location.x * 20, location.y * 20));
         setDimensions(new Point(dimensions));
         setStrength(strength);
@@ -55,7 +55,7 @@ public class Character extends Entity {
     }
 
     /**
-     * Resets Character's health, direction, jumpTime, and velocity
+     * Resets M_Character's health, direction, jumpTime, and velocity
      */
     public void reset() {
         this.setJumpTime(0);
@@ -132,13 +132,13 @@ public class Character extends Entity {
     public void jump(boolean canJump) {
         if (canJump) {
 
-            this.setVelocityY(-EnvironmentController.GRAVITY);
+            this.setVelocityY(-C_EnvironmentController.GRAVITY);
             this.setJumpTime(this.maxJumpTime);
         }
     }
 
     // create a new bullet at the character's center
-    public Bullet shoot() {
+    public M_Bullet shoot() {
         Point leftCorner = this.getLocation();
         // get the center of the character
         int x = leftCorner.x;
@@ -152,7 +152,7 @@ public class Character extends Entity {
         // get the velocity for the bullet
         Point vel = new Point(this.getDirection() * 3, 0);
         // return the new bullet
-        return new Bullet(center, this.getStrength(), vel, false);
+        return new M_Bullet(center, this.getStrength(), vel, false);
     }
 
     // damage(dealt) adds dealt seconds to the environment timer

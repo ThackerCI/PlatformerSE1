@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.test.platformerse1.LevelActivity">
+    tools:context=".V_LevelActivity">
 
     <RelativeLayout
         android:id="@+id/level_layout"
@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/fragment_bottom"
-        android:name="com.test.platformerse1.Controls"
+        android:name="com.test.platformerse1.C_Controls"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"

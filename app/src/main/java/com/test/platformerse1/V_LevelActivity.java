@@ -3,7 +3,7 @@ package com.test.platformerse1;
 // Author: Isaiah Thacker
 // Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
-// LevelActivity defines the class responsible for displaying the in-game
+// V_LevelActivity defines the class responsible for displaying the in-game
 // environment, and starts the game controllers running.
 
 import android.content.pm.ActivityInfo;
@@ -22,13 +22,13 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LevelActivity extends AppCompatActivity {
+public class V_LevelActivity extends AppCompatActivity {
     private double levelTime;
     private Chronometer timeKeeper;
     // set up the game loop timer
     private final Timer gameLoopTimer = new Timer();
     // set up an environment
-    private final Environment environment = Environment.getInstance();
+    private final M_Environment environment = M_Environment.getInstance();
     // set up flags for if the level is started and running
     private boolean started = false;
     private boolean running = false;
@@ -69,7 +69,7 @@ public class LevelActivity extends AppCompatActivity {
                 // if the game isn't paused (or stopped for some other reason)
                 if (running) {
                     // run the update function. If the player hasn't reached the goal, update the views
-                    if (!EnvironmentController.update()) {
+                    if (!C_EnvironmentController.update()) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -120,7 +120,7 @@ public class LevelActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LevelActivity.this.finish();
+                V_LevelActivity.this.finish();
             }
         });
     }
@@ -137,7 +137,7 @@ public class LevelActivity extends AppCompatActivity {
     // levels are added
     public void initLevel(int i) {
         // load the level and the player character into the environment
-        EnvironmentController.initialize(LevelVault.levelOne(), Character.getInstance());
+        C_EnvironmentController.initialize(M_LevelVault.levelOne(), M_Character.getInstance());
         // signal that the level has started
         started = true;
         // initialize the ImageViews
@@ -158,22 +158,22 @@ public class LevelActivity extends AppCompatActivity {
     private void initBlocksView() {
         // iterate through the blocks in the environment
         for (int i = 0; i < environment.getBlocks().size(); ++i) {
-            Block tempBlock = environment.getBlocks().get(i); // get the current block
+            M_Block tempMBlock = environment.getBlocks().get(i); // get the current block
             // Much of the following code was adapted from principles on stackoverflow
-            ImageView imageView = new ImageView(LevelActivity.this); // create a new ImageView
+            ImageView imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
             imageView.setImageResource(R.drawable.block);            // set the "block" sprite to it
             // get the level layout
             RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
             // get the dimensions for the sprite and convert them for the device's screen
             int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBlock.getDimensions().x, getResources().getDisplayMetrics());
+                    tempMBlock.getDimensions().x, getResources().getDisplayMetrics());
             int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBlock.getDimensions().y, getResources().getDisplayMetrics());
+                    tempMBlock.getDimensions().y, getResources().getDisplayMetrics());
             // create new layout parameters for the sprite
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
             // get the location of the block and convert the coordinates for the device's screen
-            int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tempBlock.getLocation().x, getResources().getDisplayMetrics());
-            int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tempBlock.getLocation().y, getResources().getDisplayMetrics());
+            int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tempMBlock.getLocation().x, getResources().getDisplayMetrics());
+            int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tempMBlock.getLocation().y, getResources().getDisplayMetrics());
             // set the margins for the ImageView (i.e. position on the screen)
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout
@@ -190,19 +190,19 @@ public class LevelActivity extends AppCompatActivity {
         for (int i = 0; i < environment.getBullets().size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            Bullet tempBullet = environment.getBullets().get(i); // get the current bullet
-            if (tempBullet.getBulletView() == null) {
+            M_Bullet tempMBullet = environment.getBullets().get(i); // get the current bullet
+            if (tempMBullet.getBulletView() == null) {
                 flag = true;
-                imageView = new ImageView(LevelActivity.this); // create a new ImageView
-                tempBullet.setBulletView(imageView); // used for deleting said view on bullet despawn
-                imageView.setImageResource(tempBullet.getSprite()); // set the bullet's sprite to it
+                imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
+                tempMBullet.setBulletView(imageView); // used for deleting said view on bullet despawn
+                imageView.setImageResource(tempMBullet.getSprite()); // set the bullet's sprite to it
             } else {
-                imageView = (ImageView) tempBullet.getBulletView();
+                imageView = (ImageView) tempMBullet.getBulletView();
             }
             // get the level layout
             RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
             // if the bullet is flagged for removal
-            if (tempBullet.getFlag()) {
+            if (tempMBullet.getFlag()) {
                 // destroy its view and remove it from the bullet list
                 imageView.setVisibility(View.INVISIBLE);
                 environment.getBullets().remove(i);
@@ -212,16 +212,16 @@ public class LevelActivity extends AppCompatActivity {
             // Much of the following code was adapted from principles on stackoverflow
             // get the dimensions for the sprite and convert them for the device's screen
             int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBullet.getDimensions().x, getResources().getDisplayMetrics());
+                    tempMBullet.getDimensions().x, getResources().getDisplayMetrics());
             int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBullet.getDimensions().y, getResources().getDisplayMetrics());
+                    tempMBullet.getDimensions().y, getResources().getDisplayMetrics());
             // create new layout parameters for the sprite
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
             // get the location of the block and convert the coordinates for the device's screen
             int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBullet.getLocation().x, getResources().getDisplayMetrics());
+                    tempMBullet.getLocation().x, getResources().getDisplayMetrics());
             int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempBullet.getLocation().y, getResources().getDisplayMetrics());
+                    tempMBullet.getLocation().y, getResources().getDisplayMetrics());
             // set the margins for the ImageView (i.e. position on the screen)
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout, or update it if it's already there.
@@ -238,25 +238,25 @@ public class LevelActivity extends AppCompatActivity {
     private void initRecordsView() {
         // TODO: add loop for additional records. Currently just doing the goal, since that's all
         // we have.
-        Record tempRecord = environment.getGoal(); // get the goal record
+        M_Record tempMRecord = environment.getGoal(); // get the goal record
         // Much of the following code was adapted from principles on stackoverflow
-        ImageView imageView = new ImageView(LevelActivity.this); // create a new ImageView
+        ImageView imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
         imageView.setImageResource(R.mipmap.goal_record);            // set the "block" sprite to it
         // get the level layout
         RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
 
         // get the dimensions for the sprite and convert them for the device's screen
         int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                tempRecord.getDimensions().x, getResources().getDisplayMetrics());
+                tempMRecord.getDimensions().x, getResources().getDisplayMetrics());
         int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                tempRecord.getDimensions().y, getResources().getDisplayMetrics());
+                tempMRecord.getDimensions().y, getResources().getDisplayMetrics());
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
         // get the location of the block and convert the coordinates for the device's screen
         int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                tempRecord.getLocation().x, getResources().getDisplayMetrics());
+                tempMRecord.getLocation().x, getResources().getDisplayMetrics());
         int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                tempRecord.getLocation().y, getResources().getDisplayMetrics());
+                tempMRecord.getLocation().y, getResources().getDisplayMetrics());
 
         // set the margins for the ImageView (i.e. position on the screen)
         layoutParams.setMargins(newX, newY, 0, 0);
@@ -273,14 +273,14 @@ public class LevelActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.character_sprite);
 
         int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Character.getInstance().getDimensions().x, getResources().getDisplayMetrics());
+                M_Character.getInstance().getDimensions().x, getResources().getDisplayMetrics());
         int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Character.getInstance().getDimensions().y, getResources().getDisplayMetrics());
+                M_Character.getInstance().getDimensions().y, getResources().getDisplayMetrics());
         // get the location of the block and convert the coordinates for the device's screen
         int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Character.getInstance().getLocation().x, getResources().getDisplayMetrics());
+                M_Character.getInstance().getLocation().x, getResources().getDisplayMetrics());
         int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Character.getInstance().getLocation().y, getResources().getDisplayMetrics());
+                M_Character.getInstance().getLocation().y, getResources().getDisplayMetrics());
 
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
@@ -295,19 +295,19 @@ public class LevelActivity extends AppCompatActivity {
         for (int i = 0; i < environment.getEnemies().size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            Enemy tempEnemy = environment.getEnemies().get(i); // get the current enemy
-            if (tempEnemy.getEnemyView() == null) {
+            M_Enemy tempMEnemy = environment.getEnemies().get(i); // get the current enemy
+            if (tempMEnemy.getEnemyView() == null) {
                 flag = true;
-                imageView = new ImageView(LevelActivity.this); // create a new ImageView
-                tempEnemy.setEnemyView(imageView); // used for deleting said view on enemy despawn
-                imageView.setImageResource(tempEnemy.getSprite());          // set the enemy's sprite to it
+                imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
+                tempMEnemy.setEnemyView(imageView); // used for deleting said view on enemy despawn
+                imageView.setImageResource(tempMEnemy.getSprite());          // set the enemy's sprite to it
             } else {
-                imageView = (ImageView) tempEnemy.getEnemyView();
+                imageView = (ImageView) tempMEnemy.getEnemyView();
             }
             // get the level layout
             RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
             // if the enemy is out of health
-            if (tempEnemy.getHealth() <= 0) {
+            if (tempMEnemy.getHealth() <= 0) {
                 // destroy its view and remove it from the enemy list
                 imageView.setVisibility(View.INVISIBLE);
                 environment.getEnemies().remove(i);
@@ -317,16 +317,16 @@ public class LevelActivity extends AppCompatActivity {
             // Much of the following code was adapted from principles on stackoverflow
             // get the dimensions for the sprite and convert them for the device's screen
             int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempEnemy.getDimensions().x, getResources().getDisplayMetrics());
+                    tempMEnemy.getDimensions().x, getResources().getDisplayMetrics());
             int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempEnemy.getDimensions().y, getResources().getDisplayMetrics());
+                    tempMEnemy.getDimensions().y, getResources().getDisplayMetrics());
             // create new layout parameters for the sprite
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
             // get the location of the block and convert the coordinates for the device's screen
             int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempEnemy.getLocation().x, getResources().getDisplayMetrics());
+                    tempMEnemy.getLocation().x, getResources().getDisplayMetrics());
             int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempEnemy.getLocation().y, getResources().getDisplayMetrics());
+                    tempMEnemy.getLocation().y, getResources().getDisplayMetrics());
             // set the margins for the ImageView (i.e. position on the screen)
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout, or update it if it's already there.

@@ -4,7 +4,7 @@ package com.test.platformerse1;
 // Author: Isaiah Thacker
 // Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
-// The Controls class defines the fragment used for the player to control the character, and defines
+// The C_Controls class defines the fragment used for the player to control the character, and defines
 // the methods used by that fragment.
 
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 
-public class Controls extends Fragment {
-    public Controls() {
+public class C_Controls extends Fragment {
+    public C_Controls() {
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Controls extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_controls, container, false);
         // get the level activity
-        final LevelActivity levelActivity = (LevelActivity) getActivity();
+        final V_LevelActivity levelActivity = (V_LevelActivity) getActivity();
         // get the buttons
         Button leftButton = (Button) view.findViewById(R.id.left_button);
         Button rightButton = (Button) view.findViewById(R.id.right_button);
@@ -88,23 +88,23 @@ public class Controls extends Fragment {
 
     // stop the character's movement
     private void stopCharacter() {
-        Character.getInstance().setVelocityX(0);
+        M_Character.getInstance().setVelocityX(0);
     }
 
 
     // set the character moving in the given direction
     private void move(int direction) {
         // make the character move in the given direction.
-        Character.getInstance().horizontalMove(direction);
+        M_Character.getInstance().horizontalMove(direction);
     }
 
     private void jump() {
         // make the player jump if possible.
-        Character.getInstance().jump(EnvironmentController.onBlock(Character.getInstance()));
+        M_Character.getInstance().jump(C_EnvironmentController.onBlock(M_Character.getInstance()));
     }
 
     // cause the player to fire a bullet
     private void shoot() {
-        Environment.getInstance().getBullets().add(Character.getInstance().shoot());
+        M_Environment.getInstance().getBullets().add(M_Character.getInstance().shoot());
     }
 }

@@ -1,8 +1,8 @@
 package com.test.platformerse1;
 
 // Author: Olutayo Elelu
-// Last Modified: 03/20/16 by Isaiah Thacker
-// Iteration 2
+// Last Modified: 4/11/16 by Isaiah Thacker
+// Iteration 3
 // The record class defines the records the player may collect within the game environment.
 
 //- Location (Point): Defined by our game mechanics. For now, a point with x and y coordinate. Functions include getLocation and setLocation.
@@ -10,7 +10,7 @@ package com.test.platformerse1;
 
 import android.graphics.Point;
 
-public class Record {
+public class M_Record {
     // the location of the record
     private Point location;
     // has the record been collected?
@@ -19,7 +19,7 @@ public class Record {
     private final Point dimensions = new Point(20, 20);
 
     // Point is given in "grid cell" format for convenience.
-    public Record(Point p, boolean c) {
+    public M_Record(Point p, boolean c) {
         location = p;
         p.x *= 20;
         p.y *= 20;
@@ -27,7 +27,7 @@ public class Record {
     }
 
     // clone a record
-    public Record(Record R) {
+    public M_Record(M_Record R) {
         this.location = new Point(R.location);
         this.collected = R.collected;
     }

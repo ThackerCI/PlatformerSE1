@@ -4,11 +4,11 @@ import android.graphics.Point;
 import android.view.View;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/01/16 by Isaiah Thacker
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
-// The Enemy class defines the template for all enemy entities
+// The M_Enemy class defines the template for all enemy entities
 
-public class Enemy extends Entity {
+public class M_Enemy extends M_Entity {
     private View enemyView;
     //name of sprite to be used
     private int sprite;
@@ -19,7 +19,7 @@ public class Enemy extends Entity {
     // how long until next shot is possible?
     private int shotCooldown;
 
-    public Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, int sprite, int enemyType) {
+    public M_Enemy(Point location, int direction, Point dimensions, int defense, int speed, int strength, int maxHealth, int sprite, int enemyType) {
         setLocation(new Point(location.x * 20, location.y * 20));
         setDirection(direction);
         setDimensions(dimensions);
@@ -76,7 +76,7 @@ public class Enemy extends Entity {
     }
 
     // create a new bullet at the enemy's center
-    public Bullet shoot() {
+    public M_Bullet shoot() {
         Point leftCorner = this.getLocation();
         // get the center of the character
         int x = leftCorner.x;
@@ -92,6 +92,6 @@ public class Enemy extends Entity {
         // set the enemy's shot cooldown to its shot interval.
         setShotCooldown(getShotInterval());
         // return the new bullet
-        return new Bullet(center, this.getStrength(), vel, true);
+        return new M_Bullet(center, this.getStrength(), vel, true);
     }
 }

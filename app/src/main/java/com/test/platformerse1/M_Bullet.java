@@ -6,9 +6,9 @@ import android.view.View;
 // Author: Aaron Trusty
 // Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
-// The Bullet class defines objects representing player and enemy bullets within a level.
+// The M_Bullet class defines objects representing player and enemy bullets within a level.
 
-public class Bullet {
+public class M_Bullet {
     // the ImageView associated with the bullet
     private View bulletView;
     // the bullet's location
@@ -31,7 +31,7 @@ public class Bullet {
     private int sprite;
 
     //constructor
-    public Bullet(Point coords, int nPower, Point nVelocity, boolean nEnemyBullet) {
+    public M_Bullet(Point coords, int nPower, Point nVelocity, boolean nEnemyBullet) {
         location = new Point(coords);
         power = nPower;
         velocity = new Point(nVelocity);
@@ -41,7 +41,7 @@ public class Bullet {
     }
 
     // clone a bullet
-    public Bullet(Bullet b) {
+    public M_Bullet(M_Bullet b) {
         location = new Point(b.getLocation());
         power = b.getPower();
         velocity = new Point(b.getVelocity());

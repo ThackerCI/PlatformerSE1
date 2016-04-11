@@ -1,15 +1,15 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 3/31/16 by Isaiah Thacker
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
-// The Entity class is a superclass of Character and Enemy, which describes common attributes and
+// The M_Entity class is a superclass of M_Character and M_Enemy, which describes common attributes and
 // functionality such as location, move, and dimensions
 
 import android.graphics.Point;
 
-public class Entity {
-    // The following are copied from the former version of the Character class
+public class M_Entity {
+    // The following are copied from the former version of the M_Character class
     //location of the entity
     private Point location;
     // direction is -1 for left, 1 for right

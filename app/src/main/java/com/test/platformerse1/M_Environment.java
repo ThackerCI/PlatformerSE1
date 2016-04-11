@@ -3,31 +3,31 @@ package com.test.platformerse1;
 // Author: Isaiah Thacker
 // Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
-// The Environment class defines objects which contain all data on the current gameplay environment
+// The M_Environment class defines objects which contain all data on the current gameplay environment
 // (level layout, character locations, and so forth.)
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Environment {
+public class M_Environment {
     // blocks in the environment
-    private final List<Block> blocks;
+    private final List<M_Block> blocks;
     // non-goal records in the environment
-    private final List<Record> records;
+    private final List<M_Record> records;
     // bullets
-    private final List<Bullet> bullets;
+    private final List<M_Bullet> bullets;
     // the goal record
-    private Record goal;
+    private M_Record goal;
     // the enemies
-    private final List<Enemy> enemies;
+    private final List<M_Enemy> enemies;
 
-    // The instance of Environment (Singleton design pattern)
-    private static Environment instance;
+    // The instance of M_Environment (Singleton design pattern)
+    private static M_Environment instance;
 
 
 
-    private Environment() {
+    private M_Environment() {
         blocks = new ArrayList<>();
         records = new ArrayList<>();
         bullets = new ArrayList<>();
@@ -36,45 +36,45 @@ public class Environment {
 
 
     // getInstance for singleton design pattern
-    public static Environment getInstance() {
+    public static M_Environment getInstance() {
         if (instance == null) {
-            instance = new Environment();
+            instance = new M_Environment();
         }
         return instance;
     }
 
     // addBullet(b) adds bullet b to the current environment.
-    public void addBullet(Bullet b) {
+    public void addBullet(M_Bullet b) {
         this.bullets.add(b);
     }
 
     // setGoal(R) sets the environment's goal record to record R
-    public void setGoal(Record R){
+    public void setGoal(M_Record R){
         this.goal = R;
     }
 
     // getGoal() returns the goal record in the current environment.
-    public Record getGoal() {
+    public M_Record getGoal() {
         return this.goal;
     }
 
     // getBullets() returns the list of bullets in the current environment.
-    public List<Bullet> getBullets() {
+    public List<M_Bullet> getBullets() {
         return this.bullets;
     }
 
     // getRecords() returns the list of records in the current environment.
-    public List<Record> getRecords() {
+    public List<M_Record> getRecords() {
         return this.records;
     }
 
     // getBlocks() returns the list of blocks in the current environment.
-    public List<Block> getBlocks() {
+    public List<M_Block> getBlocks() {
         return this.blocks;
     }
 
     // getEnemies() returns the list of blocks in the current environment.
-    public List<Enemy> getEnemies() {
+    public List<M_Enemy> getEnemies() {
         return this.enemies;
     }
 }

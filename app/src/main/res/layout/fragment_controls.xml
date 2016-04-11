@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="horizontal"
-    tools:context="com.test.platformerse1.Controls">
+    tools:context=".C_Controls">
 
     <Button
         android:id="@+id/left_button"
