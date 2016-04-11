@@ -1,7 +1,7 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/03/16 by Isaiah Thacker
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
 // LevelActivity defines the class responsible for displaying the in-game
 // environment, and starts the game controllers running.
@@ -23,14 +23,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class LevelActivity extends AppCompatActivity {
-    double levelTime;
+    private double levelTime;
     private Chronometer timeKeeper;
     // set up the game loop timer
-    private Timer gameLoopTimer = new Timer();
-    // integer used for testing purposes
-    private int value = 0;
+    private final Timer gameLoopTimer = new Timer();
     // set up an environment
-    private Environment environment = Environment.getInstance();
+    private final Environment environment = Environment.getInstance();
     // set up flags for if the level is started and running
     private boolean started = false;
     private boolean running = false;
@@ -97,7 +95,7 @@ public class LevelActivity extends AppCompatActivity {
         gameLoopTimer.schedule(refresh, 500, FRAME_DURATION);
     }
 
-    public void displayEndscreen() {
+    private void displayEndscreen() {
         // game is no longer running
         running = false;
         timeKeeper.stop();
@@ -146,7 +144,7 @@ public class LevelActivity extends AppCompatActivity {
     }
 
     // initialize the activity's views
-    public void initView() {
+    private void initView() {
         initBlocksView();
         initRecordsView();
         updateEnemyView();
@@ -154,7 +152,7 @@ public class LevelActivity extends AppCompatActivity {
     }
 
     // initialize the view for the blocks
-    public void initBlocksView() {
+    private void initBlocksView() {
         // iterate through the blocks in the environment
         for (int i = 0; i < environment.getBlocks().size(); ++i) {
             Block tempBlock = environment.getBlocks().get(i); // get the current block
@@ -183,7 +181,7 @@ public class LevelActivity extends AppCompatActivity {
 
 
     // update the ImageViews for the bullets
-    public void updateBulletsView() {
+    private void updateBulletsView() {
         // iterate through the bullets in the environment
         for (int i = 0; i < environment.getBullets().size(); ++i) {
             boolean flag = false;
@@ -232,7 +230,7 @@ public class LevelActivity extends AppCompatActivity {
     }
 
     // initialize the views for the records.
-    public void initRecordsView() {
+    private void initRecordsView() {
         // TODO: add loop for additional records. Currently just doing the goal, since that's all
         // we have.
         Record tempRecord = environment.getGoal(); // get the goal record
@@ -263,7 +261,7 @@ public class LevelActivity extends AppCompatActivity {
     }
 
     // update the character's ImageView
-    public void updateCharacterView() {
+    private void updateCharacterView() {
         // Much of the following code was adapted from principles on stackoverflow
         // get the dimensions for the sprite and convert them for the device's screen
         ImageView imageView = (ImageView) findViewById(R.id.character_sprite);
@@ -285,7 +283,7 @@ public class LevelActivity extends AppCompatActivity {
     }
 
     // update the ImageViews for the enemies
-    public void updateEnemyView() {
+    private void updateEnemyView() {
         // iterate through the enemies in the environment
         for (int i = 0; i < environment.getEnemies().size(); ++i) {
             boolean flag = false;

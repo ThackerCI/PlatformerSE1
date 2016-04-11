@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.view.View;
 
 // Author: Aaron Trusty
-// Last Modified: 03/31/16 by Isaiah Thacker
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
 // The Bullet class defines objects representing player and enemy bullets within a level.
 
@@ -30,19 +30,7 @@ public class Bullet {
     // ID of sprite
     private int sprite;
 
-    //default constructor. Will include
-    //  package from player class that will
-    //      make default bullet come from the players
-    //          position plus a few pixels to make it appear
-    //              that the bullet is coming from the weapon.
-    public Bullet() {
-        location = new Point(0, 0);
-        power = 0;
-        velocity = new Point(0, 0);
-        timeRemaining = 0;
-    }
-
-    //overloaded constructor
+    //constructor
     public Bullet(Point coords, int nPower, Point nVelocity, boolean nEnemyBullet) {
         location = new Point(coords);
         power = nPower;

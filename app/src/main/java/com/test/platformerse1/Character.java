@@ -1,7 +1,7 @@
 package com.test.platformerse1;
 
 // Author: John Hale
-// Last Modified: 4/03/16 by Isaiah Thacker
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
 // The Character class defines the object which will represent the data on the player's
 // controlled character.
@@ -36,14 +36,6 @@ public class Character extends Entity {
             instance = new Character(new Point(0, 0), new Point(20, 20), 3, 3, 3, 5);
         }
         return instance;
-    }
-
-    private Character() {
-        setLocation(new Point(0, 0));
-        setDimensions(new Point(0, 0));
-        setVelocity(new Point(0, 0));
-        setDirection(1);
-        immunity = 0;
     }
 
     /**

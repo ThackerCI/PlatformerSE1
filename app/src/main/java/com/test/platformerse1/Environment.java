@@ -1,13 +1,10 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/03/16 by Isaiah Thacker
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
 // The Environment class defines objects which contain all data on the current gameplay environment
 // (level layout, character locations, and so forth.)
-
-import android.graphics.Point;
-import android.graphics.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +12,15 @@ import java.util.List;
 
 public class Environment {
     // blocks in the environment
-    private List<Block> blocks;
+    private final List<Block> blocks;
     // non-goal records in the environment
-    private List<Record> records;
+    private final List<Record> records;
     // bullets
-    private List<Bullet> bullets;
+    private final List<Bullet> bullets;
     // the goal record
     private Record goal;
     // the enemies
-    private List<Enemy> enemies;
+    private final List<Enemy> enemies;
 
     // The instance of Environment (Singleton design pattern)
     private static Environment instance;

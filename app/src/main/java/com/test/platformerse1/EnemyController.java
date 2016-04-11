@@ -1,12 +1,11 @@
 package com.test.platformerse1;
 
 import android.graphics.Point;
-import android.util.Log;
 
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/03/16 by Isaiah Thacker
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
 // The EnemyController class contains the methods for updating the state of all enemies.
 public class EnemyController {

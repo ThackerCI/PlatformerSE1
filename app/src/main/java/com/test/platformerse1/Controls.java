@@ -2,7 +2,7 @@ package com.test.platformerse1;
 
 
 // Author: Isaiah Thacker
-// Last Modified: 4/03/16
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
 // The Controls class defines the fragment used for the player to control the character, and defines
 // the methods used by that fragment.
@@ -87,24 +87,24 @@ public class Controls extends Fragment {
     }
 
     // stop the character's movement
-    public void stopCharacter() {
+    private void stopCharacter() {
         Character.getInstance().setVelocityX(0);
     }
 
 
     // set the character moving in the given direction
-    public void move(int direction) {
+    private void move(int direction) {
         // make the character move in the given direction.
         Character.getInstance().horizontalMove(direction);
     }
 
-    public void jump() {
+    private void jump() {
         // make the player jump if possible.
         Character.getInstance().jump(EnvironmentController.onBlock(Character.getInstance()));
     }
 
     // cause the player to fire a bullet
-    public void shoot() {
+    private void shoot() {
         Environment.getInstance().getBullets().add(Character.getInstance().shoot());
     }
 }

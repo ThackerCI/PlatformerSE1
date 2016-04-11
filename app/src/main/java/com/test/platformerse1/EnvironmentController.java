@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/03/16 by Isaiah Thacker
+// Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
 // The EnvironmentController class manipulates the environment and calls the methods from the other
 // controller classes. It can load data from levels into the environment's fields,
@@ -18,17 +18,17 @@ public class EnvironmentController {
     // constant gravity strength
     public static final int GRAVITY = 3;
     // creating a character
-    public static Character player = Character.getInstance();
+    private static final Character player = Character.getInstance();
     // the environment instance
-    public static Environment environment = Environment.getInstance();
+    private static final Environment environment = Environment.getInstance();
     // environment's blocks
-    private static List<Block> blocks = environment.getBlocks();
+    private static final List<Block> blocks = environment.getBlocks();
     // environment's bullets
-    private static List<Bullet> bullets = environment.getBullets();
+    private static final List<Bullet> bullets = environment.getBullets();
     // environment's records
-    private static List<Record> records = environment.getRecords();
+    private static final List<Record> records = environment.getRecords();
     // environment's enemies
-    private static List<Enemy> enemies = environment.getEnemies();
+    private static final List<Enemy> enemies = environment.getEnemies();
 
     // initialize will be used to restart the current level as well as to load a new level
     public static void initialize(Level l, Character c) {
