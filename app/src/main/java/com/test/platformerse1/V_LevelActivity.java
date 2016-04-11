@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -157,8 +158,9 @@ public class V_LevelActivity extends AppCompatActivity {
     // initialize the view for the blocks
     private void initBlocksView() {
         // iterate through the blocks in the environment
-        for (int i = 0; i < environment.getBlocks().size(); ++i) {
-            M_Block tempMBlock = environment.getBlocks().get(i); // get the current block
+        List<M_Block> blocks = environment.getBlocks();
+        for (int i = 0; i < blocks.size(); ++i) {
+            M_Block tempMBlock = blocks.get(i); // get the current block
             // Much of the following code was adapted from principles on stackoverflow
             ImageView imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
             imageView.setImageResource(R.drawable.block);            // set the "block" sprite to it
@@ -187,10 +189,11 @@ public class V_LevelActivity extends AppCompatActivity {
     // update the ImageViews for the bullets
     private void updateBulletsView() {
         // iterate through the bullets in the environment
-        for (int i = 0; i < environment.getBullets().size(); ++i) {
+        List<M_Bullet> bullets = environment.getBullets();
+        for (int i = 0; i < bullets.size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            M_Bullet tempMBullet = environment.getBullets().get(i); // get the current bullet
+            M_Bullet tempMBullet = bullets.get(i); // get the current bullet
             if (tempMBullet.getBulletView() == null) {
                 flag = true;
                 imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
@@ -205,7 +208,7 @@ public class V_LevelActivity extends AppCompatActivity {
             if (tempMBullet.getFlag()) {
                 // destroy its view and remove it from the bullet list
                 imageView.setVisibility(View.INVISIBLE);
-                environment.getBullets().remove(i);
+                bullets.remove(i);
                 --i;
                 continue;
             }
@@ -268,19 +271,20 @@ public class V_LevelActivity extends AppCompatActivity {
 
     // update the character's ImageView
     private void updateCharacterView() {
+        M_Character character = M_Character.getInstance();
         // Much of the following code was adapted from principles on stackoverflow
         // get the dimensions for the sprite and convert them for the device's screen
         ImageView imageView = (ImageView) findViewById(R.id.character_sprite);
 
         int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                M_Character.getInstance().getDimensions().x, getResources().getDisplayMetrics());
+                character.getDimensions().x, getResources().getDisplayMetrics());
         int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                M_Character.getInstance().getDimensions().y, getResources().getDisplayMetrics());
+                character.getDimensions().y, getResources().getDisplayMetrics());
         // get the location of the block and convert the coordinates for the device's screen
         int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                M_Character.getInstance().getLocation().x, getResources().getDisplayMetrics());
+                character.getLocation().x, getResources().getDisplayMetrics());
         int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                M_Character.getInstance().getLocation().y, getResources().getDisplayMetrics());
+                character.getLocation().y, getResources().getDisplayMetrics());
 
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
@@ -292,10 +296,11 @@ public class V_LevelActivity extends AppCompatActivity {
     // update the ImageViews for the enemies
     private void updateEnemyView() {
         // iterate through the enemies in the environment
-        for (int i = 0; i < environment.getEnemies().size(); ++i) {
+        List<M_Enemy> enemies = environment.getEnemies();
+        for (int i = 0; i < enemies.size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            M_Enemy tempMEnemy = environment.getEnemies().get(i); // get the current enemy
+            M_Enemy tempMEnemy = enemies.get(i); // get the current enemy
             if (tempMEnemy.getEnemyView() == null) {
                 flag = true;
                 imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
@@ -310,7 +315,7 @@ public class V_LevelActivity extends AppCompatActivity {
             if (tempMEnemy.getHealth() <= 0) {
                 // destroy its view and remove it from the enemy list
                 imageView.setVisibility(View.INVISIBLE);
-                environment.getEnemies().remove(i);
+                enemies.remove(i);
                 --i;
                 continue;
             }
