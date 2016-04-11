@@ -102,14 +102,17 @@ public class LevelActivity extends AppCompatActivity {
         //delete timeKeeper?
         TextView time = (TextView) findViewById(R.id.current_time);
         levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0; //convert milliseconds to seconds
+        assert time != null;
         time.setVisibility(View.VISIBLE);
         time.setText("Your time for this level is: " + levelTime + " seconds.");
         time.bringToFront();
         // display the congratulatory text and menu button
         TextView textView = (TextView) findViewById(R.id.congrats_text);
+        assert textView != null;
         textView.setVisibility(View.VISIBLE);
         textView.bringToFront();
         Button button = (Button) findViewById(R.id.return_button);
+        assert button != null;
         button.setVisibility(View.VISIBLE);
         button.setClickable(true);
         button.bringToFront();
@@ -174,6 +177,7 @@ public class LevelActivity extends AppCompatActivity {
             // set the margins for the ImageView (i.e. position on the screen)
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout
+            assert RL != null;
             RL.addView(imageView, layoutParams);
 
         }
@@ -222,6 +226,7 @@ public class LevelActivity extends AppCompatActivity {
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout, or update it if it's already there.
             if (flag) {
+                assert RL != null;
                 RL.addView(imageView, layoutParams);
             } else {
                 imageView.setLayoutParams(layoutParams);
@@ -256,6 +261,7 @@ public class LevelActivity extends AppCompatActivity {
         // set the margins for the ImageView (i.e. position on the screen)
         layoutParams.setMargins(newX, newY, 0, 0);
         // add the ImageView to the layout
+        assert RL != null;
         RL.addView(imageView, layoutParams);
 
     }
@@ -279,6 +285,7 @@ public class LevelActivity extends AppCompatActivity {
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
         layoutParams.setMargins(newX, newY, 0, 0);
+        assert imageView != null;
         imageView.setLayoutParams(layoutParams);
     }
 
@@ -324,6 +331,7 @@ public class LevelActivity extends AppCompatActivity {
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout, or update it if it's already there.
             if (flag) {
+                assert RL != null;
                 RL.addView(imageView, layoutParams);
             } else {
                 imageView.setLayoutParams(layoutParams);
