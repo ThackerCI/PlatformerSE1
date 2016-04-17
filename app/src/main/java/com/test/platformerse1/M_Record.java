@@ -1,33 +1,41 @@
 package com.test.platformerse1;
 
 // Author: Olutayo Elelu
-// Last Modified: 4/11/16 by Isaiah Thacker
+// Last Modified: 03/31/16 by John C.  Hale
+// Added music attribute to record
 // Iteration 3
+//03/31/16 Modifications: Added Music file variable
+//Iteration 2
 // The record class defines the records the player may collect within the game environment.
-
 //- Location (Point): Defined by our game mechanics. For now, a point with x and y coordinate. Functions include getLocation and setLocation.
 //- Collect(Boolean): Has the record been collected? Functions include isCollected
 
 import android.graphics.Point;
+import android.media.MediaPlayer;
 
-public class M_Record {
+import java.io.File;
+
+public class Record {
     // the location of the record
     private Point location;
     // has the record been collected?
     private boolean collected;
     // the constant dimensions of all records
-    private final Point dimensions = new Point(20, 20);
+    private final Point dimensions = new Point(30, 30);
+    // the music file unlocked with record
+    private int music;
 
     // Point is given in "grid cell" format for convenience.
-    public M_Record(Point p, boolean c) {
+    public Record(Point p, int m, boolean c) {
         location = p;
-        p.x *= 20;
-        p.y *= 20;
+        p.x *= 30;
+        p.y *= 30;
         collected = c;
+        music = m;
     }
 
     // clone a record
-    public M_Record(M_Record R) {
+    public Record(Record R) {
         this.location = new Point(R.location);
         this.collected = R.collected;
     }
@@ -59,4 +67,10 @@ public class M_Record {
         return dimensions;
     }
 
+    public int getMusic() {
+        return this.music;
+    }
+    public void setMusic(int m) {
+        this.music = m;
+    }
 }

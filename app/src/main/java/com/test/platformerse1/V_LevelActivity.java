@@ -1,15 +1,20 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
-// Iteration 3
-// V_LevelActivity defines the class responsible for displaying the in-game
-// environment, and starts the game controllers running.
+// Last Modified: 4/01/16 by John C. Hale
+//Iteration 3
+//Added music.
+// Iteration 2
+// LevelActivity defines the activity responsible for displaying and running the in-game
+// environment.
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,17 +24,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class V_LevelActivity extends AppCompatActivity {
-    private double levelTime;
+public class LevelActivity extends AppCompatActivity implements Controls.controlListener {
+    double levelTime;
     private Chronometer timeKeeper;
     // set up the game loop timer
-    private final Timer gameLoopTimer = new Timer();
+    private Timer gameLoopTimer = new Timer();
+    // integer used for testing purposes
+    private int value = 0;
     // set up an environment
-    private final M_Environment environment = M_Environment.getInstance();
+    private Environment environment = Environment.getInstance();
     // set up flags for if the level is started and running
     private boolean started = false;
     private boolean running = false;
@@ -37,7 +43,10 @@ public class V_LevelActivity extends AppCompatActivity {
     private int savedLevelInfo;
     // constant is the reciprocal of the framerate
     private final int FRAME_DURATION = 33;
-
+    //Two music libraries, one holds background music, the other holds bonus music
+    musicLibrary bonusMusic = new musicLibrary();
+    musicLibrary backgroundMusic = new musicLibrary();
+    private boolean bonusON = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +79,14 @@ public class V_LevelActivity extends AppCompatActivity {
                 // if the game isn't paused (or stopped for some other reason)
                 if (running) {
                     // run the update function. If the player hasn't reached the goal, update the views
-                    if (!C_EnvironmentController.update()) {
+                    if (!environment.update()) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 updateCharacterView();
                                 updateBulletsView();
                                 updateEnemyView();
+                                updateMusic();
                             }
                         });
                     } // else, return to the main menu
@@ -84,6 +94,7 @@ public class V_LevelActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 displayEndscreen();
 
                             }
@@ -96,24 +107,21 @@ public class V_LevelActivity extends AppCompatActivity {
         gameLoopTimer.schedule(refresh, 500, FRAME_DURATION);
     }
 
-    private void displayEndscreen() {
+    public void displayEndscreen() {
         // game is no longer running
         running = false;
+        musicOff();
         timeKeeper.stop();
-        //delete timeKeeper?
         TextView time = (TextView) findViewById(R.id.current_time);
-        levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0; //convert milliseconds to seconds
-        assert time != null;
+        levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase())/1000.0; //convert milliseconds to seconds
         time.setVisibility(View.VISIBLE);
-        time.setText("Your time for this level is: " + levelTime + " seconds.");
+        time.setText("Your time for this level is: " + levelTime + "seconds.");
         time.bringToFront();
         // display the congratulatory text and menu button
         TextView textView = (TextView) findViewById(R.id.congrats_text);
-        assert textView != null;
         textView.setVisibility(View.VISIBLE);
         textView.bringToFront();
         Button button = (Button) findViewById(R.id.return_button);
-        assert button != null;
         button.setVisibility(View.VISIBLE);
         button.setClickable(true);
         button.bringToFront();
@@ -121,7 +129,7 @@ public class V_LevelActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                V_LevelActivity.this.finish();
+                LevelActivity.this.finish();
             }
         });
     }
@@ -138,17 +146,20 @@ public class V_LevelActivity extends AppCompatActivity {
     // levels are added
     public void initLevel(int i) {
         // load the level and the player character into the environment
-        C_EnvironmentController.initialize(M_LevelVault.levelOne(), M_Character.getInstance());
+        environment.initialize(LevelVault.levelOne(), Environment.player);
         // signal that the level has started
         started = true;
         // initialize the ImageViews
         initView();
         // signal that the level is not paused
         running = true;
+        // Starts background music
+        backgroundMusic.playSong(LevelActivity.this, R.raw.strobe);
+        backgroundMusic.loopMusic();
     }
 
     // initialize the activity's views
-    private void initView() {
+    public void initView() {
         initBlocksView();
         initRecordsView();
         updateEnemyView();
@@ -156,30 +167,28 @@ public class V_LevelActivity extends AppCompatActivity {
     }
 
     // initialize the view for the blocks
-    private void initBlocksView() {
+    public void initBlocksView() {
         // iterate through the blocks in the environment
-        List<M_Block> blocks = environment.getBlocks();
-        for (int i = 0; i < blocks.size(); ++i) {
-            M_Block tempMBlock = blocks.get(i); // get the current block
+        for (int i = 0; i < environment.getBlocks().size(); ++i) {
+            Block tempBlock = environment.getBlocks().get(i); // get the current block
             // Much of the following code was adapted from principles on stackoverflow
-            ImageView imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
+            ImageView imageView = new ImageView(LevelActivity.this); // create a new ImageView
             imageView.setImageResource(R.drawable.block);            // set the "block" sprite to it
             // get the level layout
             RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
             // get the dimensions for the sprite and convert them for the device's screen
             int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMBlock.getDimensions().x, getResources().getDisplayMetrics());
+                    tempBlock.getDimensions().x, getResources().getDisplayMetrics());
             int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMBlock.getDimensions().y, getResources().getDisplayMetrics());
+                    tempBlock.getDimensions().y, getResources().getDisplayMetrics());
             // create new layout parameters for the sprite
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
             // get the location of the block and convert the coordinates for the device's screen
-            int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tempMBlock.getLocation().x, getResources().getDisplayMetrics());
-            int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tempMBlock.getLocation().y, getResources().getDisplayMetrics());
+            int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tempBlock.getLocation().x, getResources().getDisplayMetrics());
+            int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tempBlock.getLocation().y, getResources().getDisplayMetrics());
             // set the margins for the ImageView (i.e. position on the screen)
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout
-            assert RL != null;
             RL.addView(imageView, layoutParams);
 
         }
@@ -187,49 +196,47 @@ public class V_LevelActivity extends AppCompatActivity {
 
 
     // update the ImageViews for the bullets
-    private void updateBulletsView() {
+    public void updateBulletsView() {
         // iterate through the bullets in the environment
-        List<M_Bullet> bullets = environment.getBullets();
-        for (int i = 0; i < bullets.size(); ++i) {
+        for (int i = 0; i < environment.getBullets().size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            M_Bullet tempMBullet = bullets.get(i); // get the current bullet
-            if (tempMBullet.getBulletView() == null) {
+            Bullet tempBullet = environment.getBullets().get(i); // get the current bullet
+            if (tempBullet.getBulletView() == null) {
                 flag = true;
-                imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
-                tempMBullet.setBulletView(imageView); // used for deleting said view on bullet despawn
-                imageView.setImageResource(tempMBullet.getSprite()); // set the bullet's sprite to it
+                imageView = new ImageView(LevelActivity.this); // create a new ImageView
+                tempBullet.setBulletView(imageView); // used for deleting said view on bullet despawn
+                imageView.setImageResource(tempBullet.getSprite()); // set the bullet's sprite to it
             } else {
-                imageView = (ImageView) tempMBullet.getBulletView();
+                imageView = (ImageView) tempBullet.getBulletView();
             }
             // get the level layout
             RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
             // if the bullet is flagged for removal
-            if (tempMBullet.getFlag()) {
+            if (tempBullet.getFlag()) {
                 // destroy its view and remove it from the bullet list
                 imageView.setVisibility(View.INVISIBLE);
-                bullets.remove(i);
+                environment.getBullets().remove(i);
                 --i;
                 continue;
             }
             // Much of the following code was adapted from principles on stackoverflow
             // get the dimensions for the sprite and convert them for the device's screen
             int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMBullet.getDimensions().x, getResources().getDisplayMetrics());
+                    tempBullet.getDimensions().x, getResources().getDisplayMetrics());
             int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMBullet.getDimensions().y, getResources().getDisplayMetrics());
+                    tempBullet.getDimensions().y, getResources().getDisplayMetrics());
             // create new layout parameters for the sprite
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
             // get the location of the block and convert the coordinates for the device's screen
             int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMBullet.getLocation().x, getResources().getDisplayMetrics());
+                    tempBullet.getLocation().x, getResources().getDisplayMetrics());
             int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMBullet.getLocation().y, getResources().getDisplayMetrics());
+                    tempBullet.getLocation().y, getResources().getDisplayMetrics());
             // set the margins for the ImageView (i.e. position on the screen)
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout, or update it if it's already there.
             if (flag) {
-                assert RL != null;
                 RL.addView(imageView, layoutParams);
             } else {
                 imageView.setLayoutParams(layoutParams);
@@ -238,105 +245,100 @@ public class V_LevelActivity extends AppCompatActivity {
     }
 
     // initialize the views for the records.
-    private void initRecordsView() {
+    public void initRecordsView() {
         // TODO: add loop for additional records. Currently just doing the goal, since that's all
         // we have.
-        M_Record tempMRecord = environment.getGoal(); // get the goal record
+        Record tempRecord = environment.getGoal(); // get the goal record
         // Much of the following code was adapted from principles on stackoverflow
-        ImageView imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
-        imageView.setImageResource(R.mipmap.goal_record);            // set the "block" sprite to it
+        ImageView imageView = new ImageView(LevelActivity.this); // create a new ImageView
+        imageView.setImageResource(R.drawable.record);            // set the "block" sprite to it
         // get the level layout
         RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
 
         // get the dimensions for the sprite and convert them for the device's screen
         int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                tempMRecord.getDimensions().x, getResources().getDisplayMetrics());
+                tempRecord.getDimensions().x, getResources().getDisplayMetrics());
         int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                tempMRecord.getDimensions().y, getResources().getDisplayMetrics());
+                tempRecord.getDimensions().y, getResources().getDisplayMetrics());
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
         // get the location of the block and convert the coordinates for the device's screen
         int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                tempMRecord.getLocation().x, getResources().getDisplayMetrics());
+                tempRecord.getLocation().x, getResources().getDisplayMetrics());
         int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                tempMRecord.getLocation().y, getResources().getDisplayMetrics());
+                tempRecord.getLocation().y, getResources().getDisplayMetrics());
 
         // set the margins for the ImageView (i.e. position on the screen)
         layoutParams.setMargins(newX, newY, 0, 0);
         // add the ImageView to the layout
-        assert RL != null;
         RL.addView(imageView, layoutParams);
 
     }
 
     // update the character's ImageView
-    private void updateCharacterView() {
-        M_Character character = M_Character.getInstance();
+    public void updateCharacterView() {
         // Much of the following code was adapted from principles on stackoverflow
         // get the dimensions for the sprite and convert them for the device's screen
         ImageView imageView = (ImageView) findViewById(R.id.character_sprite);
 
         int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                character.getDimensions().x, getResources().getDisplayMetrics());
+                Environment.player.getDimensions().x, getResources().getDisplayMetrics());
         int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                character.getDimensions().y, getResources().getDisplayMetrics());
+                Environment.player.getDimensions().y, getResources().getDisplayMetrics());
         // get the location of the block and convert the coordinates for the device's screen
         int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                character.getLocation().x, getResources().getDisplayMetrics());
+                Environment.player.getLocation().x, getResources().getDisplayMetrics());
         int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                character.getLocation().y, getResources().getDisplayMetrics());
+                Environment.player.getLocation().y, getResources().getDisplayMetrics());
 
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
         layoutParams.setMargins(newX, newY, 0, 0);
-        assert imageView != null;
         imageView.setLayoutParams(layoutParams);
     }
 
     // update the ImageViews for the enemies
-    private void updateEnemyView() {
+    public void updateEnemyView() {
         // iterate through the enemies in the environment
-        List<M_Enemy> enemies = environment.getEnemies();
-        for (int i = 0; i < enemies.size(); ++i) {
+        for (int i = 0; i < environment.getEnemies().size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            M_Enemy tempMEnemy = enemies.get(i); // get the current enemy
-            if (tempMEnemy.getEnemyView() == null) {
+            Enemy tempEnemy = environment.getEnemies().get(i); // get the current enemy
+            if (tempEnemy.getEnemyView() == null) {
                 flag = true;
-                imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
-                tempMEnemy.setEnemyView(imageView); // used for deleting said view on enemy despawn
-                imageView.setImageResource(tempMEnemy.getSprite());          // set the enemy's sprite to it
+                imageView = new ImageView(LevelActivity.this); // create a new ImageView
+                tempEnemy.setEnemyView(imageView); // used for deleting said view on enemy despawn
+                imageView.setImageResource(tempEnemy.getSprite());          // set the enemy's sprite to it
             } else {
-                imageView = (ImageView) tempMEnemy.getEnemyView();
+                imageView = (ImageView) tempEnemy.getEnemyView();
             }
             // get the level layout
             RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
             // if the enemy is out of health
-            if (tempMEnemy.getHealth() <= 0) {
+            if (tempEnemy.getHealth() <= 0) {
                 // destroy its view and remove it from the enemy list
                 imageView.setVisibility(View.INVISIBLE);
-                enemies.remove(i);
+                environment.getEnemies().remove(i);
                 --i;
                 continue;
             }
             // Much of the following code was adapted from principles on stackoverflow
             // get the dimensions for the sprite and convert them for the device's screen
             int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMEnemy.getDimensions().x, getResources().getDisplayMetrics());
+                    tempEnemy.getDimensions().x, getResources().getDisplayMetrics());
             int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMEnemy.getDimensions().y, getResources().getDisplayMetrics());
+                    tempEnemy.getDimensions().y, getResources().getDisplayMetrics());
             // create new layout parameters for the sprite
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
             // get the location of the block and convert the coordinates for the device's screen
             int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMEnemy.getLocation().x, getResources().getDisplayMetrics());
+                    tempEnemy.getLocation().x, getResources().getDisplayMetrics());
             int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    tempMEnemy.getLocation().y, getResources().getDisplayMetrics());
+                    tempEnemy.getLocation().y, getResources().getDisplayMetrics());
             // set the margins for the ImageView (i.e. position on the screen)
             layoutParams.setMargins(newX, newY, 0, 0);
             // add the ImageView to the layout, or update it if it's already there.
             if (flag) {
-                assert RL != null;
                 RL.addView(imageView, layoutParams);
             } else {
                 imageView.setLayoutParams(layoutParams);
@@ -344,9 +346,72 @@ public class V_LevelActivity extends AppCompatActivity {
         }
     }
 
-    public void setMeter(Chronometer timeKeeper) {
+    // set the character moving in the given direction
+    public void move(int direction) {
+        // make the character move in the given direction.
+        Environment.player.horizontalMove(direction);
+    }
+
+    public void jump() {
+        // make the player jump if possible.
+        Environment.player.jump(Environment.onBlock(Environment.player));
+    }
+
+    // cause the player to fire a bullet
+    public void shoot() {
+        environment.getBullets().add(Environment.player.shoot());
+    }
+
+    public void setMeter(Chronometer timeKeeper)
+    {
         this.timeKeeper = timeKeeper;
         this.timeKeeper.start();
     }
+
+    // stop the character's movement
+    public void stopCharacter() {
+        Environment.player.setVelocityX(0);
+    }
+
+    public void updateMusic() {
+        if (bonusON) {
+            if (15000 - bonusMusic.getSongTime() < 0) {
+                bonusMusic.stopSong();
+                bonusMusic.releaseSong();
+                backgroundMusic.playSong();
+                bonusON = false;
+            }
+        }
+    }
+    public void musicOff() {
+        if (bonusON) {
+            bonusMusic.stopSong();
+            bonusMusic.releaseSong();
+            bonusMusic.releaseSong();
+        }
+        else {
+            backgroundMusic.stopSong();
+            backgroundMusic.releaseSong();
+            bonusMusic.releaseSong();
+        }
+    }
+
+    public void playSong() {
+        if (environment.player.getBonus() > 0) {
+            if (bonusON == false) {
+                bonusMusic.playSong(LevelActivity.this, bonusMusic.getCurrentSong());
+                bonusON = true;
+                environment.player.setBonus(environment.player.getBonus()-1);
+            }
+        }
+    }
+    public void previousSong() {
+        bonusMusic.previousSong();
+    }
+    public void nextSong() {
+        bonusMusic.nextSong();
+    }
+
+
 
 }

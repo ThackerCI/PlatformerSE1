@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class C_Controls extends Fragment {
     public C_Controls() {
@@ -34,6 +36,9 @@ public class C_Controls extends Fragment {
         Button rightButton = (Button) view.findViewById(R.id.right_button);
         Button jumpButton = (Button) view.findViewById(R.id.jump_button);
         Button shootButton = (Button) view.findViewById(R.id.shoot_button);
+        Button previousSong = (Button) view.findViewById(R.id.previous_song);
+        Button nextSong = (Button) view.findViewById(R.id.next_song);
+        Button playSong = (Button) view.findViewById(R.id.play_song);
         Chronometer timeKeeper = (Chronometer) view.findViewById(R.id.timeValues);
         timeKeeper.setBase(SystemClock.elapsedRealtime());
 
