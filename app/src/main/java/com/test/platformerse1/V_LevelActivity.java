@@ -6,7 +6,9 @@ package com.test.platformerse1;
 // V_LevelActivity defines the class responsible for displaying the in-game
 // environment, and starts the game controllers running.
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,13 +20,27 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class V_LevelActivity extends AppCompatActivity {
+    private final String file_name = "rb_data_file";
     private double levelTime;
+    private int levelScore;
+    M_HighScores highScores = getHighScores(file_name); //FIXME: If left uncommented, program will crash after selecting level 1.
     private Chronometer timeKeeper;
     // set up the game loop timer
     private final Timer gameLoopTimer = new Timer();
@@ -37,6 +53,11 @@ public class V_LevelActivity extends AppCompatActivity {
     private int savedLevelInfo;
     // constant is the reciprocal of the framerate
     private final int FRAME_DURATION = 33;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +74,20 @@ public class V_LevelActivity extends AppCompatActivity {
         savedLevelInfo = (int) savedStuff.getSerializable("levelID");
 
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
 
         // initialize the level in question
         initLevel(savedLevelInfo);
-
 
         // define a TimerTask "refresh" to be called every time the game updates
         TimerTask refresh = new TimerTask() {
@@ -94,21 +120,38 @@ public class V_LevelActivity extends AppCompatActivity {
         };
         // set refresh rate to once every 1/30th second, starting .5 seconds after creation.
         gameLoopTimer.schedule(refresh, 500, FRAME_DURATION);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "V_Level Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.test.platformerse1/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     private void displayEndscreen() {
         // game is no longer running
         running = false;
         timeKeeper.stop();
-        //delete timeKeeper?
         TextView time = (TextView) findViewById(R.id.current_time);
         levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0; //convert milliseconds to seconds
+        //levelScore = highScores.determineScore(levelTime);
+        //if compareTimes(){} store new time.
         assert time != null;
         time.setVisibility(View.VISIBLE);
         time.setText("Your time for this level is: " + levelTime + " seconds.");
         time.bringToFront();
         // display the congratulatory text and menu button
         TextView textView = (TextView) findViewById(R.id.congrats_text);
+        //writeScore(5); //only here for testing
+        //String buff = readScores(); //only here for testing
+        //textView.setText(buff); //only here for testing
         assert textView != null;
         textView.setVisibility(View.VISIBLE);
         textView.bringToFront();
@@ -131,7 +174,23 @@ public class V_LevelActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "V_Level Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.test.platformerse1/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
         gameLoopTimer.cancel();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.disconnect();
     }
 
     // initialize level i (currently set to always initialize level 1. Will be altered when new
@@ -349,4 +408,36 @@ public class V_LevelActivity extends AppCompatActivity {
         this.timeKeeper.start();
     }
 
+    public M_HighScores getHighScores(String file_name)
+    {
+        M_HighScores retObj;
+        FileOutputStream fos = null;
+        FileInputStream fis = null;
+        try {
+            fos = openFileOutput(file_name,Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fis = openFileInput(file_name);
+            InputStreamReader inputStreamReader = new InputStreamReader(fis);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        retObj = new M_HighScores(fis,fos);
+        return retObj;
+    }
+    /*String filename = "myfile";
+String string = "Hello world!";
+FileOutputStream outputStream;
+
+try {
+  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+  outputStream.write(string.getBytes());
+  outputStream.close();
+} catch (Exception e) {
+  e.printStackTrace();
+}*/
 }

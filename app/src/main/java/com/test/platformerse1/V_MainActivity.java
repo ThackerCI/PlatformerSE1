@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.io.File;
+import java.io.IOException;
+
 // Author: Isaiah Thacker
 // Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 3
@@ -12,14 +15,19 @@ import android.view.View;
 
 public class V_MainActivity extends AppCompatActivity {
 
+    private final String filename = "rb_data_file";
 
     // standard onCreate function
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        File file = new File(getFilesDir(), filename); //added
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
