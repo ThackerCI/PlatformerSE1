@@ -36,9 +36,9 @@ public class C_Controls extends Fragment {
         Button rightButton = (Button) view.findViewById(R.id.right_button);
         Button jumpButton = (Button) view.findViewById(R.id.jump_button);
         Button shootButton = (Button) view.findViewById(R.id.shoot_button);
-        Button previousSong = (Button) view.findViewById(R.id.previous_song);
-        Button nextSong = (Button) view.findViewById(R.id.next_song);
-        Button playSong = (Button) view.findViewById(R.id.play_song);
+        Button previousPowerUp = (Button) view.findViewById(R.id.previous_song);
+        Button nextPowerUp = (Button) view.findViewById(R.id.next_song);
+        Button applyPowerUp = (Button) view.findViewById(R.id.play_song);
         Chronometer timeKeeper = (Chronometer) view.findViewById(R.id.timeValues);
         timeKeeper.setBase(SystemClock.elapsedRealtime());
 
@@ -88,8 +88,42 @@ public class C_Controls extends Fragment {
             }
         });
 
+        nextPowerUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    nextPower();
+                }
+
+                return true;
+            }
+        });
+
+        previousPowerUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    previousPower();
+                }
+                return true;
+            }
+            });
+
         return view;
     }
+
+    //Select a Power-Up
+    private void selectPower() {
+        //?? Is C_EnvironmentController where this should be applied, or LevelActivity?
+       C_EnvironmentController.applyPower( M_CollectedRecords.getInstance().getCurrentPowerUp());
+
+    }
+
+    //Scroll to previous Power-Up
+    private void previousPower() {M_CollectedRecords.getInstance().previousPowerUp();}
+
+    //Scroll to next Power-Up
+    private void nextPower() {M_CollectedRecords.getInstance().nextPowerUp();}
 
     // stop the character's movement
     private void stopCharacter() {

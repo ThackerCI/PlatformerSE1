@@ -1,10 +1,10 @@
 package com.test.platformerse1;
 
 // Author: Olutayo Elelu
-// Last Modified: 03/31/16 by John C.  Hale
+// Last Modified: 04/17/16 by John C.  Hale
 // Added music attribute to record
-// Iteration 3
-//03/31/16 Modifications: Added Music file variable
+// Iteration 4
+//04/16/16 Modifications: Added Music and power-ups associated with the record
 //Iteration 2
 // The record class defines the records the player may collect within the game environment.
 //- Location (Point): Defined by our game mechanics. For now, a point with x and y coordinate. Functions include getLocation and setLocation.
@@ -15,7 +15,7 @@ import android.media.MediaPlayer;
 
 import java.io.File;
 
-public class Record {
+public class M_Record {
     // the location of the record
     private Point location;
     // has the record been collected?
@@ -24,18 +24,35 @@ public class Record {
     private final Point dimensions = new Point(30, 30);
     // the music file unlocked with record
     private int music;
+    //
+    private int strength;
+    //
+    private int immunity;
+    //
+    private int defense;
+    //
+    private int speed;
+
+
+
 
     // Point is given in "grid cell" format for convenience.
-    public Record(Point p, int m, boolean c) {
+    public M_Record(Point p, int m, boolean c, int strength, int defense,
+                  int speed, int immunity) {
         location = p;
         p.x *= 30;
         p.y *= 30;
         collected = c;
         music = m;
+        this.strength = strength;
+        this.immunity = immunity;
+        this.defense = defense;
+        this.speed = speed;
+
     }
 
     // clone a record
-    public Record(Record R) {
+    public M_Record(M_Record R) {
         this.location = new Point(R.location);
         this.collected = R.collected;
     }
@@ -70,7 +87,9 @@ public class Record {
     public int getMusic() {
         return this.music;
     }
-    public void setMusic(int m) {
-        this.music = m;
+
+    public int[] getPowerUps() {
+        int[] powerUps = {this.strength,this.defense,this.speed,this.immunity};
+        return powerUps;
     }
 }

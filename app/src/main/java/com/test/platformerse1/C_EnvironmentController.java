@@ -16,17 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Environment {
+public class C_EnvironmentController {
     // blocks in the environment
-    private List<Block> blocks;
+    private List<M_Block> blocks;
     // non-goal records in the environment
-    private List<Record> records;
+    private List<M_Record> records;
     // bullets
-    private List<Bullet> bullets;
+    private List<M_Bullet> bullets;
     // the goal record
-    private Record goal;
+    private M_Record goal;
     // the enemies
-    private List<Enemy> enemies;
+    private List<M_Enemy> enemies;
     // integer used for various loops
     private int i;
     // iterationFlag used for a variety of purposes
@@ -37,37 +37,37 @@ public class Environment {
     private final Point blockDimensions = new Point(30, 30);
 
     // The instance of Environment (Singleton design pattern)
-    private static Environment instance;
+    private static C_EnvironmentController instance;
 
     // creating a test character
-    public static Character player = Character.getInstance();
+    public static M_Character player = M_Character.getInstance();
 
 
-    private Environment() {
+    private C_EnvironmentController() {
         blocks = new ArrayList<>();
         records = new ArrayList<>();
         bullets = new ArrayList<>();
         enemies = new ArrayList<>();
     }
 
-    public static Environment getInstance() {
+    public static C_EnvironmentController getInstance() {
         if (instance == null) {
-            instance = new Environment();
+            instance = new C_EnvironmentController();
         }
         return instance;
     }
 
     // addBullet(b) adds bullet b to the current environment.
-    public void addBullet(Bullet b) {
+    public void addBullet(M_Bullet b) {
         this.bullets.add(b);
     }
 
     // initialize will be used to restart the current level as well as to load a new level
-    public void initialize(Level l, Character c) {
+    public void initialize(M_Level l, M_Character c) {
         blocks.clear();                              // remove all current blocks from this list
-        blocks.addAll(l.getBlocks());                // add all of the blocks from the level to this list
+        blocks.addAll(l.getMBlocks());                // add all of the blocks from the level to this list
         records.clear();                             // remove all current records from this list
-        records.addAll(l.getRecords());              // add all of the records from the level to this list
+        records.addAll(l.getMRecords());              // add all of the records from the level to this list
         bullets.clear();                             // remove all bullets from this list
         goal = l.getGoal();                          // set the goal record
         enemies.addAll(l.getEnemies());              // add all of the enemies from the level to this list
@@ -83,14 +83,14 @@ public class Environment {
         updateBullets();
         updateCharacter();
         updateRecords();
-        EnemyController.updateEnemies();
+         C_EnemyController.updateEnemies();
         return iterationFlag;
     }
 
     private void updateBullets() {
         for (i = 0; i < this.bullets.size(); ++i) {                 // iterate through all bullets
             iterationFlag = false;                                  // reset the flag
-            Bullet tempBullet = this.bullets.get(i);
+            M_Bullet tempBullet = this.bullets.get(i);
             Point tempLoc = new Point(tempBullet.getLocation());    // get the bullet's current location
             Point tempDims = new Point(tempBullet.getDimensions()); // get the bullet's dimensions
             int j;
@@ -109,7 +109,7 @@ public class Environment {
                     }
                 }
                 for (j = 0; j < this.blocks.size(); ++j) {              // iterate through the environment's blocks
-                    Block curBlock = this.blocks.get(j);                // get the current block
+                    M_Block curBlock = this.blocks.get(j);                // get the current block
                     if (boxIntersect(tempLoc, tempDims, curBlock.getLocation(), curBlock.getDimensions())) {// if this bullet is
                         // hitting a block
                         tempBullet.setFlag(true);                       // flag it for removal
@@ -130,7 +130,7 @@ public class Environment {
     // Currently, updateRecords(playerChar) throws the iteration flag if character playerChar is
     // intersecting the goal record.
     private void updateRecords() {
-        Character playerChar = Character.getInstance();
+        M_Character playerChar = M_Character.getInstance();
 //    for (i = 0; i < this.records.size(); ++i){                 // iterate through all records. WILL BE ADDED WHEN
 //                                                               // WE ADD MORE RECORDS
 //    }
@@ -151,14 +151,14 @@ public class Environment {
     // cause the player to move into a block
     // If this condition is not satisfied, playerChar's vertical velocity is set to zero.
     private void updateCharacter() {
-        Character playerChar = Character.getInstance();
+        M_Character playerChar = M_Character.getInstance();
         // load the character's current location into a temp variable
         Point tempLoc = new Point(playerChar.getLocation().x, playerChar.getLocation().y);
         // move the temp variable horizontally according to the character's velocity
         tempLoc.set(tempLoc.x + playerChar.getVelocity().x, tempLoc.y);
         // Iterate through all blocks, seeing if this movement would cause playerChar to intersect the block
         for (i = 0; i < this.getBlocks().size(); ++i) {
-            Block tempBlock = this.getBlocks().get(i);
+            M_Block tempBlock = this.getBlocks().get(i);
             // if a block would intersect playerChar, move the temp location back and reduce
             // playerChar's horizontal velocity to zero.
             // Also, break.
@@ -172,7 +172,7 @@ public class Environment {
         tempLoc.offset(0, playerChar.getVelocity().y);
         // Iterate through all blocks, seeing if this movement would cause playerChar to intersect the block
         for (i = 0; i < this.getBlocks().size(); ++i) {
-            Block tempBlock = this.getBlocks().get(i);
+            M_Block tempBlock = this.getBlocks().get(i);
             // if a block would intersect playerChar, move the temp location back and reduce playerChar's vertical velocity to zero.
             // Also, break.
             if (boxIntersect(tempLoc, playerChar.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
@@ -199,27 +199,27 @@ public class Environment {
 
 
     // getGoal() returns the goal record in the current environment.
-    public Record getGoal() {
+    public M_Record getGoal() {
         return this.goal;
     }
 
     // getBullets() returns the list of bullets in the current environment.
-    public List<Bullet> getBullets() {
+    public List<M_Bullet> getBullets() {
         return this.bullets;
     }
 
     // getRecords() returns the list of records in the current environment.
-    public List<Record> getRecords() {
+    public List<M_Record> getRecords() {
         return this.records;
     }
 
     // getBlocks() returns the list of blocks in the current environment.
-    public List<Block> getBlocks() {
+    public List<M_Block> getBlocks() {
         return this.blocks;
     }
 
     // getEnemies() returns the list of blocks in the current environment.
-    public List<Enemy> getEnemies() {
+    public List<M_Enemy> getEnemies() {
         return this.enemies;
     }
 
@@ -233,13 +233,13 @@ public class Environment {
     }
 
     // onBlock(entity) returns true if character entity is standing on a block, and false otherwise
-    public static boolean onBlock(Entity entity) {
+    public static boolean onBlock(M_Entity entity) {
         Point tempLoc = new Point(entity.getLocation());
-        List<Block> blocks = Environment.getInstance().getBlocks();
+        List<M_Block> blocks = C_EnvironmentController.getInstance().getBlocks();
         tempLoc.offset(0, GRAVITY); // suppose the character falls
         // Iterate through all blocks, seeing if this movement would cause entity to intersect the block
         for (int i = 0; i < blocks.size(); ++i) {
-            Block tempBlock = blocks.get(i);
+            M_Block tempBlock = blocks.get(i);
             // if one of the blocks WOULD intersect, return true
             if (boxIntersect(tempLoc, entity.getDimensions(), tempBlock.getLocation(), tempBlock.getDimensions())) {
                 return true;

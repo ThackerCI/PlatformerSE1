@@ -27,7 +27,7 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LevelActivity extends AppCompatActivity implements Controls.controlListener {
+public class V_LevelActivity extends AppCompatActivity implements C_Controls.controlListener {
     double levelTime;
     private Chronometer timeKeeper;
     // set up the game loop timer
@@ -35,7 +35,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     // integer used for testing purposes
     private int value = 0;
     // set up an environment
-    private Environment environment = Environment.getInstance();
+    private C_EnvironmentController environment = C_EnvironmentController.getInstance();
     // set up flags for if the level is started and running
     private boolean started = false;
     private boolean running = false;
@@ -43,9 +43,8 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     private int savedLevelInfo;
     // constant is the reciprocal of the framerate
     private final int FRAME_DURATION = 33;
-    //Two music libraries, one holds background music, the other holds bonus music
-    musicLibrary bonusMusic = new musicLibrary();
-    musicLibrary backgroundMusic = new musicLibrary();
+
+    M_CollectedRecords bonusLibrary;
     private boolean bonusON = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +85,6 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
                                 updateCharacterView();
                                 updateBulletsView();
                                 updateEnemyView();
-                                updateMusic();
                             }
                         });
                     } // else, return to the main menu
@@ -110,7 +108,6 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     public void displayEndscreen() {
         // game is no longer running
         running = false;
-        musicOff();
         timeKeeper.stop();
         TextView time = (TextView) findViewById(R.id.current_time);
         levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase())/1000.0; //convert milliseconds to seconds
@@ -129,7 +126,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LevelActivity.this.finish();
+                V_LevelActivity.this.finish();
             }
         });
     }
@@ -146,7 +143,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     // levels are added
     public void initLevel(int i) {
         // load the level and the player character into the environment
-        environment.initialize(LevelVault.levelOne(), Environment.player);
+        environment.initialize(LevelVault.levelOne(), C_EnvironmentController.player);
         // signal that the level has started
         started = true;
         // initialize the ImageViews
@@ -154,8 +151,7 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
         // signal that the level is not paused
         running = true;
         // Starts background music
-        backgroundMusic.playSong(LevelActivity.this, R.raw.strobe);
-        backgroundMusic.loopMusic();
+
     }
 
     // initialize the activity's views
@@ -170,9 +166,9 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     public void initBlocksView() {
         // iterate through the blocks in the environment
         for (int i = 0; i < environment.getBlocks().size(); ++i) {
-            Block tempBlock = environment.getBlocks().get(i); // get the current block
+            M_Block tempBlock = environment.getBlocks().get(i); // get the current block
             // Much of the following code was adapted from principles on stackoverflow
-            ImageView imageView = new ImageView(LevelActivity.this); // create a new ImageView
+            ImageView imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
             imageView.setImageResource(R.drawable.block);            // set the "block" sprite to it
             // get the level layout
             RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
@@ -201,10 +197,10 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
         for (int i = 0; i < environment.getBullets().size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            Bullet tempBullet = environment.getBullets().get(i); // get the current bullet
+            M_Bullet tempBullet = environment.getBullets().get(i); // get the current bullet
             if (tempBullet.getBulletView() == null) {
                 flag = true;
-                imageView = new ImageView(LevelActivity.this); // create a new ImageView
+                imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
                 tempBullet.setBulletView(imageView); // used for deleting said view on bullet despawn
                 imageView.setImageResource(tempBullet.getSprite()); // set the bullet's sprite to it
             } else {
@@ -248,9 +244,9 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     public void initRecordsView() {
         // TODO: add loop for additional records. Currently just doing the goal, since that's all
         // we have.
-        Record tempRecord = environment.getGoal(); // get the goal record
+        M_Record tempRecord = environment.getGoal(); // get the goal record
         // Much of the following code was adapted from principles on stackoverflow
-        ImageView imageView = new ImageView(LevelActivity.this); // create a new ImageView
+        ImageView imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
         imageView.setImageResource(R.drawable.record);            // set the "block" sprite to it
         // get the level layout
         RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
@@ -282,14 +278,14 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
         ImageView imageView = (ImageView) findViewById(R.id.character_sprite);
 
         int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Environment.player.getDimensions().x, getResources().getDisplayMetrics());
+                C_EnvironmentController.player.getDimensions().x, getResources().getDisplayMetrics());
         int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Environment.player.getDimensions().y, getResources().getDisplayMetrics());
+                C_EnvironmentController.player.getDimensions().y, getResources().getDisplayMetrics());
         // get the location of the block and convert the coordinates for the device's screen
         int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Environment.player.getLocation().x, getResources().getDisplayMetrics());
+                C_EnvironmentController.player.getLocation().x, getResources().getDisplayMetrics());
         int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                Environment.player.getLocation().y, getResources().getDisplayMetrics());
+                C_EnvironmentController.player.getLocation().y, getResources().getDisplayMetrics());
 
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
@@ -303,10 +299,10 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
         for (int i = 0; i < environment.getEnemies().size(); ++i) {
             boolean flag = false;
             ImageView imageView;
-            Enemy tempEnemy = environment.getEnemies().get(i); // get the current enemy
+            M_Enemy tempEnemy = environment.getEnemies().get(i); // get the current enemy
             if (tempEnemy.getEnemyView() == null) {
                 flag = true;
-                imageView = new ImageView(LevelActivity.this); // create a new ImageView
+                imageView = new ImageView(V_LevelActivity.this); // create a new ImageView
                 tempEnemy.setEnemyView(imageView); // used for deleting said view on enemy despawn
                 imageView.setImageResource(tempEnemy.getSprite());          // set the enemy's sprite to it
             } else {
@@ -349,17 +345,17 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
     // set the character moving in the given direction
     public void move(int direction) {
         // make the character move in the given direction.
-        Environment.player.horizontalMove(direction);
+        C_EnvironmentController.player.horizontalMove(direction);
     }
 
     public void jump() {
         // make the player jump if possible.
-        Environment.player.jump(Environment.onBlock(Environment.player));
+        C_EnvironmentController.player.jump(C_EnvironmentController.onBlock(C_EnvironmentController.player));
     }
 
     // cause the player to fire a bullet
     public void shoot() {
-        environment.getBullets().add(Environment.player.shoot());
+        environment.getBullets().add(C_EnvironmentController.player.shoot());
     }
 
     public void setMeter(Chronometer timeKeeper)
@@ -370,48 +366,8 @@ public class LevelActivity extends AppCompatActivity implements Controls.control
 
     // stop the character's movement
     public void stopCharacter() {
-        Environment.player.setVelocityX(0);
+        C_EnvironmentController.player.setVelocityX(0);
     }
-
-    public void updateMusic() {
-        if (bonusON) {
-            if (15000 - bonusMusic.getSongTime() < 0) {
-                bonusMusic.stopSong();
-                bonusMusic.releaseSong();
-                backgroundMusic.playSong();
-                bonusON = false;
-            }
-        }
-    }
-    public void musicOff() {
-        if (bonusON) {
-            bonusMusic.stopSong();
-            bonusMusic.releaseSong();
-            bonusMusic.releaseSong();
-        }
-        else {
-            backgroundMusic.stopSong();
-            backgroundMusic.releaseSong();
-            bonusMusic.releaseSong();
-        }
-    }
-
-    public void playSong() {
-        if (environment.player.getBonus() > 0) {
-            if (bonusON == false) {
-                bonusMusic.playSong(LevelActivity.this, bonusMusic.getCurrentSong());
-                bonusON = true;
-                environment.player.setBonus(environment.player.getBonus()-1);
-            }
-        }
-    }
-    public void previousSong() {
-        bonusMusic.previousSong();
-    }
-    public void nextSong() {
-        bonusMusic.nextSong();
-    }
-
 
 
 }

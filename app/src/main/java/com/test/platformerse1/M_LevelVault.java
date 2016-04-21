@@ -17,7 +17,7 @@ public class M_LevelVault {
     // defining level one
     public static M_Level levelOne() {
         List<M_Block> blocks1 = blocksOne();
-        M_Record goal1 = new M_Record(new Point(26, 3), false);
+        M_Record goal1 = new M_Record(new Point(26, 3),R.raw.baewolf ,false,2,2,2,2);
         List<M_Enemy> enemies1 = enemiesOne();
         Point starting1 = new Point(20, 140);
 
