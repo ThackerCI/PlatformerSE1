@@ -119,6 +119,8 @@ public class C_Controls extends Fragment {
 
     }
 
+
+
     //Scroll to previous Power-Up
     private void previousPower() {M_CollectedRecords.getInstance().previousPowerUp();}
 
