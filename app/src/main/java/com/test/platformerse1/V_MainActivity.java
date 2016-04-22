@@ -15,14 +15,14 @@ import java.io.IOException;
 
 public class V_MainActivity extends AppCompatActivity {
 
-    private final String filename = "rb_data_file";
+    private final String file_name = "rb_data_file";
 
     // standard onCreate function
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        File file = new File(getFilesDir(), filename); //added
+        File file = new File(getFilesDir(), file_name); //added
         try {
             file.createNewFile();
         } catch (IOException e) {

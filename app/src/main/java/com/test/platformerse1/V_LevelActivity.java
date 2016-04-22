@@ -27,9 +27,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -421,7 +419,7 @@ public class V_LevelActivity extends AppCompatActivity {
 
         try {
             fis = openFileInput(file_name);
-            InputStreamReader inputStreamReader = new InputStreamReader(fis);
+            //InputStreamReader inputStreamReader = new InputStreamReader(fis);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
