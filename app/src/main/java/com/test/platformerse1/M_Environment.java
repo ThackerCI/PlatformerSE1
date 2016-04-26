@@ -15,25 +15,31 @@ public class M_Environment {
     private final List<M_Block> blocks;
     // non-goal records in the environment
     private final List<M_Record> records;
-    // bullets
-    private final List<M_Bullet> bullets;
     // the goal record
     private M_Record goal;
+    // bullets
+    private final List<M_Bullet> bullets;
+    // popup triggers
+    private final List<M_PopupTrigger> popups;
     // the enemies
     private final List<M_Enemy> enemies;
+    // whether or not the world is paused
+    private boolean paused;
+    // the fragment which will be used for popups
+    private V_PopupFragment popupFragment;
 
     // The instance of M_Environment (Singleton design pattern)
     private static M_Environment instance;
-
-
 
     private M_Environment() {
         blocks = new ArrayList<>();
         records = new ArrayList<>();
         bullets = new ArrayList<>();
+        popups = new ArrayList<>();
         enemies = new ArrayList<>();
-    }
 
+        paused = true;
+    }
 
     // getInstance for singleton design pattern
     public static M_Environment getInstance() {
@@ -49,7 +55,7 @@ public class M_Environment {
     }
 
     // setGoal(R) sets the environment's goal record to record R
-    public void setGoal(M_Record R){
+    public void setGoal(M_Record R) {
         this.goal = R;
     }
 
@@ -73,8 +79,31 @@ public class M_Environment {
         return this.blocks;
     }
 
-    // getEnemies() returns the list of blocks in the current environment.
+    // getEnemies() returns the list of enemies in the current environment.
     public List<M_Enemy> getEnemies() {
         return this.enemies;
+    }
+
+    // getPopups() returns the list of popup triggers in the current environment.
+    public List<M_PopupTrigger> getPopups() {
+        return this.popups;
+    }
+
+    // is the game paused?
+    public boolean isPaused() {
+        return paused;
+    }
+
+    // pause the game
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+
+    public void setPopupFragment(V_PopupFragment popupFragment) {
+        this.popupFragment = popupFragment;
+    }
+
+    public V_PopupFragment getPopupFragment() {
+        return this.popupFragment;
     }
 }

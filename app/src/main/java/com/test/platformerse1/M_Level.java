@@ -4,7 +4,7 @@ package com.test.platformerse1;
 // Last Modified: 4/11/16 by Isaiah Thacker
 // Iteration 2
 // The M_Level class defines objects which record data on the various levels that can be played in
-// the game (list of MBlocks in the level, MRecords in the level, and character starting point.)
+// the game (list of blocks in the level, records in the level, character starting point, etc.)
 
 import android.graphics.Point;
 
@@ -19,15 +19,18 @@ public class M_Level {
     private final M_Record goal;
     // list of enemies in the level
     private final List<M_Enemy> enemies;
+    // list of popup triggers in the level
+    private final List<M_PopupTrigger> popups;
     // the level's starting point
     private final Point startingPoint;
 
     // constructor
-    public M_Level(List<M_Block> b, List<M_Record> r, M_Record g, List<M_Enemy> e, Point s) {
+    public M_Level(List<M_Block> b, List<M_Record> r, M_Record g, List<M_Enemy> e, List<M_PopupTrigger> p, Point s) {
         this.MBlocks = b;
         this.MRecords = r;
         this.goal = g;
         this.enemies = e;
+        this.popups = p;
         this.startingPoint = s;
     }
 
@@ -51,4 +54,7 @@ public class M_Level {
         return this.enemies;
     }
 
+    public List<M_PopupTrigger> getPopups() {
+        return this.popups;
+    }
 }

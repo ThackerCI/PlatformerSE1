@@ -31,9 +31,8 @@ public class V_LevelActivity extends AppCompatActivity {
     private final Timer gameLoopTimer = new Timer();
     // set up an environment
     private final M_Environment environment = M_Environment.getInstance();
-    // set up flags for if the level is started and running
+    // set up flag for if the level is started
     private boolean started = false;
-    private boolean running = false;
     // integer used for getting the desired level's ID
     private int savedLevelInfo;
     // constant is the reciprocal of the framerate
@@ -52,8 +51,6 @@ public class V_LevelActivity extends AppCompatActivity {
         Bundle savedStuff = getIntent().getExtras();
         // get the level and character info from the bundle
         savedLevelInfo = (int) savedStuff.getSerializable("levelID");
-
-
     }
 
     @Override
@@ -63,13 +60,12 @@ public class V_LevelActivity extends AppCompatActivity {
         // initialize the level in question
         initLevel(savedLevelInfo);
 
-
         // define a TimerTask "refresh" to be called every time the game updates
         TimerTask refresh = new TimerTask() {
             @Override
             public void run() {
                 // if the game isn't paused (or stopped for some other reason)
-                if (running) {
+                if (!environment.isPaused()) {
                     // run the update function. If the player hasn't reached the goal, update the views
                     if (!C_EnvironmentController.update()) {
                         runOnUiThread(new Runnable() {
@@ -86,7 +82,6 @@ public class V_LevelActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 displayEndscreen();
-
                             }
                         });
                     }
@@ -99,7 +94,7 @@ public class V_LevelActivity extends AppCompatActivity {
 
     private void displayEndscreen() {
         // game is no longer running
-        running = false;
+        environment.setPaused(true);
         timeKeeper.stop();
         //delete timeKeeper?
         TextView time = (TextView) findViewById(R.id.current_time);
@@ -144,8 +139,8 @@ public class V_LevelActivity extends AppCompatActivity {
         started = true;
         // initialize the ImageViews
         initView();
-        // signal that the level is not paused
-        running = true;
+        // unpause the level
+        environment.setPaused(false);
     }
 
     // initialize the activity's views
@@ -162,13 +157,8 @@ public class V_LevelActivity extends AppCompatActivity {
         List<M_Block> blocks = environment.getBlocks();
         for (int i = 0; i < blocks.size(); ++i) {
             M_Block tempMBlock = blocks.get(i); // get the current block
-            // Much of the following code was adapted from principles on stackoverflow
-            ImageView imageView = new ImageView(V_LevelActivity.this); // Create a new ImageView
-            imageView.setImageResource(R.drawable.block);            // Set the "block" sprite to it
-            tempMBlock.setImageView(imageView);                      // Associate the view with
-            // the block.
-
-
+            initObjView(tempMBlock);            // initialize a view for it.
+            updateWorldObjectView(tempMBlock, false);               // add it to the level layout
         }
     }
 
@@ -181,20 +171,17 @@ public class V_LevelActivity extends AppCompatActivity {
             boolean alreadyDisplayed = true;
 
             M_Bullet tempMBullet = bullets.get(i); // get the current bullet
-            ImageView imageView = tempMBullet.getImageView(); // get its view
+            ImageView imageView = tempMBullet.getImageView();       // get its view
 
-            if (tempMBullet.getBulletView() == null) {              // if the view is null
+            if (imageView == null) {                                // if the view is null
                 alreadyDisplayed = false;                           // it hasn't yet been displayed
-                imageView = new ImageView(V_LevelActivity.this);    // create a new ImageView
-                imageView.setImageResource(tempMBullet.getSprite());    // set the bullet's sprite
-                tempMBullet.setBulletView(imageView);               // associate the view with the
-                // bullet
+                imageView = initObjView(tempMBullet);               // initialize a view
             }
 
             // if the bullet is flagged for removal
             if (tempMBullet.getFlag()) {
                 // destroy its view and remove it from the bullet list
-                imageView.setVisibility(View.INVISIBLE);
+                imageView.setVisibility(View.GONE);
                 bullets.remove(i);
                 --i;
                 continue;
@@ -219,9 +206,7 @@ public class V_LevelActivity extends AppCompatActivity {
         // get the character
         M_Character character = M_Character.getInstance();
         // if the character doesn't yet have its image view associated with it, remedy that.
-        if (character.getImageView() == null) {
-            character.setImageView((ImageView) findViewById(R.id.character_sprite));
-        }
+        character.setImageView((ImageView) findViewById(R.id.character_sprite));
         // update the character's view. It already exists in the relative layout.
         updateWorldObjectView(character, true);
     }
@@ -305,5 +290,4 @@ public class V_LevelActivity extends AppCompatActivity {
         this.timeKeeper = timeKeeper;
         this.timeKeeper.start();
     }
-
 }

@@ -29,16 +29,21 @@ public class C_EnvironmentController {
     private static final List<M_Record> records = environment.getRecords();
     // environment's enemies
     private static final List<M_Enemy> enemies = environment.getEnemies();
+    // environment's popup triggers
+    private static final List<M_PopupTrigger> popups = environment.getPopups();
 
     // initialize will be used to restart the current level as well as to load a new level
     public static void initialize(M_Level l, M_Character c) {
         blocks.clear();                              // remove all current blocks from this list
-        blocks.addAll(l.getMBlocks());                // add all of the blocks from the level to this list
+        blocks.addAll(l.getMBlocks());               // add all of the blocks from the level to this list
         records.clear();                             // remove all current records from this list
-        records.addAll(l.getMRecords());              // add all of the records from the level to this list
+        records.addAll(l.getMRecords());             // add all of the records from the level to this list
         bullets.clear();                             // remove all bullets from this list
-        environment.setGoal(l.getGoal());                          // set the goal record
+        environment.setGoal(l.getGoal());            // set the goal record
+        enemies.clear();                             // remove all enemies from this list
         enemies.addAll(l.getEnemies());              // add all of the enemies from the level to this list
+        popups.clear();                              // remove all popups from this list
+        popups.addAll(l.getPopups());                // add all of the popups from the level to this list
         Point tempPoint = new Point(l.getStartingPoint().x, l.getStartingPoint().y);
         c.reset();                                   // initialize the character's stats
         c.setLocation(tempPoint);                    // initialize the player's starting point
@@ -52,36 +57,37 @@ public class C_EnvironmentController {
         updateCharacter();
         updateRecords();
         C_EnemyController.updateEnemies();
+        C_PopupController.updatePopups();
         return iterationFlag;
     }
 
     private static void updateBullets() {
-        for (int i = 0; i < bullets.size(); ++i) {                 // iterate through all bullets
-            iterationFlag = false;                                  // reset the flag
+        for (int i = 0; i < bullets.size(); ++i) {                   // iterate through all bullets
+            iterationFlag = false;                                   // reset the flag
             M_Bullet tempMBullet = bullets.get(i);
             Point tempLoc = new Point(tempMBullet.getLocation());    // get the bullet's current location
             Point tempDims = new Point(tempMBullet.getDimensions()); // get the bullet's dimensions
             if (tempMBullet.getTimeRemaining() == 0) {               // if the bullet has expired
                 tempMBullet.setFlag(true);                           // flag it for removal
-                iterationFlag = true;                               // keep the now nonexistent bullet from moving
-                break;                                              // no need to check the other blocks
+                iterationFlag = true;                                // keep the now nonexistent bullet from moving
+                break;                                               // no need to check the other blocks
             } else {
                 if (tempMBullet.isEnemyBullet()) {                   // if it's an enemy bullet
                     // if it's intersecting the character
                     if (boxIntersect(tempLoc, tempDims, player.getLocation(), player.getDimensions())) {
                         player.damage(tempMBullet.getPower());       // damage the character
                         tempMBullet.setFlag(true);                   // flag the bullet for removal
-                        iterationFlag = true;                       // keep the now nonexistent bullet from moving
-                        break;                                      // no need to check the blocks
+                        iterationFlag = true;                        // keep the now nonexistent bullet from moving
+                        break;                                       // no need to check the blocks
                     }
                 }
-                for (int j = 0; j < blocks.size(); ++j) {              // iterate through the environment's blocks
-                    M_Block curMBlock = blocks.get(j);                // get the current block
-                    if (boxIntersect(tempLoc, tempDims, curMBlock.getLocation(), curMBlock.getDimensions())) {// if this bullet is
-                        // hitting a block
-                        tempMBullet.setFlag(true);                       // flag it for removal
-                        iterationFlag = true;                           // keep the now nonexistent bullet from moving
-                        break;                                          // no need to check the other blocks
+                for (int j = 0; j < blocks.size(); ++j) {            // iterate through the environment's blocks
+                    M_Block curMBlock = blocks.get(j);               // get the current block
+                    // if this bullet is hitting a block
+                    if (boxIntersect(tempLoc, tempDims, curMBlock.getLocation(), curMBlock.getDimensions())) {
+                        tempMBullet.setFlag(true);                   // flag it for removal
+                        iterationFlag = true;                        // keep the now nonexistent bullet from moving
+                        break;                                       // no need to check the other blocks
                     }
                 }
             }

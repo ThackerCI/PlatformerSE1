@@ -18,10 +18,11 @@ public class M_Record extends M_WorldObject {
 
     // Point is given in "grid cell" format for convenience.
     public M_Record(Point p, boolean c) {
-        setLocation(p);
         p.x *= 20;
         p.y *= 20;
+        setLocation(p);
         collected = c;
+        setDimensions(RECORD_DIMS);
         setSprite(R.mipmap.goal_record);
     }
 

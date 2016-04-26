@@ -19,9 +19,10 @@ public class M_LevelVault {
         List<M_Block> blocks1 = blocksOne();
         M_Record goal1 = new M_Record(new Point(26, 3), false);
         List<M_Enemy> enemies1 = enemiesOne();
+        List<M_PopupTrigger> popups1 = popupsOne();
         Point starting1 = new Point(20, 140);
 
-        return new M_Level(blocks1, new ArrayList<M_Record>(), goal1, enemies1, starting1);
+        return new M_Level(blocks1, new ArrayList<M_Record>(), goal1, enemies1, popups1, starting1);
     }
 
     // defining the blocks of level one
@@ -97,5 +98,11 @@ public class M_LevelVault {
         turret.setShotInterval(45);
         enemies1.add(turret);
         return enemies1;
+    }
+
+    private static ArrayList<M_PopupTrigger> popupsOne(){
+        ArrayList<M_PopupTrigger> popups1 = new ArrayList<>();
+        popups1.add(new M_PopupTrigger(new Point(22,20), new Point(20,20), "Congrats!", "The System is Working!"));
+        return popups1;
     }
 }

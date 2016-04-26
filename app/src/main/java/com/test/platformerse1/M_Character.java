@@ -69,7 +69,6 @@ public class M_Character extends M_Entity {
      * Get/Set Functions For Various Variables
      ************************************/
 
-
     public int getShotCoolDown() {
         return shotCoolDown;
     }
