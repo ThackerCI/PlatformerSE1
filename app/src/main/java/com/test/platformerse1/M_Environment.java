@@ -25,6 +25,13 @@ public class M_Environment {
     private final List<M_Enemy> enemies;
     // whether or not the world is paused
     private boolean paused;
+    // whether the popup is displayed
+    private boolean showingPopup = false;
+    // title of the popup box
+    private String popupTitle = "";
+    // text in the popup box
+    private String popupText = "";
+
     // the fragment which will be used for popups
     private V_PopupFragment popupFragment;
 
@@ -105,5 +112,31 @@ public class M_Environment {
 
     public V_PopupFragment getPopupFragment() {
         return this.popupFragment;
+    }
+
+    // the following getters and setters are auto-generated
+
+    public boolean isShowingPopup() {
+        return showingPopup;
+    }
+
+    public void setShowingPopup(boolean showingPopup) {
+        this.showingPopup = showingPopup;
+    }
+
+    public String getPopupTitle() {
+        return popupTitle;
+    }
+
+    public void setPopupTitle(String popupTitle) {
+        this.popupTitle = popupTitle;
+    }
+
+    public String getPopupText() {
+        return popupText;
+    }
+
+    public void setPopupText(String popupText) {
+        this.popupText = popupText;
     }
 }

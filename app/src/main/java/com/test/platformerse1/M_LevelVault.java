@@ -100,9 +100,9 @@ public class M_LevelVault {
         return enemies1;
     }
 
-    private static ArrayList<M_PopupTrigger> popupsOne(){
+    private static ArrayList<M_PopupTrigger> popupsOne() {
         ArrayList<M_PopupTrigger> popups1 = new ArrayList<>();
-        popups1.add(new M_PopupTrigger(new Point(22,20), new Point(20,20), "Congrats!", "The System is Working!"));
+        popups1.add(new M_PopupTrigger(new Point(60, 140), new Point(20, 20), "Congrats!", "The System is Working!"));
         return popups1;
     }
 }

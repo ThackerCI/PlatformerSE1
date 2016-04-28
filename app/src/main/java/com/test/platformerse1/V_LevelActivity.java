@@ -6,6 +6,7 @@ package com.test.platformerse1;
 // V_LevelActivity defines the class responsible for displaying the in-game
 // environment, and starts the game controllers running.
 
+import android.app.Fragment;
 import android.content.pm.ActivityInfo;
 import android.media.Image;
 import android.os.SystemClock;
@@ -38,6 +39,8 @@ public class V_LevelActivity extends AppCompatActivity {
     // constant is the reciprocal of the framerate
     private final int FRAME_DURATION = 33;
 
+    V_PopupFragment popupFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,8 @@ public class V_LevelActivity extends AppCompatActivity {
         Bundle savedStuff = getIntent().getExtras();
         // get the level and character info from the bundle
         savedLevelInfo = (int) savedStuff.getSerializable("levelID");
+
+        popupFragment = (V_PopupFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_popup);
     }
 
     @Override
@@ -74,6 +79,7 @@ public class V_LevelActivity extends AppCompatActivity {
                                 updateCharacterView();
                                 updateBulletsView();
                                 updateEnemyView();
+                                updatePopupView();
                             }
                         });
                     } // else, return to the main menu
@@ -289,5 +295,19 @@ public class V_LevelActivity extends AppCompatActivity {
     public void setMeter(Chronometer timeKeeper) {
         this.timeKeeper = timeKeeper;
         this.timeKeeper.start();
+    }
+
+    private void updatePopupView() {
+        if (environment.isShowingPopup()) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    View fragmentFrame = findViewById(R.id.fragment_popup);
+                    assert fragmentFrame != null;
+                    fragmentFrame.setVisibility(View.VISIBLE);
+                    popupFragment.displayMessage(environment.getPopupTitle(), environment.getPopupText());
+                }
+            });
+        }
     }
 }

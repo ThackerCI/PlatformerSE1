@@ -27,11 +27,11 @@ public class M_PopupTrigger extends M_WorldObject {
         M_Environment environment = M_Environment.getInstance();
         // pause the environment
         environment.setPaused(true);
-        // get the popup fragment
-
-        V_PopupFragment popupFragment = environment.getPopupFragment();
-
-        // display the message
-        popupFragment.displayMessage(title, message);
+        // set the popup title
+        environment.setPopupTitle(this.title);
+        // set the popup message
+        environment.setPopupText(this.message);
+        // set the popup to display
+        environment.setShowingPopup(true);
     }
 }

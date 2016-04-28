@@ -3,9 +3,8 @@
     android:id="@+id/popup_frame"
     android:layout_width="100dp"
     android:layout_height="40dp"
-    android:background="@android:color/holo_blue_bright"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
+    android:background="@android:color/background_light"
+    android:visibility="gone"
     tools:context="com.test.platformerse1.V_PopupFragment">
 
     <RelativeLayout
@@ -18,18 +17,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:textSize="30sp" />
+            android:layout_margin="10dp"
+            android:text="Placeholder Title"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/popup_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:textSize="24sp" />
+            android:layout_margin="10dp"
+            android:text="Placeholder Message goes here my friend"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/popup_button"
@@ -37,8 +40,6 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:text="Okay"
             android:textSize="20sp" />
 

@@ -18,7 +18,6 @@ import android.widget.TextView;
 public class V_PopupFragment extends Fragment {
 
     public V_PopupFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -46,9 +45,10 @@ public class V_PopupFragment extends Fragment {
     }
 
     public void displayMessage(String title, String message) {
-        // make the frame visible
+        // make the frame visible and bring it to the front
         assert getView() != null;
         View popupFrame = getView().findViewById(R.id.fragment_popup);
+        popupFrame.bringToFront();
         popupFrame.setVisibility(View.VISIBLE);
 
         // set the title and message for the popup
@@ -64,6 +64,7 @@ public class V_PopupFragment extends Fragment {
         assert getView() != null;
         View houdini = getView().findViewById(R.id.fragment_popup);     // get the popup fragment
         houdini.setVisibility(View.GONE);                               // make it disappear!
+        M_Environment.getInstance().setShowingPopup(false);
         M_Environment.getInstance().setPaused(false);                   // unpause the game
     }
 }
