@@ -38,7 +38,7 @@ public class V_LevelActivity extends AppCompatActivity {
     private final String file_name = "rb_data_file";
     private double levelTime;
     private int levelScore;
-    M_HighScores highScores = getHighScores(file_name); //FIXME: If left uncommented, program will crash after selecting level 1.
+    M_HighScores highScores;
     private Chronometer timeKeeper;
     // set up the game loop timer
     private final Timer gameLoopTimer = new Timer();
@@ -61,6 +61,8 @@ public class V_LevelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
+
+        highScores = getHighScores(file_name);
 
         // go fullscreen and force landscape orientation
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
