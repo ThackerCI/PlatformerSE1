@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
-// Iteration 3
+// Last Modified: 4/28/16 by Isaiah Thacker
+// Iteration 4
 // Records the layouts for all of the levels in the game.
 
 public class M_LevelVault {
@@ -22,7 +22,7 @@ public class M_LevelVault {
         List<M_PopupTrigger> popups1 = popupsOne();
         Point starting1 = new Point(20, 140);
 
-        return new M_Level(blocks1, new ArrayList<M_Record>(), goal1, enemies1, popups1, starting1);
+        return new M_Level(1, blocks1, new ArrayList<M_Record>(), goal1, enemies1, popups1, starting1);
     }
 
     // defining the blocks of level one

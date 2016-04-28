@@ -2,8 +2,8 @@ package com.test.platformerse1;
 
 
 // Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
-// Iteration 3
+// Last Modified: 4/28/16 by Isaiah Thacker
+// Iteration 4
 // The C_Controls class defines the fragment used for the player to control the character, and defines
 // the methods used by that fragment.
 
@@ -34,6 +34,7 @@ public class C_Controls extends Fragment {
         Button rightButton = (Button) view.findViewById(R.id.right_button);
         Button jumpButton = (Button) view.findViewById(R.id.jump_button);
         Button shootButton = (Button) view.findViewById(R.id.shoot_button);
+        Button pauseButton = (Button) view.findViewById(R.id.pause_button);
         Chronometer timeKeeper = (Chronometer) view.findViewById(R.id.timeValues);
         timeKeeper.setBase(SystemClock.elapsedRealtime());
 
@@ -83,6 +84,16 @@ public class C_Controls extends Fragment {
             }
         });
 
+        pauseButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    ((V_LevelActivity) getActivity()).displayPauseMenu();
+                }
+                return true;
+            }
+        });
+
         return view;
     }
 
@@ -106,5 +117,11 @@ public class C_Controls extends Fragment {
     // cause the player to fire a bullet
     private void shoot() {
         M_Environment.getInstance().getBullets().add(M_Character.getInstance().shoot());
+    }
+
+    private void pauseGame(){
+        C_EnvironmentController.pauseGame();
+        V_LevelActivity levelActivity = (V_LevelActivity) getActivity();
+        levelActivity.displayPauseMenu();
     }
 }

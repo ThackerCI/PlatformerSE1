@@ -1,7 +1,7 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
+// Last Modified: 4/28/16 by Isaiah Thacker
 // Iteration 3
 // The M_Environment class defines objects which contain all data on the current gameplay environment
 // (level layout, character locations, and so forth.)
@@ -11,6 +11,8 @@ import java.util.List;
 
 
 public class M_Environment {
+    // id of the currently active level
+    private int currentLevel;
     // blocks in the environment
     private final List<M_Block> blocks;
     // non-goal records in the environment
@@ -31,9 +33,6 @@ public class M_Environment {
     private String popupTitle = "";
     // text in the popup box
     private String popupText = "";
-
-    // the fragment which will be used for popups
-    private V_PopupFragment popupFragment;
 
     // The instance of M_Environment (Singleton design pattern)
     private static M_Environment instance;
@@ -106,14 +105,6 @@ public class M_Environment {
         this.paused = paused;
     }
 
-    public void setPopupFragment(V_PopupFragment popupFragment) {
-        this.popupFragment = popupFragment;
-    }
-
-    public V_PopupFragment getPopupFragment() {
-        return this.popupFragment;
-    }
-
     // the following getters and setters are auto-generated
 
     public boolean isShowingPopup() {
@@ -138,5 +129,13 @@ public class M_Environment {
 
     public void setPopupText(String popupText) {
         this.popupText = popupText;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
     }
 }

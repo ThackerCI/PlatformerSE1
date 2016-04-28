@@ -6,8 +6,8 @@ import android.graphics.Rect;
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
-// Iteration 3
+// Last Modified: 4/28/16 by Isaiah Thacker
+// Iteration 4
 // The C_EnvironmentController class manipulates the environment and calls the methods from the other
 // controller classes. It can load data from levels into the environment's fields,
 // and update the environment's current state based on the rules of the game.
@@ -34,6 +34,7 @@ public class C_EnvironmentController {
 
     // initialize will be used to restart the current level as well as to load a new level
     public static void initialize(M_Level l, M_Character c) {
+        environment.setCurrentLevel(l.getId());
         blocks.clear();                              // remove all current blocks from this list
         blocks.addAll(l.getMBlocks());               // add all of the blocks from the level to this list
         records.clear();                             // remove all current records from this list
@@ -195,5 +196,13 @@ public class C_EnvironmentController {
         }
         // if mEntity wouldn't intersect a block, return false.
         return false;
+    }
+
+    public static void pauseGame(){
+        environment.setPaused(true);
+    }
+
+    public static void unpause(){
+        environment.setPaused(false);
     }
 }

@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/25/16 by Isaiah Thacker
+// Last Modified: 4/28/16 by Isaiah Thacker
 // Iteration 4
 // V_PopupFragment describes the fragment that will display temporary popup messages to the user.
 public class V_PopupFragment extends Fragment {
@@ -27,10 +27,6 @@ public class V_PopupFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_popup, container, false);
 
         Button dismissButton = (Button) view.findViewById(R.id.popup_button);
-
-        // give the environment access to this fragment
-        M_Environment environment = M_Environment.getInstance();
-        environment.setPopupFragment(V_PopupFragment.this);
 
         // set the buttons to execute the proper functions on touch.
         dismissButton.setOnTouchListener(new View.OnTouchListener() {

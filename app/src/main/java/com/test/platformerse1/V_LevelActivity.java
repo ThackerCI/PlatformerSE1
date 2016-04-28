@@ -1,7 +1,7 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
+// Last Modified: 4/28/16 by Isaiah Thacker
 // Iteration 3
 // V_LevelActivity defines the class responsible for displaying the in-game
 // environment, and starts the game controllers running.
@@ -150,7 +150,7 @@ public class V_LevelActivity extends AppCompatActivity {
     }
 
     // initialize the activity's views
-    private void initView() {
+    public void initView() {
         initBlocksView();
         initRecordsView();
         updateEnemyView();
@@ -309,5 +309,27 @@ public class V_LevelActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    // displayPauseMenu() pauses the game and displays the pause menu.
+    public void displayPauseMenu() {
+        // pause the game
+        C_EnvironmentController.pauseGame();
+        // get the pause fragment and toggle its visibility
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                View pauseFrame = findViewById(R.id.fragment_pause);
+                assert pauseFrame != null;
+                pauseFrame.bringToFront();
+                pauseFrame.setVisibility(View.VISIBLE);
+
+            }
+        });
+        timeKeeper.stop();
+    }
+
+    public Chronometer getTimeKeeper(){
+        return this.timeKeeper;
     }
 }
