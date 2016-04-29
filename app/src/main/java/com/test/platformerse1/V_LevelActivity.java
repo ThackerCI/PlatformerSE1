@@ -140,7 +140,7 @@ public class V_LevelActivity extends AppCompatActivity {
     // levels are added
     public void initLevel(int i) {
         // load the level and the player character into the environment
-        C_EnvironmentController.initialize(M_LevelVault.levelOne(), M_Character.getInstance());
+        C_EnvironmentController.initialize(M_LevelVault.getLevel(i), M_Character.getInstance());
         // signal that the level has started
         started = true;
         // initialize the ImageViews

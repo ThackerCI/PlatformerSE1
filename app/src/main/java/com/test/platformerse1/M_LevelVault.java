@@ -14,15 +14,30 @@ public class M_LevelVault {
     // constant dimensions of blocks. May be set to vary later
     private static final Point blockDimensions = new Point(20, 20);
 
+    // getLevel(i) returns the level with ID i
+    public static M_Level getLevel(int ID) {
+        switch (ID) {
+            case 0:
+                return levelZero();
+            default:
+                return levelOne();
+        }
+    }
+
+    public static M_Level levelZero(){
+        return levelOne();
+    }
+
     // defining level one
     public static M_Level levelOne() {
+        int id = 1;
         List<M_Block> blocks1 = blocksOne();
         M_Record goal1 = new M_Record(new Point(26, 3), false);
         List<M_Enemy> enemies1 = enemiesOne();
         List<M_PopupTrigger> popups1 = popupsOne();
         Point starting1 = new Point(20, 140);
 
-        return new M_Level(1, blocks1, new ArrayList<M_Record>(), goal1, enemies1, popups1, starting1);
+        return new M_Level(id, blocks1, new ArrayList<M_Record>(), goal1, enemies1, popups1, starting1);
     }
 
     // defining the blocks of level one
@@ -101,8 +116,9 @@ public class M_LevelVault {
     }
 
     private static ArrayList<M_PopupTrigger> popupsOne() {
-        ArrayList<M_PopupTrigger> popups1 = new ArrayList<>();
-        popups1.add(new M_PopupTrigger(new Point(60, 140), new Point(20, 20), "Congrats!", "The System is Working!"));
-        return popups1;
+        return new ArrayList<>();
+//        ArrayList<M_PopupTrigger> popups1 = new ArrayList<>();
+//        popups1.add(new M_PopupTrigger(new Point(60, 140), new Point(20, 20), "Congrats!", "The System is Working!"));
+//        return popups1;
     }
 }
