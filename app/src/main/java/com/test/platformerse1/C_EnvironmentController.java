@@ -133,12 +133,11 @@ public class C_EnvironmentController {
         // Iterate through all blocks, seeing if this movement would cause playerChar to intersect the block
         for (int i = 0; i < blocks.size(); ++i) {
             M_Block tempMBlock = blocks.get(i);
-            // if a block would intersect playerChar, move the temp location back and reduce
-            // playerChar's horizontal velocity to zero.
+            // if a block would intersect playerChar, move the temp location back. Keep velocity as
+            // it is.
             // Also, break.
             if (boxIntersect(tempLoc, playerChar.getDimensions(), tempMBlock.getLocation(), tempMBlock.getDimensions())) {
                 tempLoc.set(tempLoc.x - playerChar.getVelocity().x, tempLoc.y);
-                playerChar.setVelocityX(0);
                 break;
             }
         }
