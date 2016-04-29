@@ -22,11 +22,17 @@ public class
         setContentView(R.layout.activity_main);
     }
 
+    // start0 is called when the "Tutorial" button is pressed
+    public void start0(View view){
+        start(0);
+    }
 
-    // start is called when the "M_Level 1" button is pressed
-    public void start(View view) {
-        int levelID = 1;
+    // start1 is called when the "Level 1" button is pressed
+    public void start1(View view) {
+        start(1);
+    }
 
+    public void start(int levelID){
         // create a new intent
         Intent levelIntent = new Intent(V_MainActivity.this, V_LevelActivity.class);
         levelIntent.putExtra("levelID", levelID); // put the level ID in the intent

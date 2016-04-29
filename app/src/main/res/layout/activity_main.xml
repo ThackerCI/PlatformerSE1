@@ -11,29 +11,31 @@
     tools:context=".V_MainActivity">
 
     <TextView
+        android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Record Breaker!"
-        android:textSize="40sp"/>
-
+        android:textSize="40sp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/tutorial_button"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:id="@+id/level1"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/title_text"
+        android:layout_centerHorizontal="true"
+        android:onClick="start0"
+        android:text="Tutorial"
+        android:textSize="40sp" />
+
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tutorial_button"
+        android:layout_centerHorizontal="true"
+        android:onClick="start1"
         android:text="@string/level_one"
-        android:textSize="40sp"
-        android:onClick="start"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/level1"
-        android:text="Tutorial_Level"
-        android:textSize="40sp"
-        android:onClick="startTut"/>
+        android:textSize="40sp" />
 
 </RelativeLayout>
