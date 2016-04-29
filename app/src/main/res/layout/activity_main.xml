@@ -22,9 +22,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/level1"
         android:layout_centerInParent="true"
         android:text="@string/level_one"
         android:textSize="40sp"
         android:onClick="start"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/level1"
+        android:text="Tutorial_Level"
+        android:textSize="40sp"
+        android:onClick="startTut"/>
 
 </RelativeLayout>

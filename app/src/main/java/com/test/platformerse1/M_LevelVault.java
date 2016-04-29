@@ -7,6 +7,7 @@ import java.util.List;
 
 // Author: Isaiah Thacker
 // Last Modified: 4/28/16 by Isaiah Thacker
+// Edit by Tayo Elelu 04.28  - adding in additional tutorial level
 // Iteration 4
 // Records the layouts for all of the levels in the game.
 
@@ -15,7 +16,8 @@ public class M_LevelVault {
     private static final Point blockDimensions = new Point(20, 20);
 
     // defining level one
-    public static M_Level levelOne() {
+    public static M_Level levelOne()
+    {
         List<M_Block> blocks1 = blocksOne();
         M_Record goal1 = new M_Record(new Point(26, 3), false);
         List<M_Enemy> enemies1 = enemiesOne();
@@ -23,6 +25,83 @@ public class M_LevelVault {
         Point starting1 = new Point(20, 140);
 
         return new M_Level(1, blocks1, new ArrayList<M_Record>(), goal1, enemies1, popups1, starting1);
+    }
+
+    //Tutorial Level
+    public static M_Level tutorial()
+    {
+        List<M_Block> blocksTut = blocksTutorial();
+        M_Record goal1 = new M_Record(new Point(24, 2), false);
+
+        int id = 0;
+
+        List<M_Enemy> enemies1 = enemiesTutorial();
+        List<M_PopupTrigger> popups1 = popupsOne();
+
+        Point startTut = new Point(40, 100);
+
+        return new M_Level(0, blocksTut, new ArrayList<M_Record>(), goal1, enemies1, popups1, startTut);
+    }
+
+    //blocks for tutorial level
+    private static ArrayList<M_Block> blocksTutorial() {
+        ArrayList<M_Block> blocksTut = new ArrayList<>();
+
+        //vertical column
+        blocksTut.add(new M_Block(new Point(1, 1), blockDimensions));
+        blocksTut.add(new M_Block(new Point(1, 2), blockDimensions));
+        blocksTut.add(new M_Block(new Point(1, 3), blockDimensions));
+        blocksTut.add(new M_Block(new Point(1, 4), blockDimensions));
+        blocksTut.add(new M_Block(new Point(1, 5), blockDimensions));
+        blocksTut.add(new M_Block(new Point(1, 6), blockDimensions));
+
+        //Horizontal
+        blocksTut.add(new M_Block(new Point(2, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(3, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(4, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(5, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(6, 6), blockDimensions));
+
+        //Pit 1
+        blocksTut.add(new M_Block(new Point(6, 7), blockDimensions));
+        blocksTut.add(new M_Block(new Point(6, 8), blockDimensions));
+        blocksTut.add(new M_Block(new Point(7, 8), blockDimensions));
+        blocksTut.add(new M_Block(new Point(8, 8), blockDimensions));
+        blocksTut.add(new M_Block(new Point(8, 7), blockDimensions));
+
+        blocksTut.add(new M_Block(new Point(8, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(9, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(10, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(11, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(12, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(13, 6), blockDimensions));
+
+
+        //Pit 2
+        blocksTut.add(new M_Block(new Point(13, 7), blockDimensions));
+        blocksTut.add(new M_Block(new Point(14, 7), blockDimensions));
+        blocksTut.add(new M_Block(new Point(15, 7), blockDimensions));
+        blocksTut.add(new M_Block(new Point(16, 7), blockDimensions));
+        blocksTut.add(new M_Block(new Point(17, 7), blockDimensions));
+        blocksTut.add(new M_Block(new Point(18, 7), blockDimensions));
+        blocksTut.add(new M_Block(new Point(19, 7), blockDimensions));
+
+
+        blocksTut.add(new M_Block(new Point(19, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(20, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(21, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(22, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(23, 6), blockDimensions));
+
+        //vertical column
+        blocksTut.add(new M_Block(new Point(24, 6), blockDimensions));
+        blocksTut.add(new M_Block(new Point(24, 5), blockDimensions));
+        blocksTut.add(new M_Block(new Point(24, 4), blockDimensions));
+        blocksTut.add(new M_Block(new Point(24, 3), blockDimensions));
+        blocksTut.add(new M_Block(new Point(24, 2), blockDimensions));
+        blocksTut.add(new M_Block(new Point(24, 1), blockDimensions));
+
+        return blocksTut;
     }
 
     // defining the blocks of level one
@@ -100,9 +179,32 @@ public class M_LevelVault {
         return enemies1;
     }
 
+    //Enemy for tutorial level
+    private static ArrayList<M_Enemy> enemiesTutorial()
+    {
+        ArrayList<M_Enemy> enemies1 = new ArrayList<>();
+        enemies1.add(new M_Enemy(new Point(16, 6), 1, new Point(20, 20), 0, 1, 1, 5, R.drawable.crawler, 0));
+
+        return enemies1;
+    }
+
     private static ArrayList<M_PopupTrigger> popupsOne() {
         ArrayList<M_PopupTrigger> popups1 = new ArrayList<>();
         popups1.add(new M_PopupTrigger(new Point(60, 140), new Point(20, 20), "Congrats!", "The System is Working!"));
         return popups1;
     }
+
+
+    private static ArrayList<M_PopupTrigger> popupsTutorial()
+    {
+        ArrayList<M_PopupTrigger> popupsTut = new ArrayList<>();
+        popupsTut.add(new M_PopupTrigger(new Point(40, 100), new Point(20, 20), "Tutorial", "Press L/R to move left or right."));
+        popupsTut.add(new M_PopupTrigger(new Point(80, 100), new Point(20, 20), "Tutorial", "Great! Keep on going."));
+        popupsTut.add(new M_PopupTrigger(new Point(120, 100), new Point(20, 20), "Tutorial", "Press ^ to jump over the pit."));
+        popupsTut.add(new M_PopupTrigger(new Point(240, 100), new Point(20, 20), "Tutorial", "Press X to shoot bullets into the enemy. Kill it!"));
+        popupsTut.add(new M_PopupTrigger(new Point(400, 100), new Point(20, 20), "Tutorial", "Jump into the record to complete the level."));
+
+        return popupsTut;
+    }
+
 }
