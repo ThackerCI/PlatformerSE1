@@ -19,14 +19,10 @@ public class M_LevelVault {
     public static M_Level getLevel(int ID) {
         switch (ID) {
             case 0:
-                return levelZero();
+                return tutorial();
             default:
                 return levelOne();
         }
-    }
-
-    public static M_Level levelZero(){
-        return levelOne();
     }
 
     // defining level one
@@ -45,12 +41,12 @@ public class M_LevelVault {
     public static M_Level tutorial()
     {
         List<M_Block> blocksTut = blocksTutorial();
-        M_Record goal1 = new M_Record(new Point(24, 2), false);
+        M_Record goal1 = new M_Record(new Point(22, 5), false);
 
         int id = 0;
 
         List<M_Enemy> enemies1 = enemiesTutorial();
-        List<M_PopupTrigger> popups1 = popupsOne();
+        List<M_PopupTrigger> popups1 = popupsTutorial();
 
         Point startTut = new Point(40, 100);
 

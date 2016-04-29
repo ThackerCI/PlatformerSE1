@@ -38,14 +38,4 @@ public class
         levelIntent.putExtra("levelID", levelID); // put the level ID in the intent
         startActivity(levelIntent);  // go to levelActivity with intent levelIntent
     }
-
-    //start for tutorial level
-    public void startTut(View view) {
-        int levelID = 0;
-
-        // create a new intent
-        Intent levelIntent = new Intent(V_MainActivity.this, V_LevelActivity.class);
-        levelIntent.putExtra("levelID", levelID); // put the level ID in the intent
-        startActivity(levelIntent);  // go to levelActivity with intent levelIntent
-    }
 }
