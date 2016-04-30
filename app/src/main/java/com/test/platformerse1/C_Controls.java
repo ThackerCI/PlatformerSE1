@@ -2,7 +2,7 @@ package com.test.platformerse1;
 
 
 // Author: Isaiah Thacker
-// Last Modified: 4/28/16 by Isaiah Thacker
+// Last Modified: 4/30/16 by Isaiah Thacker
 // Iteration 4
 // The C_Controls class defines the fragment used for the player to control the character, and defines
 // the methods used by that fragment.
@@ -106,20 +106,20 @@ public class C_Controls extends Fragment {
     // set the character moving in the given direction
     private void move(int direction) {
         // make the character move in the given direction.
-        M_Character.getInstance().horizontalMove(direction);
+        C_CharacterController.horizontalMove(direction);
     }
 
     private void jump() {
         // make the player jump if possible.
-        M_Character.getInstance().jump(C_EnvironmentController.onBlock(M_Character.getInstance()));
+        C_CharacterController.jump(C_EnvironmentController.onBlock(M_Character.getInstance()));
     }
 
     // cause the player to fire a bullet
     private void shoot() {
-        M_Environment.getInstance().getBullets().add(M_Character.getInstance().shoot());
+        M_Environment.getInstance().getBullets().add(C_CharacterController.shoot());
     }
 
-    private void pauseGame(){
+    private void pauseGame() {
         C_EnvironmentController.pauseGame();
         V_LevelActivity levelActivity = (V_LevelActivity) getActivity();
         levelActivity.displayPauseMenu();

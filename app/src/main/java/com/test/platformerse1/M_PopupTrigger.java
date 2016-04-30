@@ -23,15 +23,11 @@ public class M_PopupTrigger extends M_WorldObject {
         this.message = message;
     }
 
-    public void popup() {
-        M_Environment environment = M_Environment.getInstance();
-        // pause the environment
-        environment.setPaused(true);
-        // set the popup title
-        environment.setPopupTitle(this.title);
-        // set the popup message
-        environment.setPopupText(this.message);
-        // set the popup to display
-        environment.setShowingPopup(true);
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getMessage() {
+        return this.message;
     }
 }

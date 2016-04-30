@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/28/16 by Isaiah Thacker
+// Last Modified: 4/30/16 by Isaiah Thacker
 // Iteration 4
 // V_PopupFragment describes the fragment that will display temporary popup messages to the user.
 public class V_PopupFragment extends Fragment {
@@ -61,6 +61,6 @@ public class V_PopupFragment extends Fragment {
         View houdini = getView().findViewById(R.id.fragment_popup);     // get the popup fragment
         houdini.setVisibility(View.GONE);                               // make it disappear!
         M_Environment.getInstance().setShowingPopup(false);
-        M_Environment.getInstance().setPaused(false);                   // unpause the game
+        C_EnvironmentController.unpause();                              // unpause the game
     }
 }

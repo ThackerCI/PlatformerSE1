@@ -6,12 +6,11 @@ package com.test.platformerse1;
 // V_LevelActivity defines the class responsible for displaying the in-game
 // environment, and starts the game controllers running.
 
-import android.app.Fragment;
 import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -65,25 +64,26 @@ public class V_LevelActivity extends AppCompatActivity {
         // initialize the level in question
         initLevel(savedLevelInfo);
 
+
         // define a TimerTask "refresh" to be called every time the game updates
         TimerTask refresh = new TimerTask() {
             @Override
             public void run() {
                 // if the game isn't paused (or stopped for some other reason)
                 if (!environment.isPaused()) {
-                    // run the update function. If the player hasn't reached the goal, update the views
-                    if (!C_EnvironmentController.update()) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateCharacterView();
-                                updateBulletsView();
-                                updateEnemyView();
-                                updatePopupView();
-                            }
-                        });
-                    } // else, return to the main menu
-                    else {
+                    // update the game's views
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateCharacterView();
+                            updateBulletsView();
+                            updateEnemyView();
+                            updatePopupView();
+                        }
+                    });
+                    // run the update function. If the player has reached the goal, display the
+                    // endscreen
+                    if (C_EnvironmentController.update()) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -100,7 +100,7 @@ public class V_LevelActivity extends AppCompatActivity {
 
     private void displayEndscreen() {
         // game is no longer running
-        environment.setPaused(true);
+        C_EnvironmentController.pauseGame();
         timeKeeper.stop();
         //delete timeKeeper?
         TextView time = (TextView) findViewById(R.id.current_time);
@@ -136,17 +136,14 @@ public class V_LevelActivity extends AppCompatActivity {
         gameLoopTimer.cancel();
     }
 
-    // initialize level i (currently set to always initialize level 1. Will be altered when new
-    // levels are added
-    public void initLevel(int i) {
-        // load the level and the player character into the environment
-        C_EnvironmentController.initialize(M_LevelVault.getLevel(i), M_Character.getInstance());
+    // initialize level with ID id
+    public void initLevel(int id) {
+        // load the level corresponding to ID id into the environment
+        C_EnvironmentController.initialize(M_LevelVault.getLevel(id));
         // signal that the level has started
         started = true;
         // initialize the ImageViews
         initView();
-        // unpause the level
-        environment.setPaused(false);
     }
 
     // initialize the activity's views
@@ -199,10 +196,7 @@ public class V_LevelActivity extends AppCompatActivity {
 
     // initialize the views for the records.
     private void initRecordsView() {
-        // TODO: add loop for additional records. Currently just doing the goal, since that's all
-        // we have.
         M_Record tempMRecord = environment.getGoal();               // get the goal record
-        // setImageResource method discovered on stackoverflow
         initObjView(tempMRecord);                                   // give the record a view
         updateWorldObjectView(tempMRecord, false);                  // add its view to the layout
     }
@@ -257,21 +251,16 @@ public class V_LevelActivity extends AppCompatActivity {
         // get the object's image view
         ImageView imageView = worldObject.getImageView();
 
-        // Much of the following code was adapted from principles on stackoverflow
         // get the dimensions for the sprite and convert them for the device's screen
-        int dimX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                worldObject.getDimensions().x, getResources().getDisplayMetrics());
-        int dimY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                worldObject.getDimensions().y, getResources().getDisplayMetrics());
+        int dimX = convertForScreen(worldObject.getDimensions().x);
+        int dimY = convertForScreen(worldObject.getDimensions().y);
 
         // create new layout parameters for the sprite
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dimX, dimY);
 
         // get the location of the block and convert the coordinates for the device's screen
-        int newX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                worldObject.getLocation().x, getResources().getDisplayMetrics());
-        int newY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                worldObject.getLocation().y, getResources().getDisplayMetrics());
+        int newX = convertForScreen(worldObject.getLocation().x);
+        int newY = convertForScreen(worldObject.getLocation().y);
 
         // set the margins for the ImageView (i.e. position on the screen)
         layoutParams.setMargins(newX, newY, 0, 0);
@@ -283,6 +272,12 @@ public class V_LevelActivity extends AppCompatActivity {
             assert RL != null;
             RL.addView(imageView, layoutParams);
         }
+    }
+
+    // this method is loosely adapted from some principles I found on stackoverflow
+    private int convertForScreen(int value) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
+                getResources().getDisplayMetrics());
     }
 
     private ImageView initObjView(M_WorldObject tempWorldObject) {
@@ -329,7 +324,13 @@ public class V_LevelActivity extends AppCompatActivity {
         timeKeeper.stop();
     }
 
-    public Chronometer getTimeKeeper(){
+    public Chronometer getTimeKeeper() {
         return this.timeKeeper;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 }

@@ -55,16 +55,6 @@ public class M_Character extends M_Entity {
         immunity = 0;
     }
 
-    /**
-     * Resets M_Character's health, direction, jumpTime, and velocity
-     */
-    public void reset() {
-        this.setJumpTime(0);
-        this.setHealth(this.getMaxHealth());
-        this.setDirection(1);
-        this.setVelocity(new Point(0, 0));
-    }
-
     /**********************
      * Get/Set Functions For Various Variables
      ************************************/
@@ -112,51 +102,5 @@ public class M_Character extends M_Entity {
     // decrementImmunity() decrements this.immunity by 1
     public void decrementImmunity() {
         this.immunity = this.immunity - 1;
-    }
-
-    /**************************
-     * Gameplay Functions
-     *********************************************************/
-
-    // c.horizontalMove(direction) sets character c's horizontal velocity to direction*c.speed,
-    // and sets c.direction to direction.
-    public void horizontalMove(int direction) {
-        //update the location of the entity based on move speeds
-        this.setVelocityX(direction * this.getSpeed());
-        this.setDirection(direction);
-    }
-
-
-    // if the character can jump, set his vertical velocity to the negative of the gravity and
-    // reset the jump timer to maxJumpTime
-    public void jump(boolean canJump) {
-        if (canJump) {
-
-            this.setVelocityY(-C_EnvironmentController.GRAVITY);
-            this.setJumpTime(this.maxJumpTime);
-        }
-    }
-
-    // create a new bullet at the character's center
-    public M_Bullet shoot() {
-        Point leftCorner = this.getLocation();
-        // get the center of the character
-        int x = leftCorner.x;
-        int y = leftCorner.y;
-        Point dim = this.getDimensions();
-        int h = dim.y;
-        int w = dim.x;
-        h = h / 2;
-        w = w / 2;
-        Point center = new Point(x + w, y + h);
-        // get the velocity for the bullet
-        Point vel = new Point(this.getDirection() * 3, 0);
-        // return the new bullet
-        return new M_Bullet(center, this.getStrength(), vel, false);
-    }
-
-    // damage(dealt) adds dealt seconds to the environment timer
-    public void damage(int dealt) {
-        Log.d("Damage:", Integer.toString(dealt));
     }
 }
