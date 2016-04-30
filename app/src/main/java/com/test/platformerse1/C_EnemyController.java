@@ -101,9 +101,7 @@ public class C_EnemyController {
             // check if we're intersecting the player character.
             if (C_EnvironmentController.boxIntersect(mEnemy.getLocation(), mEnemy.getDimensions(), player.getLocation(), player.getDimensions())) {
                 // damage the player based on the mEnemy's strength
-                player.damage(mEnemy.getStrength());
-                // give the player 1.5 seconds of immunity
-                player.setImmunity(45);
+                C_CharacterController.damage(mEnemy.getStrength());
             }
         }
     }
