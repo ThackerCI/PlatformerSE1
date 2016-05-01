@@ -13,14 +13,18 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Aaron Trusty on 4/20/2016.
- */
+
+// Author: Aaron Trusty
+// Last Modified: 5/1/16 by Isaiah Thacker
+// Iteration 4
+// Stores scores.
+
 public class M_HighScores
 {
     FileInputStream fileInputStream;
     FileOutputStream fileOutputStream;
-    ArrayList <Double> scoreList = new ArrayList<Double>(5);
+    ArrayList <Double> scoreList = new ArrayList<>(5);
+    int level_ID;
 
     //constructor
     public M_HighScores(FileInputStream inputStream, FileOutputStream outputStream) //get input/output streams based on filename
@@ -31,7 +35,6 @@ public class M_HighScores
 
     //fills scoreList with 5 doubles all stored in memory
     public void readScores() {
-        //allocate room for top 5 scores
         try {
             String score = ""; //string as needed for the readLine() for BufferedReader
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -49,14 +52,13 @@ public class M_HighScores
         }
     }
 
-    public void writeScore(double score) { //Probably some errors in this method. Will fix later FIXME
-        double scoreToWrite = score;
+    public void writeScore(double scoreToWrite) {
         String scoreAsString = String.valueOf(scoreToWrite);
         try {
             int i; //iterator
             for(i=0;i<5;i++)
             {
-                if(score > scoreList.get(i)) //the score is larger than the element at index i
+                if(scoreToWrite > scoreList.get(i)) //the score is larger than the element at index i
                 {
                     scoreList.add(i, scoreToWrite); //chop off at all indexes above 4
                 }
@@ -89,5 +91,10 @@ public class M_HighScores
     public ArrayList<Double> getScoreList()
     {
         return scoreList;
+    }
+
+    public void setLevel_ID(int id)
+    {
+        level_ID = id;
     }
 }
