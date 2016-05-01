@@ -1,8 +1,8 @@
 package com.test.platformerse1;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/28/16 by Isaiah Thacker
-// Iteration 3
+// Last Modified: 5/1/16 by Isaiah Thacker
+// Iteration 4
 // V_LevelActivity defines the class responsible for displaying the in-game
 // environment, and starts the game controllers running.
 
@@ -25,6 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class V_LevelActivity extends AppCompatActivity {
+    private long lastPauseTime = 0;
     private double levelTime;
     private Chronometer timeKeeper;
     // set up the game loop timer
@@ -80,7 +81,7 @@ public class V_LevelActivity extends AppCompatActivity {
                     }
                 });
                 // If the game isn't paused, run the update function. If the player has reached the
-                // goal, display the end screen.
+                // goal, display the end screen. Then, if the chronometer is stopped, start it.
                 if (!environment.isPaused()) {
                     if (C_EnvironmentController.update()) {
                         runOnUiThread(new Runnable() {
@@ -286,21 +287,27 @@ public class V_LevelActivity extends AppCompatActivity {
         return imageView;
     }
 
+    // start the timeKeeper
     public void setMeter(Chronometer timeKeeper) {
         this.timeKeeper = timeKeeper;
+        this.timeKeeper.setBase(SystemClock.elapsedRealtime());
         this.timeKeeper.start();
     }
 
     private void updatePopupView() {
+        // if the environment is set to show a popup
         if (environment.isShowingPopup()) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    // make the popup fragment visible if it's gone, display the message, and pause
+                    // the chronometer
                     View fragmentFrame = findViewById(R.id.fragment_popup);
                     assert fragmentFrame != null;
                     if (fragmentFrame.getVisibility() == View.GONE) {
                         fragmentFrame.setVisibility(View.VISIBLE);
                         popupFragment.displayMessage(environment.getPopupTitle(), environment.getPopupText());
+                        pauseTimeKeeper();
                     }
                 }
             });
@@ -319,14 +326,41 @@ public class V_LevelActivity extends AppCompatActivity {
                 assert pauseFrame != null;
                 pauseFrame.bringToFront();
                 pauseFrame.setVisibility(View.VISIBLE);
-
             }
         });
-        timeKeeper.stop();
+        pauseTimeKeeper();
     }
 
     public Chronometer getTimeKeeper() {
         return this.timeKeeper;
+    }
+
+    // adapted from code on stackoverflow. Pauses the level timer
+    public void pauseTimeKeeper() {
+        setLastPauseTime(SystemClock.elapsedRealtime());
+        timeKeeper.stop();
+        Log.d("TIMEKEEPER", "PAUSING");
+        Log.d("Elapsed", Long.toString(SystemClock.elapsedRealtime()));
+        Log.d("Base", Long.toString(timeKeeper.getBase()));
+        Log.d("Last Pause", Long.toString(lastPauseTime));
+    }
+
+    // adapted from code on stackoverflow. Resumes the level timer.
+    public void resumeTimeKeeper() {
+        timeKeeper.setBase(timeKeeper.getBase() + SystemClock.elapsedRealtime() - getLastPauseTime());
+        timeKeeper.start();
+        Log.d("TIMEKEEPER", "RESUMING");
+        Log.d("Elapsed", Long.toString(SystemClock.elapsedRealtime()));
+        Log.d("Base", Long.toString(timeKeeper.getBase()));
+        Log.d("Last Pause", Long.toString(lastPauseTime));
+    }
+
+    public void setLastPauseTime(long time) {
+        lastPauseTime = time;
+    }
+
+    public long getLastPauseTime() {
+        return lastPauseTime;
     }
 
     @Override

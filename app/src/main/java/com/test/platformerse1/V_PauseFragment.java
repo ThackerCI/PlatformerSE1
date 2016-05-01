@@ -3,6 +3,7 @@ package com.test.platformerse1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,15 +15,13 @@ import android.widget.FrameLayout;
 
 
 // Author: Isaiah Thacker
-// Last Modified: 4/28/16 by Isaiah Thacker
+// Last Modified: 5/1/16 by Isaiah Thacker
 // Iteration 4
 // V_PauseFragment describes the fragment that will display the pause menu to the user.
 public class V_PauseFragment extends Fragment {
 
-
     public V_PauseFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,14 +75,14 @@ public class V_PauseFragment extends Fragment {
         pauseFrame.setVisibility(View.VISIBLE);
     }
 
+    // resume unpauses the level, causes the pause menu to disappear, and resumes the chronometer
     public void resume() {
         assert getView() != null;
         View pauseFrame = getView().findViewById(R.id.fragment_pause);
         pauseFrame.setVisibility(View.GONE);
         C_EnvironmentController.unpause();
         V_LevelActivity activity = (V_LevelActivity) getActivity();
-        Chronometer timeKeeper = activity.getTimeKeeper();
-        timeKeeper.start();
+        activity.resumeTimeKeeper();
     }
 
     // restart reinitializes the current level
