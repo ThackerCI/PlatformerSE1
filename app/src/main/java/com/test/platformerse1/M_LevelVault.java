@@ -38,8 +38,7 @@ public class M_LevelVault {
     }
 
     //Tutorial Level
-    public static M_Level tutorial()
-    {
+    public static M_Level tutorial() {
         List<M_Block> blocksTut = blocksTutorial();
         M_Record goal1 = new M_Record(new Point(22, 5), false);
 
@@ -190,8 +189,7 @@ public class M_LevelVault {
     }
 
     //Enemy for tutorial level
-    private static ArrayList<M_Enemy> enemiesTutorial()
-    {
+    private static ArrayList<M_Enemy> enemiesTutorial() {
         ArrayList<M_Enemy> enemies1 = new ArrayList<>();
         enemies1.add(new M_Enemy(new Point(16, 6), 1, new Point(20, 20), 0, 1, 1, 5, R.drawable.crawler, 0));
 
@@ -206,14 +204,13 @@ public class M_LevelVault {
     }
 
 
-    private static ArrayList<M_PopupTrigger> popupsTutorial()
-    {
+    private static ArrayList<M_PopupTrigger> popupsTutorial() {
         ArrayList<M_PopupTrigger> popupsTut = new ArrayList<>();
-        popupsTut.add(new M_PopupTrigger(new Point(40, 100), new Point(20, 20), "Tutorial", "Press L/R to move left or right."));
-        popupsTut.add(new M_PopupTrigger(new Point(80, 100), new Point(20, 20), "Tutorial", "Great! Keep on going."));
-        popupsTut.add(new M_PopupTrigger(new Point(120, 100), new Point(20, 20), "Tutorial", "Press ^ to jump over the pit."));
-        popupsTut.add(new M_PopupTrigger(new Point(240, 100), new Point(20, 20), "Tutorial", "Press X to shoot bullets into the enemy. Kill it!"));
-        popupsTut.add(new M_PopupTrigger(new Point(400, 100), new Point(20, 20), "Tutorial", "Jump into the record to complete the level."));
+        popupsTut.add(new M_PopupTrigger(new Point(40, 60), new Point(20, 60), "Tutorial", "Press L/R to move left or right."));
+        popupsTut.add(new M_PopupTrigger(new Point(80, 60), new Point(20, 60), "Tutorial", "Great! Keep on going."));
+        popupsTut.add(new M_PopupTrigger(new Point(120, 60), new Point(20, 60), "Tutorial", "Press ^ to jump over the pit."));
+        popupsTut.add(new M_PopupTrigger(new Point(240, 60), new Point(20, 60), "Tutorial", "Press X to shoot bullets into the enemy. Kill it!"));
+        popupsTut.add(new M_PopupTrigger(new Point(400, 60), new Point(20, 60), "Tutorial", "Jump into the record to complete the level."));
 
         return popupsTut;
     }
