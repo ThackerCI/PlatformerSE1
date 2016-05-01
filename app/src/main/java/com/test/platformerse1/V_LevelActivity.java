@@ -69,20 +69,19 @@ public class V_LevelActivity extends AppCompatActivity {
         TimerTask refresh = new TimerTask() {
             @Override
             public void run() {
-                // if the game isn't paused (or stopped for some other reason)
+                // update the game's views
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateCharacterView();
+                        updateBulletsView();
+                        updateEnemyView();
+                        updatePopupView();
+                    }
+                });
+                // If the game isn't paused, run the update function. If the player has reached the
+                // goal, display the end screen.
                 if (!environment.isPaused()) {
-                    // update the game's views
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateCharacterView();
-                            updateBulletsView();
-                            updateEnemyView();
-                            updatePopupView();
-                        }
-                    });
-                    // run the update function. If the player has reached the goal, display the
-                    // endscreen
                     if (C_EnvironmentController.update()) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -299,8 +298,10 @@ public class V_LevelActivity extends AppCompatActivity {
                 public void run() {
                     View fragmentFrame = findViewById(R.id.fragment_popup);
                     assert fragmentFrame != null;
-                    fragmentFrame.setVisibility(View.VISIBLE);
-                    popupFragment.displayMessage(environment.getPopupTitle(), environment.getPopupText());
+                    if (fragmentFrame.getVisibility() == View.GONE) {
+                        fragmentFrame.setVisibility(View.VISIBLE);
+                        popupFragment.displayMessage(environment.getPopupTitle(), environment.getPopupText());
+                    }
                 }
             });
         }
