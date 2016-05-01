@@ -1,8 +1,8 @@
 package com.test.platformerse1;
 
 // Author: Olutayo Elelu
-// Last Modified: 04/17/16 by John C.  Hale
-// Added music attribute to record
+// Last Modified: 04/30/16 by Isaiah Thacker
+// Merged John's edits
 // Iteration 4
 //04/16/16 Modifications: Added Music and power-ups associated with the record
 //Iteration 2
@@ -19,8 +19,8 @@ public class M_Record extends M_WorldObject {
     // has the record been collected?
     private boolean collected;
     // the constant dimensions of all records
-    private final Point dimensions;
-    // the music file unlocked with record
+    private static final Point RECORD_DIMS = new Point(20, 20);
+    //
     private int music;
     //
     private int strength;
@@ -30,14 +30,16 @@ public class M_Record extends M_WorldObject {
     private int defense;
     //
     private int speed;
-    private static final Point RECORD_DIMS = new Point(20, 20);
 
     // Point is given in "grid cell" format for convenience.
-    
+
     public M_Record(Point p, int m, boolean c, int strength, int defense,
-                  int speed, int immunity) {
+                    int speed, int immunity) {
+        // multiply the coordinates of p by 20 to get the actual point
         p.x *= 20;
         p.y *= 20;
+        // set p as the location
+        setLocation(p);
         collected = c;
         music = m;
         this.strength = strength;
@@ -70,7 +72,6 @@ public class M_Record extends M_WorldObject {
     }
 
     public int[] getPowerUps() {
-        int[] powerUps = {this.strength,this.defense,this.speed,this.immunity};
-        return powerUps;
+        return new int[]{this.strength, this.defense, this.speed, this.immunity};
     }
 }

@@ -41,7 +41,7 @@ public class M_LevelVault {
     public static M_Level tutorial()
     {
         List<M_Block> blocksTut = blocksTutorial();
-        M_Record goal1 = new M_Record(new Point(22, 5), false);
+        M_Record goal1 = new M_Record(new Point(22, 5), 0, false, 0, 0, 0, 0);
 
         int id = 0;
 
