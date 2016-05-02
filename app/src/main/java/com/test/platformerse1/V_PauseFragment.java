@@ -99,6 +99,8 @@ public class V_PauseFragment extends Fragment {
     // endLevel() finishes the current activity
     public void endLevel() {
         V_LevelActivity levelActivity = (V_LevelActivity) getActivity();
+        C_MusicController.stopMusic();
+        C_MusicController.stopPowerUp();
         levelActivity.finish();
     }
 }
