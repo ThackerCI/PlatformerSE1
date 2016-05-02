@@ -149,7 +149,6 @@ public class C_EnvironmentController {
     public static void unpause() {
         environment.setPaused(false);
     }
-}
 
     public static void applyPower(int powerUp[]) {
 
