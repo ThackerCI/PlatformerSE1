@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/30/16 by Isaiah Thacker
+// Last Modified: 5/2/16 by Isaiah Thacker
 // Iteration 4
 // The C_EnvironmentController class manipulates the environment and calls the methods from the other
 // controller classes. It can load data from levels into the environment's fields,
@@ -45,9 +45,10 @@ public class C_EnvironmentController {
         enemies.addAll(l.getEnemies());              // add all of the enemies from the level to this list
         popups.clear();                              // remove all popups from this list
         popups.addAll(l.getPopups());                // add all of the popups from the level to this list
+        environment.setShowingPopup(false);          // make sure the environment isn't displaying a popup
         Point tempPoint = new Point(l.getStartingPoint().x, l.getStartingPoint().y);
         unpause();                                   // unpause the environment
-        C_CharacterController.reset();                              // initialize the character's stats
+        C_CharacterController.reset();               // initialize the character's stats
         player.setLocation(tempPoint);               // initialize the player's starting point
     }
 
