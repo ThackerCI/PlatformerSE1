@@ -89,7 +89,8 @@ public class V_PauseFragment extends Fragment {
     public void restart() {
         // create a new intent
         Intent levelIntent = new Intent(getActivity(), V_LevelActivity.class);
-        int levelID = M_Environment.getInstance().getCurrentLevel();
+        M_Level currentLevel = M_Environment.getInstance().getCurrentLevel();
+        int levelID = currentLevel.getId();
         levelIntent.putExtra("levelID", levelID); // put the level ID in the intent
         startActivity(levelIntent);  // go to the new level activity with intent levelIntent
         getActivity().finish();      // finish this level activity

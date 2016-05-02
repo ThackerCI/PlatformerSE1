@@ -314,21 +314,24 @@ public class V_LevelActivity extends AppCompatActivity {
         }
     }
 
-    // displayPauseMenu() pauses the game and displays the pause menu.
+    // displayPauseMenu() pauses the game and displays the pause menu if the game is not already
+    // paused.
     public void displayPauseMenu() {
-        // pause the game
-        C_EnvironmentController.pauseGame();
-        // get the pause fragment and toggle its visibility
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                View pauseFrame = findViewById(R.id.fragment_pause);
-                assert pauseFrame != null;
-                pauseFrame.bringToFront();
-                pauseFrame.setVisibility(View.VISIBLE);
-            }
-        });
-        pauseTimeKeeper();
+        if (!M_Environment.getInstance().isPaused()) {
+            // pause the game
+            C_EnvironmentController.pauseGame();
+            // get the pause fragment and toggle its visibility
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    View pauseFrame = findViewById(R.id.fragment_pause);
+                    assert pauseFrame != null;
+                    pauseFrame.bringToFront();
+                    pauseFrame.setVisibility(View.VISIBLE);
+                }
+            });
+            pauseTimeKeeper();
+        }
     }
 
     public Chronometer getTimeKeeper() {
