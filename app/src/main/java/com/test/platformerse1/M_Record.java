@@ -33,7 +33,7 @@ public class M_Record extends M_WorldObject {
 
     // Point is given in "grid cell" format for convenience.
 
-    public M_Record(Point p, int m, boolean c, int strength, int defense,
+    public M_Record(Point p, boolean c,  int m, int strength, int defense,
                     int speed, int immunity) {
         // multiply the coordinates of p by 20 to get the actual point
         p.x *= 20;
@@ -67,11 +67,7 @@ public class M_Record extends M_WorldObject {
         collected = true;
     }
 
-    public int getMusic() {
-        return this.music;
-    }
-
     public int[] getPowerUps() {
-        return new int[]{this.strength, this.defense, this.speed, this.immunity};
+        return new int[]{this.music, this.strength, this.defense, this.speed, this.immunity};
     }
 }

@@ -1,5 +1,6 @@
 package com.test.platformerse1;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 
@@ -7,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/30/16 by Isaiah Thacker
+// Last Modified: 4/30/16 by John C. Hale
 // Iteration 4
 // The C_EnvironmentController class manipulates the environment and calls the methods from the other
 // controller classes. It can load data from levels into the environment's fields,
 // and update the environment's current state based on the rules of the game.
+
+
 public class C_EnvironmentController {
     // iterationFlag used for a variety of purposes
     private static boolean iterationFlag;
@@ -60,6 +63,7 @@ public class C_EnvironmentController {
         updateRecords();
         C_EnemyController.updateEnemies();
         C_PopupController.updatePopups();
+        C_MusicController.updateMusic();
         return iterationFlag;
     }
 
@@ -144,13 +148,13 @@ public class C_EnvironmentController {
 
     public static void pauseGame() {
         environment.setPaused(true);
+        C_MusicController.pauseMusic(true);
     }
 
     public static void unpause() {
         environment.setPaused(false);
+        C_MusicController.pauseMusic(false);
     }
 
-    public static void applyPower(int powerUp[]) {
 
-    }
 }

@@ -1,12 +1,13 @@
 package com.test.platformerse1;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.util.Log;
 
 import java.util.List;
 
 // Author: Isaiah Thacker
-// Last Modified: 4/30/16 by Isaiah Thacker
+// Last Modified: 4/30/16 by John C. Hale
 // Iteration 4
 // The C_CharacterController class contains the methods for updating the state of the player
 // character.
@@ -121,4 +122,19 @@ public class C_CharacterController {
         // give the player 1 second of immunity
         player.setImmunity(30);
     }
+
+    public static void applyPowerUp() {
+
+        player.setStrength(M_CollectedRecords.getInstance().getPowerUp()[1]);
+        player.setDefense(M_CollectedRecords.getInstance().getPowerUp()[2]);
+        player.setSpeed(M_CollectedRecords.getInstance().getPowerUp()[3]);
+        player.setImmunity(M_CollectedRecords.getInstance().getPowerUp()[4]);
+
+    }
+
+
+    public static void stopPowerUp() {
+        player.setDefaultStats();
+    }
+
 }

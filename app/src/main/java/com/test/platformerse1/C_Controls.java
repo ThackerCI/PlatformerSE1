@@ -2,7 +2,7 @@ package com.test.platformerse1;
 
 
 // Author: Isaiah Thacker
-// Last Modified: 4/30/16 by Isaiah Thacker
+// Last Modified: 4/30/16 by John C. Hale
 // Iteration 4
 // The C_Controls class defines the fragment used for the player to control the character, and defines
 // the methods used by that fragment.
@@ -89,6 +89,15 @@ public class C_Controls extends Fragment {
             }
         });
 
+        applyPowerUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    applyPower();
+                }
+                return true;
+            }
+        });
         nextPowerUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -123,11 +132,15 @@ public class C_Controls extends Fragment {
         return view;
     }
 
-    //Select a Power-Up
-    private void selectPower() {
-        //?? Is C_EnvironmentController where this should be applied, or LevelActivity?
-       C_EnvironmentController.applyPower( M_CollectedRecords.getInstance().getCurrentPowerUp());
-
+    //Applies power-up, if one is already being used, and player still has power-ups left
+    private void applyPower() {
+        if (!C_MusicController.isBonusMusicOn()) {
+            if(M_CollectedRecords.getInstance().doWeHavePowerUp()) {
+                C_MusicController.applyPowerUp(getActivity().getApplicationContext());
+                C_CharacterController.applyPowerUp();
+                M_CollectedRecords.getInstance().decrementPowerUpCounter();
+            }
+        }
     }
 
 

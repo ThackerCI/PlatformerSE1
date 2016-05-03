@@ -39,7 +39,6 @@ public class V_LevelActivity extends AppCompatActivity {
     private int savedLevelInfo;
     // constant is the reciprocal of the framerate
     private final int FRAME_DURATION = 33;
-
     V_PopupFragment popupFragment;
 
     @Override
@@ -102,7 +101,10 @@ public class V_LevelActivity extends AppCompatActivity {
 
     private void displayEndscreen() {
         // game is no longer running
+
         C_EnvironmentController.pauseGame();
+        C_MusicController.stopPowerUp();
+        C_MusicController.stopMusic();
         timeKeeper.stop();
         //delete timeKeeper?
         TextView time = (TextView) findViewById(R.id.current_time);
@@ -135,6 +137,8 @@ public class V_LevelActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        C_MusicController.stopPowerUp();
+        C_MusicController.stopMusic();
         gameLoopTimer.cancel();
     }
 
@@ -146,6 +150,9 @@ public class V_LevelActivity extends AppCompatActivity {
         started = true;
         // initialize the ImageViews
         initView();
+        // Begin background Music
+        C_MusicController.resetBonus(this, M_LevelVault.getLevel(id).getBackgroundMusic());
+
     }
 
     // initialize the activity's views

@@ -29,19 +29,20 @@ public class M_LevelVault {
     public static M_Level levelOne() {
         int id = 1;
         List<M_Block> blocks1 = blocksOne();
-        M_Record goal1 = new M_Record(new Point(26, 3),R.raw.baewolf ,false,2,2,2,2);
+        M_Record goal1 = new M_Record(new Point(26, 3), false, R.raw.baewolf,2,2,2,2);
         List<M_Enemy> enemies1 = enemiesOne();
         List<M_PopupTrigger> popups1 = popupsOne();
         Point starting1 = new Point(20, 140);
 
-        return new M_Level(id, blocks1, new ArrayList<M_Record>(), goal1, enemies1, popups1, starting1);
+        return new M_Level(id, blocks1, new ArrayList<M_Record>(), goal1, enemies1,
+                R.raw.strobe, popups1, starting1);
     }
 
     //Tutorial Level
     public static M_Level tutorial()
     {
         List<M_Block> blocksTut = blocksTutorial();
-        M_Record goal1 = new M_Record(new Point(22, 5), 0, false, 0, 0, 0, 0);
+        M_Record goal1 = new M_Record(new Point(22, 5), false, R.raw.baewolf,3, 2, 1 ,3);
 
         int id = 0;
 
@@ -50,7 +51,8 @@ public class M_LevelVault {
 
         Point startTut = new Point(40, 100);
 
-        return new M_Level(0, blocksTut, new ArrayList<M_Record>(), goal1, enemies1, popups1, startTut);
+        return new M_Level(0, blocksTut, new ArrayList<M_Record>(), goal1, enemies1, R.raw.strobe,
+                popups1, startTut);
     }
 
     //blocks for tutorial level

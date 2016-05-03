@@ -1,6 +1,6 @@
 package com.test.platformerse1;
 
-// Author: John Hale
+// Author: John C. Hale
 // Last Modified: 4/25/16 by Isaiah Thacker
 // Iteration 4
 // The M_Character class defines the object which will represent the data on the player's
@@ -9,8 +9,6 @@ package com.test.platformerse1;
 // Help from Kevin Glass and Dr. Jerry Perez's Space Invader's project.
 
 import android.graphics.Point;
-import android.util.Log;
-import android.widget.ImageView;
 
 public class M_Character extends M_Entity {
 
@@ -53,6 +51,8 @@ public class M_Character extends M_Entity {
         setVelocity(new Point(0, 0));
         jumpTime = 0;
         immunity = 0;
+        int[] firstPowerUp = {R.raw.allineed,3,3,6,0};
+        M_CollectedRecords.getInstance().addPowerUp(firstPowerUp);
     }
 
     /**********************
@@ -103,4 +103,12 @@ public class M_Character extends M_Entity {
     public void decrementImmunity() {
         this.immunity = this.immunity - 1;
     }
+
+    public void setDefaultStats() {
+        this.setImmunity(0);
+        this.setSpeed(3);
+        this.setStrength(3);
+        this.setDefense(3);
+    }
+
 }

@@ -24,9 +24,11 @@ public class M_Level {
     private final List<M_PopupTrigger> popups;
     // the level's starting point
     private final Point startingPoint;
+    private final int backgroundMusic;
 
     // constructor
-    public M_Level(int id, List<M_Block> b, List<M_Record> r, M_Record g, List<M_Enemy> e, List<M_PopupTrigger> p, Point s) {
+    public M_Level(int id, List<M_Block> b, List<M_Record> r, M_Record g, List<M_Enemy> e,
+                   int m, List<M_PopupTrigger> p, Point s) {
         this.id = id;
         this.MBlocks = b;
         this.MRecords = r;
@@ -34,6 +36,11 @@ public class M_Level {
         this.enemies = e;
         this.popups = p;
         this.startingPoint = s;
+        this.backgroundMusic = m;
+    }
+
+    public int getBackgroundMusic() {
+        return this.backgroundMusic;
     }
 
     public int getId() { return this.id; }
@@ -61,4 +68,5 @@ public class M_Level {
     public List<M_PopupTrigger> getPopups() {
         return this.popups;
     }
+
 }
