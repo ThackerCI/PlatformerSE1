@@ -12,8 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:padding="0dp"
-        android:src="@drawable/left_arrow"/>
-        <!--android:textSize="60dp"-->
+        android:src="@drawable/left_button"/>
 
     <ImageButton
         android:id="@+id/right_button"
@@ -23,8 +22,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/left_button"
         android:padding="0dp"
-        android:src="@drawable/right_arrow" />
-        <!--android:textSize="60dp" -->
+        android:src="@drawable/right_button" />
 
     <ImageButton
         android:id="@+id/jump_button"
@@ -34,7 +32,6 @@
         android:layout_alignParentBottom="true"
         android:padding="0dp"
         android:src="@drawable/jump_button" />
-        <!--android:textSize="70dp" -->
 
     <ImageButton
         android:id="@+id/shoot_button"
@@ -45,7 +42,6 @@
         android:layout_alignParentBottom="true"
         android:padding="0dp"
         android:src="@drawable/shoot_button" />
-        <!--android:textSize="60dp"-->
 
     <Button
         android:id="@+id/pause_button"
