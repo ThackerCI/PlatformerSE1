@@ -48,7 +48,7 @@ public class V_MainActivity extends AppCompatActivity {
     }
 
     public void scoresActivity(View view) {
-        Intent scoresIntent = new Intent(V_MainActivity.this, V_ScoresActivityNew.class);
+        Intent scoresIntent = new Intent(V_MainActivity.this, V_ScoresActivity.class);
         startActivity(scoresIntent);
     }
 }
