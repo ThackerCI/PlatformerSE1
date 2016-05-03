@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 
 public class C_Controls extends Fragment {
     public C_Controls() {
@@ -30,10 +31,10 @@ public class C_Controls extends Fragment {
         // get the level activity
         final V_LevelActivity levelActivity = (V_LevelActivity) getActivity();
         // get the buttons
-        Button leftButton = (Button) view.findViewById(R.id.left_button);
-        Button rightButton = (Button) view.findViewById(R.id.right_button);
-        Button jumpButton = (Button) view.findViewById(R.id.jump_button);
-        Button shootButton = (Button) view.findViewById(R.id.shoot_button);
+        ImageButton leftButton = (ImageButton) view.findViewById(R.id.left_button);
+        ImageButton rightButton = (ImageButton) view.findViewById(R.id.right_button);
+        ImageButton jumpButton = (ImageButton) view.findViewById(R.id.jump_button);
+        ImageButton shootButton = (ImageButton) view.findViewById(R.id.shoot_button);
         Button pauseButton = (Button) view.findViewById(R.id.pause_button);
         Chronometer timeKeeper = (Chronometer) view.findViewById(R.id.timeValues);
         timeKeeper.setBase(SystemClock.elapsedRealtime());

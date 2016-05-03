@@ -206,11 +206,11 @@ public class M_LevelVault {
 
     private static ArrayList<M_PopupTrigger> popupsTutorial() {
         ArrayList<M_PopupTrigger> popupsTut = new ArrayList<>();
-        popupsTut.add(new M_PopupTrigger(new Point(40, 60), new Point(20, 60), "Tutorial", "Press L/R to move left or right."));
+        popupsTut.add(new M_PopupTrigger(new Point(40, 60), new Point(20, 60), "Tutorial", "Press the left arrow to move left, and the right arrow to move right."));
         popupsTut.add(new M_PopupTrigger(new Point(80, 60), new Point(20, 60), "Tutorial", "Great! Keep on going."));
-        popupsTut.add(new M_PopupTrigger(new Point(120, 60), new Point(20, 60), "Tutorial", "Press ^ to jump over the pit."));
-        popupsTut.add(new M_PopupTrigger(new Point(240, 60), new Point(20, 60), "Tutorial", "Press X to shoot bullets into the enemy. Kill it!"));
-        popupsTut.add(new M_PopupTrigger(new Point(400, 60), new Point(20, 60), "Tutorial", "Jump into the record to complete the level."));
+        popupsTut.add(new M_PopupTrigger(new Point(120, 60), new Point(20, 60), "Tutorial", "Press the up arrow to jump over the pit."));
+        popupsTut.add(new M_PopupTrigger(new Point(240, 60), new Point(20, 60), "Tutorial", "Press the crosshairs to shoot bullets into the enemy. Kill it!"));
+        popupsTut.add(new M_PopupTrigger(new Point(400, 60), new Point(20, 60), "Tutorial", "Touch the record to complete the level."));
 
         return popupsTut;
     }

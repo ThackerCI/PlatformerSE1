@@ -6,6 +6,7 @@ package com.test.platformerse1;
 // V_LevelActivity defines the class responsible for displaying the in-game
 // environment, and starts the game controllers running.
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -20,13 +21,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class V_LevelActivity extends AppCompatActivity {
     private long lastPauseTime = 0;
+    private final String file_name = "rb_data_file";
     private double levelTime;
+    //M_HighScores highScores;
+    ArrayList<Double> timeList;
     private Chronometer timeKeeper;
     // set up the game loop timer
     private final Timer gameLoopTimer = new Timer();
@@ -45,6 +51,8 @@ public class V_LevelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
+        // temporarily will be commented out until resolve problem
+        //highScores = getHighScores(file_name);
 
         // go fullscreen and force landscape orientation
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -64,7 +72,6 @@ public class V_LevelActivity extends AppCompatActivity {
 
         // initialize the level in question
         initLevel(savedLevelInfo);
-
 
         // define a TimerTask "refresh" to be called every time the game updates
         TimerTask refresh = new TimerTask() {
@@ -100,17 +107,31 @@ public class V_LevelActivity extends AppCompatActivity {
 
     private void displayEndscreen() {
         // game is no longer running
+        //timeList = highScores.getScoreList();
+        //highScores.readScores();
         C_EnvironmentController.pauseGame();
         timeKeeper.stop();
-        //delete timeKeeper?
         TextView time = (TextView) findViewById(R.id.current_time);
         levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0; //convert milliseconds to seconds
+        /*if (levelTime < timeList.get(highScores.level_ID))
+        {
+            Log.d("ID: ",highScores.level_ID+"");
+            Log.d("BEFORE: "+levelTime+" || ", ""+timeList.get(highScores.level_ID));
+            highScores.writeScore(levelTime);
+            Log.d("AFTER: "+levelTime+" || ", ""+timeList.get(highScores.level_ID));
+            //TextView currScoreTextView = (TextView) findViewById(R.id.tutorial_level_score);
+            //currScoreTextView.setText("EX"/*+timeList.get(highScores.level_ID)
+            *//*);
+        }*/
         assert time != null;
         time.setVisibility(View.VISIBLE);
         time.setText("Your time for this level is: " + levelTime + " seconds.");
         time.bringToFront();
         // display the congratulatory text and menu button
         TextView textView = (TextView) findViewById(R.id.congrats_text);
+        //writeScore(5); //only here for testing
+        //String buff = readScores(); //only here for testing
+        //textView.setText(buff); //only here for testing
         assert textView != null;
         textView.setVisibility(View.VISIBLE);
         textView.bringToFront();
@@ -292,6 +313,27 @@ public class V_LevelActivity extends AppCompatActivity {
         this.timeKeeper = timeKeeper;
         this.timeKeeper.setBase(SystemClock.elapsedRealtime());
         this.timeKeeper.start();
+    }
+
+    public M_HighScores getHighScores(String file_name) {
+        M_HighScores retObj;
+        FileOutputStream fos = null;
+        FileInputStream fis = null;
+        try {
+            fos = openFileOutput(file_name, Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fis = openFileInput(file_name);
+            //InputStreamReader inputStreamReader = new InputStreamReader(fis);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        retObj = new M_HighScores(fis, fos);
+        return retObj;
     }
 
     private void updatePopupView() {
