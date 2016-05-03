@@ -5,17 +5,16 @@
     android:layout_alignParentBottom="true"
     tools:context=".C_Controls">
 
-    <Button
+    <ImageButton
         android:id="@+id/left_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:padding="0dp"
-        android:text="L"
-        android:textSize="60dp" />
+        android:src="@drawable/left_button"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/right_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -23,20 +22,18 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/left_button"
         android:padding="0dp"
-        android:text="R"
-        android:textSize="60dp" />
+        android:src="@drawable/right_button" />
 
-    <Button
+    <ImageButton
         android:id="@+id/jump_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:padding="0dp"
-        android:text="^"
-        android:textSize="70dp" />
+        android:src="@drawable/jump_button" />
 
-    <Button
+    <ImageButton
         android:id="@+id/shoot_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -44,8 +41,7 @@
         android:layout_toLeftOf="@id/jump_button"
         android:layout_alignParentBottom="true"
         android:padding="0dp"
-        android:text="X"
-        android:textSize="60dp" />
+        android:src="@drawable/shoot_button" />
 
     <Button
         android:id="@+id/pause_button"
