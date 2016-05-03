@@ -31,6 +31,7 @@ import java.io.BufferedReader;
 import java.io.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,8 +40,8 @@ public class V_LevelActivity extends AppCompatActivity {
     private long lastPauseTime = 0;
     private final String file_name = "rb_data_file";
     private double levelTime;
-    private int levelScore;
-    M_HighScores highScores;
+    //M_HighScores highScores;
+    ArrayList<Double> timeList;
     private Chronometer timeKeeper;
     // set up the game loop timer
     private final Timer gameLoopTimer = new Timer();
@@ -64,8 +65,8 @@ public class V_LevelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
-
-        highScores = getHighScores(file_name);
+        // temporarily will be commented out until resolve problem
+        //highScores = getHighScores(file_name);
 
         // go fullscreen and force landscape orientation
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -140,12 +141,22 @@ public class V_LevelActivity extends AppCompatActivity {
 
     private void displayEndscreen() {
         // game is no longer running
+        //timeList = highScores.getScoreList();
+        //highScores.readScores();
         C_EnvironmentController.pauseGame();
         timeKeeper.stop();
         TextView time = (TextView) findViewById(R.id.current_time);
         levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0; //convert milliseconds to seconds
-        //levelScore = highScores.determineScore(levelTime);
-        //if compareTimes(){} store new time.
+        /*if (levelTime < timeList.get(highScores.level_ID))
+        {
+            Log.d("ID: ",highScores.level_ID+"");
+            Log.d("BEFORE: "+levelTime+" || ", ""+timeList.get(highScores.level_ID));
+            highScores.writeScore(levelTime);
+            Log.d("AFTER: "+levelTime+" || ", ""+timeList.get(highScores.level_ID));
+            //TextView currScoreTextView = (TextView) findViewById(R.id.tutorial_level_score);
+            //currScoreTextView.setText("EX"/*+timeList.get(highScores.level_ID)
+            *//*);
+        }*/
         assert time != null;
         time.setVisibility(View.VISIBLE);
         time.setText("Your time for this level is: " + levelTime + " seconds.");
@@ -375,18 +386,7 @@ public class V_LevelActivity extends AppCompatActivity {
         retObj = new M_HighScores(fis,fos);
         return retObj;
     }
-    /*String filename = "myfile";
-String string = "Hello world!";
-FileOutputStream outputStream;
 
-try {
-  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-  outputStream.write(string.getBytes());
-  outputStream.close();
-} catch (Exception e) {
-  e.printStackTrace();
-}*/
-}
     private void updatePopupView() {
         // if the environment is set to show a popup
         if (environment.isShowingPopup()) {

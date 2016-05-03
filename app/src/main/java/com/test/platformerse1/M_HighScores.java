@@ -2,6 +2,7 @@ package com.test.platformerse1;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +16,7 @@ import java.util.List;
 
 
 // Author: Aaron Trusty
-// Last Modified: 5/1/16 by Isaiah Thacker
+// Last Modified: 5/1/16 by Aaron Trusty
 // Iteration 4
 // Stores scores.
 
@@ -33,17 +34,23 @@ public class M_HighScores
         fileOutputStream = outputStream;
     }
 
-    //fills scoreList with 5 doubles all stored in memory
-    public void readScores() {
+
+    public void setScoreList(ArrayList<Double> scoreList) {
+        this.scoreList = scoreList;
+    }
+
+    //fills scoreList with 3 doubles all stored in memory
+    public void readScores() { //strange
+        //    scoreList.add(0,10000000.0);
+        //    scoreList.add(1,10000000.0);
+        //    scoreList.add(2,10000000.0);
         try {
             String score = ""; //string as needed for the readLine() for BufferedReader
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            int arrayIndex = 0;
-            while ((score = bufferedReader.readLine()) != null && (arrayIndex<5)) //if line exists
+            while ((score = bufferedReader.readLine()) != null) //if line exists
             {
                 scoreList.add(Double.parseDouble(score));
-                arrayIndex++;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -52,39 +59,18 @@ public class M_HighScores
         }
     }
 
-    public void writeScore(double scoreToWrite) {
-        String scoreAsString = String.valueOf(scoreToWrite);
+    public void writeScore(double timeToWrite) {
         try {
-            int i; //iterator
-            for(i=0;i<5;i++)
+            if(timeToWrite < scoreList.get(level_ID)) //the score is larger than the element at index level_ID
             {
-                if(scoreToWrite > scoreList.get(i)) //the score is larger than the element at index i
-                {
-                    scoreList.add(i, scoreToWrite); //chop off at all indexes above 4
-                }
-                fileOutputStream.write(String.valueOf(scoreList.get(i)).getBytes());
+                scoreList.add(level_ID, timeToWrite);
+                fileOutputStream.write(String.valueOf(scoreList.get(level_ID)).getBytes()); //stores string into bytes array
             }
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public int determineScore(double time)
-    {
-        if(time < 30.0)
-        {
-            return 500;
-        }
-        else if(time < 45.0)
-        {
-            return 100;
-        }
-        else
-        {
-            return 50;
         }
     }
 

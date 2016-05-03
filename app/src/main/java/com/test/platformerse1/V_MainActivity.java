@@ -46,4 +46,9 @@ public class V_MainActivity extends AppCompatActivity {
         levelIntent.putExtra("levelID", levelID); // put the level ID in the intent
         startActivity(levelIntent);  // go to levelActivity with intent levelIntent
     }
+
+    public void scoresActivity(View view) {
+        Intent scoresIntent = new Intent(V_MainActivity.this, V_ScoresActivity.class);
+        startActivity(scoresIntent);
+    }
 }
