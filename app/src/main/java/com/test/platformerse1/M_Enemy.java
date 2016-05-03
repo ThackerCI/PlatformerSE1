@@ -9,9 +9,6 @@ import android.view.View;
 // The M_Enemy class defines the template for all enemy entities
 
 public class M_Enemy extends M_Entity {
-    private View enemyView;
-    //name of sprite to be used
-    private int sprite;
     // what type of enemy is it? (0 = "crawler", 1 = "turret")
     private int enemyType;
     // how long between enemy shots?
@@ -33,23 +30,7 @@ public class M_Enemy extends M_Entity {
         this.enemyType = enemyType;
     }
 
-    // getter/setter auto-generated
-
-    public View getEnemyView() {
-        return enemyView;
-    }
-
-    public void setEnemyView(View enemyView) {
-        this.enemyView = enemyView;
-    }
-
-    public int getSprite() {
-        return sprite;
-    }
-
-    public void setSprite(int sprite) {
-        this.sprite = sprite;
-    }
+    // getters/setters auto-generated
 
     public int getEnemyType() {
         return enemyType;
@@ -71,7 +52,7 @@ public class M_Enemy extends M_Entity {
         this.shotCooldown = shotCooldown;
     }
 
-    public void decrementShotCooldown(){
+    public void decrementShotCooldown() {
         shotCooldown = shotCooldown - 1;
     }
 
