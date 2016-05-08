@@ -43,7 +43,8 @@
             android:background="#bebebe"
             android:clickable="false"
             android:layout_below="@id/congrats_text"
-            android:text="Return to Menu"
+            android:text="Press here to Return to Menu"
+            android:backgroundTint="@color/black"
             android:textSize="20sp"
             android:visibility="invisible" />
 
