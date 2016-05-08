@@ -33,20 +33,20 @@ public class C_EnvironmentController {
     private static final List<M_PopupTrigger> popups = environment.getPopups();
 
     // initialize will be used to restart the current level as well as to load a new level
-    public static void initialize(M_Level l) {
-        environment.setCurrentLevel(l.getId());
+    public static void initialize(M_Level level) {
+        environment.setCurrentLevel(level);
         blocks.clear();                              // remove all current blocks from this list
-        blocks.addAll(l.getMBlocks());               // add all of the blocks from the level to this list
+        blocks.addAll(level.getMBlocks());           // add all of the blocks from the level to this list
         records.clear();                             // remove all current records from this list
-        records.addAll(l.getMRecords());             // add all of the records from the level to this list
+        records.addAll(level.getMRecords());         // add all of the records from the level to this list
         bullets.clear();                             // remove all bullets from this list
-        environment.setGoal(l.getGoal());            // set the goal record
+        environment.setGoal(level.getGoal());        // set the goal record
         enemies.clear();                             // remove all enemies from this list
-        enemies.addAll(l.getEnemies());              // add all of the enemies from the level to this list
+        enemies.addAll(level.getEnemies());          // add all of the enemies from the level to this list
         popups.clear();                              // remove all popups from this list
-        popups.addAll(l.getPopups());                // add all of the popups from the level to this list
+        popups.addAll(level.getPopups());            // add all of the popups from the level to this list
         environment.setShowingPopup(false);          // make sure the environment isn't displaying a popup
-        Point tempPoint = new Point(l.getStartingPoint().x, l.getStartingPoint().y);
+        Point tempPoint = new Point(level.getStartingPoint());
         unpause();                                   // unpause the environment
         C_CharacterController.reset();               // initialize the character's stats
         player.setLocation(tempPoint);               // initialize the player's starting point
@@ -143,8 +143,14 @@ public class C_EnvironmentController {
         return false;
     }
 
-    public static void pauseGame() {
-        environment.setPaused(true);
+    // if the game is not paused, pauseGame() pauses it and returns true. Otherwise, it returns
+    // false.
+    public static boolean pauseGame() {
+        if (!environment.isPaused()) {
+            environment.setPaused(true);
+            return true;
+        }
+        return false;
     }
 
     public static void unpause() {

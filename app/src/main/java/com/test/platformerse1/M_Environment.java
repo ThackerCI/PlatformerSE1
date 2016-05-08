@@ -12,7 +12,7 @@ import java.util.List;
 
 public class M_Environment {
     // id of the currently active level
-    private int currentLevel;
+    private M_Level currentLevel;
     // blocks in the environment
     private final List<M_Block> blocks;
     // non-goal records in the environment
@@ -131,11 +131,11 @@ public class M_Environment {
         this.popupText = popupText;
     }
 
-    public int getCurrentLevel() {
+    public M_Level getCurrentLevel() {
         return currentLevel;
     }
 
-    public void setCurrentLevel(int currentLevel) {
+    public void setCurrentLevel(M_Level currentLevel) {
         this.currentLevel = currentLevel;
     }
 }

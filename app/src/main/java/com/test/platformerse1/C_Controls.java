@@ -119,10 +119,4 @@ public class C_Controls extends Fragment {
     private void shoot() {
         M_Environment.getInstance().getBullets().add(C_CharacterController.shoot());
     }
-
-    private void pauseGame() {
-        C_EnvironmentController.pauseGame();
-        V_LevelActivity levelActivity = (V_LevelActivity) getActivity();
-        levelActivity.displayPauseMenu();
-    }
 }
