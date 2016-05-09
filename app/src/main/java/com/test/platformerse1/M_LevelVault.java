@@ -5,11 +5,13 @@ import android.graphics.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/28/16 by Isaiah Thacker
-// Edit by Tayo Elelu 04.28  - adding in additional tutorial level
-// Iteration 4
-// Records the layouts for all of the levels in the game.
+/**
+ * @author Isaiah Thacker
+ * Last Modified: 5/09/16 by Isaiah Thacker
+ * Edit by Tayo Elelu 04.28  - adding in additional tutorial level
+ * Iteration 4
+ * Records the layouts for all of the levels in the game.
+ */
 
 public class M_LevelVault {
     // constant dimensions of blocks. May be set to vary later
@@ -54,127 +56,145 @@ public class M_LevelVault {
 
     //blocks for tutorial level
     private static ArrayList<M_Block> blocksTutorial() {
-        ArrayList<M_Block> blocksTut = new ArrayList<>();
+
+        // list all of the points where blocks will exist
+        ArrayList<Point> blockPoints = new ArrayList<>();
 
         //vertical column
-        blocksTut.add(new M_Block(new Point(1, 1), blockDimensions));
-        blocksTut.add(new M_Block(new Point(1, 2), blockDimensions));
-        blocksTut.add(new M_Block(new Point(1, 3), blockDimensions));
-        blocksTut.add(new M_Block(new Point(1, 4), blockDimensions));
-        blocksTut.add(new M_Block(new Point(1, 5), blockDimensions));
-        blocksTut.add(new M_Block(new Point(1, 6), blockDimensions));
+        blockPoints.add(new Point(1, 1));
+        blockPoints.add(new Point(1, 2));
+        blockPoints.add(new Point(1, 3));
+        blockPoints.add(new Point(1, 4));
+        blockPoints.add(new Point(1, 5));
+        blockPoints.add(new Point(1, 6));
 
         //Horizontal
-        blocksTut.add(new M_Block(new Point(2, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(3, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(4, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(5, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(6, 6), blockDimensions));
+        blockPoints.add(new Point(2, 6));
+        blockPoints.add(new Point(3, 6));
+        blockPoints.add(new Point(4, 6));
+        blockPoints.add(new Point(5, 6));
+        blockPoints.add(new Point(6, 6));
 
         //Pit 1
-        blocksTut.add(new M_Block(new Point(6, 7), blockDimensions));
-        blocksTut.add(new M_Block(new Point(6, 8), blockDimensions));
-        blocksTut.add(new M_Block(new Point(7, 8), blockDimensions));
-        blocksTut.add(new M_Block(new Point(8, 8), blockDimensions));
-        blocksTut.add(new M_Block(new Point(8, 7), blockDimensions));
+        blockPoints.add(new Point(6, 7));
+        blockPoints.add(new Point(6, 8));
+        blockPoints.add(new Point(7, 8));
+        blockPoints.add(new Point(8, 8));
+        blockPoints.add(new Point(9, 8));
+        blockPoints.add(new Point(9, 7));
 
-        blocksTut.add(new M_Block(new Point(8, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(9, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(10, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(11, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(12, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(13, 6), blockDimensions));
+        blockPoints.add(new Point(9, 6));
+        blockPoints.add(new Point(10, 6));
+        blockPoints.add(new Point(11, 6));
+        blockPoints.add(new Point(12, 6));
+        blockPoints.add(new Point(13, 6));
 
 
         //Pit 2
-        blocksTut.add(new M_Block(new Point(13, 7), blockDimensions));
-        blocksTut.add(new M_Block(new Point(14, 7), blockDimensions));
-        blocksTut.add(new M_Block(new Point(15, 7), blockDimensions));
-        blocksTut.add(new M_Block(new Point(16, 7), blockDimensions));
-        blocksTut.add(new M_Block(new Point(17, 7), blockDimensions));
-        blocksTut.add(new M_Block(new Point(18, 7), blockDimensions));
-        blocksTut.add(new M_Block(new Point(19, 7), blockDimensions));
+        blockPoints.add(new Point(13, 7));
+        blockPoints.add(new Point(14, 7));
+        blockPoints.add(new Point(15, 7));
+        blockPoints.add(new Point(16, 7));
+        blockPoints.add(new Point(17, 7));
+        blockPoints.add(new Point(18, 7));
+        blockPoints.add(new Point(19, 7));
 
 
-        blocksTut.add(new M_Block(new Point(19, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(20, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(21, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(22, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(23, 6), blockDimensions));
+        blockPoints.add(new Point(19, 6));
+        blockPoints.add(new Point(20, 6));
+        blockPoints.add(new Point(21, 6));
+        blockPoints.add(new Point(22, 6));
+        blockPoints.add(new Point(23, 6));
 
         //vertical column
-        blocksTut.add(new M_Block(new Point(24, 6), blockDimensions));
-        blocksTut.add(new M_Block(new Point(24, 5), blockDimensions));
-        blocksTut.add(new M_Block(new Point(24, 4), blockDimensions));
-        blocksTut.add(new M_Block(new Point(24, 3), blockDimensions));
-        blocksTut.add(new M_Block(new Point(24, 2), blockDimensions));
-        blocksTut.add(new M_Block(new Point(24, 1), blockDimensions));
+        blockPoints.add(new Point(24, 6));
+        blockPoints.add(new Point(24, 5));
+        blockPoints.add(new Point(24, 4));
+        blockPoints.add(new Point(24, 3));
+        blockPoints.add(new Point(24, 2));
+        blockPoints.add(new Point(24, 1));
+
+
+        // "convert" the points into blocks
+        ArrayList<M_Block> blocksTut = new ArrayList<>();
+        for (Point point : blockPoints){
+            blocksTut.add(new M_Block(point, blockDimensions));
+        }
 
         return blocksTut;
     }
 
     // defining the blocks of level one
     private static ArrayList<M_Block> blocksOne() {
+
+        // list the points where blocks will be located
+        ArrayList<Point> points1 = new ArrayList<>();
+        points1.add(new Point(0, 1));
+        points1.add(new Point(0, 2));
+        points1.add(new Point(0, 3));
+        points1.add(new Point(0, 4));
+        points1.add(new Point(0, 5));
+        points1.add(new Point(0, 6));
+        points1.add(new Point(0, 7));
+        points1.add(new Point(0, 8));
+        points1.add(new Point(1, 6));
+        points1.add(new Point(1, 8));
+        points1.add(new Point(2, 6));
+        points1.add(new Point(2, 8));
+        points1.add(new Point(3, 8));
+        points1.add(new Point(4, 4));
+        points1.add(new Point(4, 8));
+        points1.add(new Point(5, 4));
+        points1.add(new Point(5, 8));
+        points1.add(new Point(6, 4));
+        points1.add(new Point(6, 5));
+        points1.add(new Point(6, 6));
+        points1.add(new Point(6, 7));
+        points1.add(new Point(6, 8));
+        points1.add(new Point(7, 6));
+        points1.add(new Point(8, 6));
+        points1.add(new Point(9, 6));
+        points1.add(new Point(9, 7));
+        points1.add(new Point(9, 8));
+        points1.add(new Point(10, 8));
+        points1.add(new Point(11, 8));
+        points1.add(new Point(12, 8));
+        points1.add(new Point(12, 7));
+        points1.add(new Point(12, 6));
+        points1.add(new Point(13, 6));
+        points1.add(new Point(14, 6));
+        points1.add(new Point(15, 6));
+        points1.add(new Point(16, 6));
+        points1.add(new Point(17, 8));
+        points1.add(new Point(17, 7));
+        points1.add(new Point(17, 6));
+        points1.add(new Point(18, 8));
+        points1.add(new Point(19, 8));
+        points1.add(new Point(20, 8));
+        points1.add(new Point(20, 7));
+        points1.add(new Point(20, 6));
+        points1.add(new Point(20, 5));
+        points1.add(new Point(21, 6));
+        points1.add(new Point(22, 6));
+        points1.add(new Point(23, 6));
+        points1.add(new Point(24, 6));
+        points1.add(new Point(25, 6));
+        points1.add(new Point(26, 6));
+        points1.add(new Point(25, 5));
+        points1.add(new Point(26, 5));
+        points1.add(new Point(26, 4));
+        points1.add(new Point(26, 1));
+        points1.add(new Point(27, 1));
+        points1.add(new Point(27, 2));
+        points1.add(new Point(27, 3));
+        points1.add(new Point(27, 4));
+
+        // "convert" those points into blocks
         ArrayList<M_Block> blocks1 = new ArrayList<>();
-        blocks1.add(new M_Block(new Point(0, 1), blockDimensions));
-        blocks1.add(new M_Block(new Point(0, 2), blockDimensions));
-        blocks1.add(new M_Block(new Point(0, 3), blockDimensions));
-        blocks1.add(new M_Block(new Point(0, 4), blockDimensions));
-        blocks1.add(new M_Block(new Point(0, 5), blockDimensions));
-        blocks1.add(new M_Block(new Point(0, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(0, 7), blockDimensions));
-        blocks1.add(new M_Block(new Point(0, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(1, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(1, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(2, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(2, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(3, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(4, 4), blockDimensions));
-        blocks1.add(new M_Block(new Point(4, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(5, 4), blockDimensions));
-        blocks1.add(new M_Block(new Point(5, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(6, 4), blockDimensions));
-        blocks1.add(new M_Block(new Point(6, 5), blockDimensions));
-        blocks1.add(new M_Block(new Point(6, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(6, 7), blockDimensions));
-        blocks1.add(new M_Block(new Point(6, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(7, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(8, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(9, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(9, 7), blockDimensions));
-        blocks1.add(new M_Block(new Point(9, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(10, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(11, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(12, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(12, 7), blockDimensions));
-        blocks1.add(new M_Block(new Point(12, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(13, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(14, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(15, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(16, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(17, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(17, 7), blockDimensions));
-        blocks1.add(new M_Block(new Point(17, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(18, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(19, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(20, 8), blockDimensions));
-        blocks1.add(new M_Block(new Point(20, 7), blockDimensions));
-        blocks1.add(new M_Block(new Point(20, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(20, 5), blockDimensions));
-        blocks1.add(new M_Block(new Point(21, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(22, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(23, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(24, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(25, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(26, 6), blockDimensions));
-        blocks1.add(new M_Block(new Point(25, 5), blockDimensions));
-        blocks1.add(new M_Block(new Point(26, 5), blockDimensions));
-        blocks1.add(new M_Block(new Point(26, 4), blockDimensions));
-        blocks1.add(new M_Block(new Point(26, 1), blockDimensions));
-        blocks1.add(new M_Block(new Point(27, 1), blockDimensions));
-        blocks1.add(new M_Block(new Point(27, 2), blockDimensions));
-        blocks1.add(new M_Block(new Point(27, 3), blockDimensions));
-        blocks1.add(new M_Block(new Point(27, 4), blockDimensions));
+        for(Point point : points1){
+            blocks1.add(new M_Block(point, blockDimensions));
+        }
+
         return blocks1;
     }
 
