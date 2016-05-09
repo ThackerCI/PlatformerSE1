@@ -1,13 +1,15 @@
 package com.test.platformerse1;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/25/16 by Isaiah Thacker
-// Iteration 4
-// The M_WorldObject class defines a superclass for all objects that can appear in the game
-// environment, with attributes location, velocity, dimensions, and imageView.
-
 import android.graphics.Point;
 import android.widget.ImageView;
+
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 4/25/16 by Isaiah Thacker
+ *         Iteration 4
+ *         The M_WorldObject class defines a superclass for all objects that can appear in the game
+ *         environment, with attributes location, velocity, dimensions, and imageView.
+ */
 
 public class M_WorldObject {
     // location defines the x- and y-coordinates of the top-left corner of the world object.

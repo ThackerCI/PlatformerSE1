@@ -1,11 +1,13 @@
 package com.test.platformerse1;
 
 
-// Author: Isaiah Thacker
-// Last Modified: 4/30/16 by Isaiah Thacker
-// Iteration 4
-// The C_Controls class defines the fragment used for the player to control the character, and defines
-// the methods used by that fragment.
+/**
+ * @author Isaiah Thacker
+ * Last Modified: 4/30/16 by Isaiah Thacker
+ * Iteration 4
+ * The C_Controls class defines the fragment used for the player to control the character, and defines
+ * the methods used by that fragment.
+ */
 
 import android.os.Bundle;
 import android.app.Fragment;

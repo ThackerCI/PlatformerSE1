@@ -8,10 +8,12 @@ import android.view.View;
 import java.io.File;
 import java.io.IOException;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
-// Iteration 3
-// V_MainActivity defines the activity responsible for displaying and running the main menu.
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 4/11/16 by Isaiah Thacker
+ *         Iteration 3
+ *         V_MainActivity defines the activity responsible for displaying and running the main menu.
+ */
 
 public class V_MainActivity extends AppCompatActivity {
 
@@ -31,7 +33,7 @@ public class V_MainActivity extends AppCompatActivity {
     }
 
     // start0 is called when the "Tutorial" button is pressed
-    public void start0(View view){
+    public void start0(View view) {
         start(0);
     }
 
@@ -40,7 +42,7 @@ public class V_MainActivity extends AppCompatActivity {
         start(1);
     }
 
-    public void start(int levelID){
+    public void start(int levelID) {
         // create a new intent
         Intent levelIntent = new Intent(V_MainActivity.this, V_LevelActivity.class);
         levelIntent.putExtra("levelID", levelID); // put the level ID in the intent
@@ -48,7 +50,7 @@ public class V_MainActivity extends AppCompatActivity {
     }
 
     public void scoresActivity(View view) {
-        Intent scoresIntent = new Intent(V_MainActivity.this, V_ScoresActivity.class);
+        Intent scoresIntent = new Intent(V_MainActivity.this, V_CreditsActivity.class);
         startActivity(scoresIntent);
     }
 }

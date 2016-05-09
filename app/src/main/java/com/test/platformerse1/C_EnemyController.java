@@ -4,10 +4,12 @@ import android.graphics.Point;
 
 import java.util.List;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
-// Iteration 3
-// The C_EnemyController class contains the methods for updating the state of all enemies.
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 4/11/16 by Isaiah Thacker
+ *         Iteration 3
+ *         The C_EnemyController class contains the methods for updating the state of all enemies.
+ */
 public class C_EnemyController {
     private static List<M_Enemy> enemies = M_Environment.getInstance().getEnemies();
     private static List<M_Block> MBlocks = M_Environment.getInstance().getBlocks();
@@ -132,7 +134,7 @@ public class C_EnemyController {
     private static void turretAI(M_Enemy mEnemy) {
         // if the turret's cooldown isn't complete, it can't shoot, so decrement the cooldown
         // and return
-        if (mEnemy.getShotCooldown() > 0){
+        if (mEnemy.getShotCooldown() > 0) {
             mEnemy.decrementShotCooldown();
             return;
         }
@@ -149,7 +151,7 @@ public class C_EnemyController {
         // calculate the maximum level for the player's top-left corner
         int lowBound = enemyFiringLevel + 30;
         // if the player character is within the specified boundaries...
-        if (topBound <= playerLoc.y && playerLoc.y <= lowBound){
+        if (topBound <= playerLoc.y && playerLoc.y <= lowBound) {
             // have mEnemy fire a new bullet, then add it to the environment
             M_Bullet newShot = mEnemy.shoot();
             M_Environment.getInstance().getBullets().add(newShot);

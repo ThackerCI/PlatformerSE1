@@ -1,11 +1,5 @@
 package com.test.platformerse1;
 
-// Author: Isaiah Thacker
-// Last Modified: 5/1/16 by Isaiah Thacker
-// Iteration 4
-// V_LevelActivity defines the class responsible for displaying the in-game
-// environment, and starts the game controllers running.
-
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
@@ -26,6 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 5/1/16 by Isaiah Thacker
+ *         Iteration 4
+ *         V_LevelActivity defines the class responsible for displaying the in-game
+ *         environment, and starts the game controllers running.
+ */
 
 public class V_LevelActivity extends AppCompatActivity {
     private long lastPauseTime = 0;

@@ -1,10 +1,12 @@
 package com.test.platformerse1;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/25/16 by Isaiah Thacker
-// Iteration 4
-// The M_Entity class is a superclass of M_Character and M_Enemy, which describes common attributes and
-// functionality such as location, move, and dimensions
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 4/25/16 by Isaiah Thacker
+ *         Iteration 4
+ *         The M_Entity class is a superclass of M_Character and M_Enemy, which describes common attributes and
+ *         functionality such as location, move, and dimensions
+ */
 
 public class M_Entity extends M_WorldObject {
     // The following are copied from the former version of the M_Character class

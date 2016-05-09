@@ -3,10 +3,12 @@ package com.test.platformerse1;
 import android.graphics.Point;
 import android.view.View;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/11/16 by Isaiah Thacker
-// Iteration 3
-// The M_Enemy class defines the template for all enemy entities
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 4/11/16 by Isaiah Thacker
+ *         Iteration 3
+ *         The M_Enemy class defines the template for all enemy entities
+ */
 
 public class M_Enemy extends M_Entity {
     // what type of enemy is it? (0 = "crawler", 1 = "turret")

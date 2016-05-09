@@ -2,11 +2,13 @@ package com.test.platformerse1;
 
 import java.util.List;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/30/16 by Isaiah Thacker
-// Iteration 4
-// C_PopupController handles the update methods associated with the popup triggers: specifically,
-// causing the popups to appear if the player character is intersecting one.
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 4/30/16 by Isaiah Thacker
+ *         Iteration 4
+ *         C_PopupController handles the update methods associated with the popup triggers: specifically,
+ *         causing the popups to appear if the player character is intersecting one.
+ */
 public class C_PopupController {
     private static M_Character player = M_Character.getInstance();
     private static List<M_PopupTrigger> popups = M_Environment.getInstance().getPopups();

@@ -1,16 +1,16 @@
 package com.test.platformerse1;
 
-// Author: John Hale
-// Last Modified: 4/25/16 by Isaiah Thacker
-// Iteration 4
-// The M_Character class defines the object which will represent the data on the player's
-// controlled character.
+import android.graphics.Point;
+
+/**
+ * @author John Hale
+ *         Last Modified: 4/25/16 by Isaiah Thacker
+ *         Iteration 4
+ *         The M_Character class defines the object which will represent the data on the player's
+ *         controlled character.
+ */
 
 // Help from Kevin Glass and Dr. Jerry Perez's Space Invader's project.
-
-import android.graphics.Point;
-import android.util.Log;
-import android.widget.ImageView;
 
 public class M_Character extends M_Entity {
 

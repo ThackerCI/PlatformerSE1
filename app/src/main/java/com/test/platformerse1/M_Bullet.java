@@ -3,10 +3,12 @@ package com.test.platformerse1;
 import android.graphics.Point;
 import android.view.View;
 
-// Author: Aaron Trusty
-// Last Modified: 4/25/16 by Isaiah Thacker
-// Iteration 4
-// The M_Bullet class defines objects representing player and enemy bullets within a level.
+/**
+ * @author Aaron Trusty
+ *         Last Modified: 4/25/16 by Isaiah Thacker
+ *         Iteration 4
+ *         The M_Bullet class defines objects representing player and enemy bullets within a level.
+ */
 
 public class M_Bullet extends M_WorldObject {
     // the ImageView associated with the bullet

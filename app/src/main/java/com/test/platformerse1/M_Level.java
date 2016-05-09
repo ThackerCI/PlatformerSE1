@@ -1,14 +1,16 @@
 package com.test.platformerse1;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/28/16 by Isaiah Thacker
-// Iteration 4
-// The M_Level class defines objects which record data on the various levels that can be played in
-// the game (list of blocks in the level, records in the level, character starting point, etc.)
-
 import android.graphics.Point;
 
 import java.util.List;
+
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 4/28/16 by Isaiah Thacker
+ *         Iteration 4
+ *         The M_Level class defines objects which record data on the various levels that can be played in
+ *         the game (list of blocks in the level, records in the level, character starting point, etc.)
+ */
 
 public class M_Level {
     private final int id;
@@ -36,7 +38,9 @@ public class M_Level {
         this.startingPoint = s;
     }
 
-    public int getId() { return this.id; }
+    public int getId() {
+        return this.id;
+    }
 
     public Point getStartingPoint() {
         return this.startingPoint;

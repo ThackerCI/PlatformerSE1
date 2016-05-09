@@ -2,10 +2,12 @@ package com.test.platformerse1;
 
 import android.graphics.Point;
 
-// Author: Aaron Trusty
-// Last Modified: 4/25/16 by Isaiah Thacker
-// Iteration 4
-// The M_Block class defines objects which represent impassible walls and floors in a level.
+/**
+ * @author Aaron Trusty
+ *         Last Modified: 4/25/16 by Isaiah Thacker
+ *         Iteration 4
+ *         The M_Block class defines objects which represent impassible walls and floors in a level.
+ */
 
 public class M_Block extends M_WorldObject {
     // BLOCK_DIM_SCALAR is the dimensions of the smallest allowed block

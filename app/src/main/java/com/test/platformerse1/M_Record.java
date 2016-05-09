@@ -1,14 +1,16 @@
 package com.test.platformerse1;
 
-// Author: Olutayo Elelu
-// Last Modified: 4/11/16 by Isaiah Thacker
-// Iteration 3
-// The record class defines the records the player may collect within the game environment.
+import android.graphics.Point;
+
+/**
+ * @author Olutayo Elelu
+ *         Last Modified: 4/11/16 by Isaiah Thacker
+ *         Iteration 3
+ *         The record class defines the records the player may collect within the game environment.
+ */
 
 //- Location (Point): Defined by our game mechanics. For now, a point with x and y coordinate. Functions include getLocation and setLocation.
 //- Collect(Boolean): Has the record been collected? Functions include isCollected
-
-import android.graphics.Point;
 
 public class M_Record extends M_WorldObject {
     // has the record been collected?

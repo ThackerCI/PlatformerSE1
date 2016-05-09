@@ -7,10 +7,10 @@ import java.util.List;
 
 /**
  * @author Isaiah Thacker
- * Last Modified: 5/09/16 by Isaiah Thacker
- * Edit by Tayo Elelu 04.28  - adding in additional tutorial level
- * Iteration 4
- * Records the layouts for all of the levels in the game.
+ *         Last Modified: 5/09/16 by Isaiah Thacker
+ *         Edit by Tayo Elelu 04.28  - adding in additional tutorial level
+ *         Iteration 4
+ *         Records the layouts for all of the levels in the game.
  */
 
 public class M_LevelVault {
@@ -117,7 +117,7 @@ public class M_LevelVault {
 
         // "convert" the points into blocks
         ArrayList<M_Block> blocksTut = new ArrayList<>();
-        for (Point point : blockPoints){
+        for (Point point : blockPoints) {
             blocksTut.add(new M_Block(point, blockDimensions));
         }
 
@@ -191,7 +191,7 @@ public class M_LevelVault {
 
         // "convert" those points into blocks
         ArrayList<M_Block> blocks1 = new ArrayList<>();
-        for(Point point : points1){
+        for (Point point : points1) {
             blocks1.add(new M_Block(point, blockDimensions));
         }
 

@@ -2,12 +2,14 @@ package com.test.platformerse1;
 
 import android.graphics.Point;
 
-// Author: Isaiah Thacker
-// Last Modified: 4/25/16 by Isaiah Thacker
-// Iteration 4
-// M_PopupTrigger describes an object used to display popup messages to the user.
-// "Stepping on" the popup trigger causes the message to be displayed, and pauses the game until
-// the popup is dismissed.
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 4/25/16 by Isaiah Thacker
+ *         Iteration 4
+ *         M_PopupTrigger describes an object used to display popup messages to the user.
+ *         "Stepping on" the popup trigger causes the message to be displayed, and pauses the game until
+ *         the popup is dismissed.
+ */
 public class M_PopupTrigger extends M_WorldObject {
 
     // the title of the message to be displayed in the resulting popup box

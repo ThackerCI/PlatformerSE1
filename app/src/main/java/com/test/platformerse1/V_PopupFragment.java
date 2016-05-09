@@ -1,6 +1,5 @@
 package com.test.platformerse1;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-// Author: Isaiah Thacker
-// Last Modified: 5/1/16 by Isaiah Thacker
-// Iteration 4
-// V_PopupFragment describes the fragment that will display temporary popup messages to the user.
+/**
+ * @author Isaiah Thacker
+ *         Last Modified: 5/1/16 by Isaiah Thacker
+ *         Iteration 4
+ *         V_PopupFragment describes the fragment that will display temporary popup messages to the user.
+ */
 public class V_PopupFragment extends Fragment {
 
     public V_PopupFragment() {
