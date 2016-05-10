@@ -40,7 +40,7 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="Okay"
+            android:text="@string/okay"
             android:textSize="20sp" />
 
     </RelativeLayout>

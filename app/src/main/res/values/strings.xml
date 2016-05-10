@@ -3,7 +3,24 @@
 
     <string name="level_one">Level 1</string>
 
-    <string name="title_activity_activity_level">activity_level</string>
     <string name="Pause_Menu">Pause Menu</string>
+
+    <string name="level_complete">Level Complete!</string>
+
+    <string name="press_to_return">Press here to Return to Menu</string>
+
+    <string name="tutorial">Tutorial</string>
+
+    <string name="credits">Credits</string>
+
+    <string name="game_paused">Game Paused</string>
+
+    <string name="resume">Resume</string>
+
+    <string name="restart_level">Restart Level</string>
+
+    <string name="main_menu">Main Menu</string>
+
+    <string name="okay">Okay</string>
 
 </resources>

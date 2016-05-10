@@ -1,7 +1,6 @@
 package com.test.platformerse1;
 
 import android.graphics.Point;
-import android.view.View;
 
 /**
  * @author Isaiah Thacker
