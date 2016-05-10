@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 5/1/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         V_PopupFragment describes the fragment that will display temporary popup messages to the user.
  */
@@ -56,7 +56,7 @@ public class V_PopupFragment extends Fragment {
     }
 
     // dismiss() makes the current popup disappear and unpauses the game
-    public void dismiss() {
+    private void dismiss() {
         assert getView() != null;
         View houdini = getView().findViewById(R.id.fragment_popup);     // get the popup fragment
         if (houdini.getVisibility() != View.GONE) {                     // if it's not yet gone

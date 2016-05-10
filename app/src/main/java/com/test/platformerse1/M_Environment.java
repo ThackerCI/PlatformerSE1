@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 4/30/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 3
  *         The M_Environment class defines objects which contain all data on the current gameplay environment
  *         (level layout, character locations, and so forth.)
@@ -54,11 +54,6 @@ public class M_Environment {
             instance = new M_Environment();
         }
         return instance;
-    }
-
-    // addBullet(b) adds bullet b to the current environment.
-    public void addBullet(M_Bullet b) {
-        this.bullets.add(b);
     }
 
     // setGoal(R) sets the environment's goal record to record R

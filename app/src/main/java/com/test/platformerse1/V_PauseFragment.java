@@ -11,7 +11,7 @@ import android.widget.Button;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 5/1/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         V_PauseFragment describes the fragment that will display the pause menu to the user.
  */
@@ -73,7 +73,7 @@ public class V_PauseFragment extends Fragment {
     }
 
     // resume unpauses the level, causes the pause menu to disappear, and resumes the chronometer
-    public void resume() {
+    private void resume() {
         assert getView() != null;
         View pauseFrame = getView().findViewById(R.id.fragment_pause);
         pauseFrame.setVisibility(View.GONE);
@@ -83,7 +83,7 @@ public class V_PauseFragment extends Fragment {
     }
 
     // restart reinitializes the current level
-    public void restart() {
+    private void restart() {
         // create a new intent
         Intent levelIntent = new Intent(getActivity(), V_LevelActivity.class);
         M_Level currentLevel = M_Environment.getInstance().getCurrentLevel();
@@ -94,7 +94,7 @@ public class V_PauseFragment extends Fragment {
     }
 
     // endLevel() finishes the current activity
-    public void endLevel() {
+    private void endLevel() {
         V_LevelActivity levelActivity = (V_LevelActivity) getActivity();
         levelActivity.finish();
     }

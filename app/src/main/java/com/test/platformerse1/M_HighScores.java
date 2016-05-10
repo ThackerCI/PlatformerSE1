@@ -2,7 +2,6 @@ package com.test.platformerse1;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,16 +10,16 @@ import java.util.ArrayList;
 
 /**
  * @author Aaron Trusty
- *         Last Modified: 5/1/16 by Aaron Trusty
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         Stores scores.
  */
 
 public class M_HighScores {
-    FileInputStream fileInputStream;
-    FileOutputStream fileOutputStream;
-    ArrayList<Double> scoreList = new ArrayList<>(5);
-    int level_ID;
+    private FileInputStream fileInputStream;
+    private FileOutputStream fileOutputStream;
+    private ArrayList<Double> scoreList = new ArrayList<>(5);
+    private int level_ID;
 
     //constructor
     public M_HighScores(FileInputStream inputStream, FileOutputStream outputStream) //get input/output streams based on filename
@@ -47,8 +46,6 @@ public class M_HighScores {
             {
                 scoreList.add(Double.parseDouble(score));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,8 +59,6 @@ public class M_HighScores {
                 fileOutputStream.write(String.valueOf(scoreList.get(level_ID)).getBytes()); //stores string into bytes array
             }
             fileOutputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

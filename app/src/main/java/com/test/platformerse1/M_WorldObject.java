@@ -5,13 +5,13 @@ import android.widget.ImageView;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 4/25/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         The M_WorldObject class defines a superclass for all objects that can appear in the game
  *         environment, with attributes location, velocity, dimensions, and imageView.
  */
 
-public class M_WorldObject {
+class M_WorldObject {
     // location defines the x- and y-coordinates of the top-left corner of the world object.
     private Point location;
     // dimensions defines the x- and y-dimensions of the world object.

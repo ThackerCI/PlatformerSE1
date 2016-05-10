@@ -23,7 +23,7 @@ import java.util.TimerTask;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 5/1/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         V_LevelActivity defines the class responsible for displaying the in-game
  *         environment, and starts the game controllers running.
@@ -32,7 +32,6 @@ import java.util.TimerTask;
 public class V_LevelActivity extends AppCompatActivity {
     private long lastPauseTime = 0;
     private final String file_name = "rb_data_file";
-    private double levelTime;
     //M_HighScores highScores;
     ArrayList<Double> timeList;
     private Chronometer timeKeeper;
@@ -40,14 +39,12 @@ public class V_LevelActivity extends AppCompatActivity {
     private final Timer gameLoopTimer = new Timer();
     // set up an environment
     private final M_Environment environment = M_Environment.getInstance();
-    // set up flag for if the level is started
-    private boolean started = false;
     // integer used for getting the desired level's ID
     private int savedLevelInfo;
     // constant is the reciprocal of the framerate
     private final int FRAME_DURATION = 33;
 
-    V_PopupFragment popupFragment;
+    private V_PopupFragment popupFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +111,7 @@ public class V_LevelActivity extends AppCompatActivity {
         C_EnvironmentController.pauseGame();
         timeKeeper.stop();
         TextView time = (TextView) findViewById(R.id.current_time);
-        levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0; //convert milliseconds to seconds
+        double levelTime = (SystemClock.elapsedRealtime() - timeKeeper.getBase()) / 1000.0;
         /*if (levelTime < timeList.get(highScores.level_ID))
         {
             Log.d("ID: ",highScores.level_ID+"");
@@ -160,17 +157,17 @@ public class V_LevelActivity extends AppCompatActivity {
     }
 
     // initialize level with ID id
-    public void initLevel(int id) {
+    private void initLevel(int id) {
         // load the level corresponding to ID id into the environment
         C_EnvironmentController.initialize(M_LevelVault.getLevel(id));
         // signal that the level has started
-        started = true;
+        boolean started = true;
         // initialize the ImageViews
         initView();
     }
 
     // initialize the activity's views
-    public void initView() {
+    private void initView() {
         initBlocksView();
         initRecordsView();
         updateEnemyView();
@@ -268,7 +265,7 @@ public class V_LevelActivity extends AppCompatActivity {
     // If alreadyDisplayed is false, Obj is a world object associated with ImageView IV, then
     // updateWorldObjectView(Obj, alreadyDisplayed) updates IV based on Obj's location and adds
     // it to the current level's layout.
-    public void updateWorldObjectView(M_WorldObject worldObject, boolean alreadyDisplayed) {
+    private void updateWorldObjectView(M_WorldObject worldObject, boolean alreadyDisplayed) {
         // get the level layout
         RelativeLayout RL = (RelativeLayout) findViewById(R.id.level_layout);
         // get the object's image view
@@ -383,7 +380,7 @@ public class V_LevelActivity extends AppCompatActivity {
     }
 
     // adapted from code on stackoverflow. Pauses the level timer
-    public void pauseTimeKeeper() {
+    private void pauseTimeKeeper() {
         setLastPauseTime(SystemClock.elapsedRealtime());
         timeKeeper.stop();
         Log.d("TIMEKEEPER", "PAUSING");
@@ -402,11 +399,11 @@ public class V_LevelActivity extends AppCompatActivity {
         Log.d("Last Pause", Long.toString(lastPauseTime));
     }
 
-    public void setLastPauseTime(long time) {
+    private void setLastPauseTime(long time) {
         lastPauseTime = time;
     }
 
-    public long getLastPauseTime() {
+    private long getLastPauseTime() {
         return lastPauseTime;
     }
 

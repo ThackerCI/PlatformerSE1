@@ -4,7 +4,7 @@ import android.graphics.Point;
 
 /**
  * @author John Hale
- *         Last Modified: 4/25/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         The M_Character class defines the object which will represent the data on the player's
  *         controlled character.
@@ -16,14 +16,10 @@ public class M_Character extends M_Entity {
 
     //Cooldown time after each shot
     private int shotCoolDown;
-    //max cooldown time after each shot
-    private final int maxShotCoolDown = 10;
     //Time the character began his jump
     private double initialJump;
     //Time character will be moving vertically in case of jump
     private int jumpTime;
-    //maximum time the character will move vertically in case of jump
-    private final int maxJumpTime = 16;
     //time the character is immune to damage
     private int immunity;
 
@@ -68,7 +64,7 @@ public class M_Character extends M_Entity {
     }
 
     public int getMaxShotCoolDown() {
-        return maxShotCoolDown;
+        return 10;
     }
 
     public double getInitialJump() {
@@ -88,7 +84,7 @@ public class M_Character extends M_Entity {
     }
 
     public int getMaxJumpTime() {
-        return maxJumpTime;
+        return 16;
     }
 
     public void setImmunity(int immunity) {

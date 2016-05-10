@@ -4,14 +4,14 @@ import java.util.List;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 4/30/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         C_PopupController handles the update methods associated with the popup triggers: specifically,
  *         causing the popups to appear if the player character is intersecting one.
  */
-public class C_PopupController {
-    private static M_Character player = M_Character.getInstance();
-    private static List<M_PopupTrigger> popups = M_Environment.getInstance().getPopups();
+class C_PopupController {
+    private static final M_Character player = M_Character.getInstance();
+    private static final List<M_PopupTrigger> popups = M_Environment.getInstance().getPopups();
 
     public static void updatePopups() {
         // iterate through the popup triggers
@@ -31,7 +31,7 @@ public class C_PopupController {
 
     // popup(trigger) pauses the game environment and sets the popup associated with trigger
     // to appear on the screen.
-    public static void popup(M_PopupTrigger trigger) {
+    private static void popup(M_PopupTrigger trigger) {
         M_Environment environment = M_Environment.getInstance();
         // pause the environment
         C_EnvironmentController.pauseGame();

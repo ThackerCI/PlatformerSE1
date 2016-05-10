@@ -10,8 +10,8 @@ import java.io.IOException;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 4/11/16 by Isaiah Thacker
- *         Iteration 3
+ *         Last Modified: 5/9/16 by Isaiah Thacker
+ *         Iteration 4
  *         V_MainActivity defines the activity responsible for displaying and running the main menu.
  */
 
@@ -42,7 +42,7 @@ public class V_MainActivity extends AppCompatActivity {
         start(1);
     }
 
-    public void start(int levelID) {
+    private void start(int levelID) {
         // create a new intent
         Intent levelIntent = new Intent(V_MainActivity.this, V_LevelActivity.class);
         levelIntent.putExtra("levelID", levelID); // put the level ID in the intent

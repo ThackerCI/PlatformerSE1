@@ -7,12 +7,12 @@ import java.util.List;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 4/30/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         The C_CharacterController class contains the methods for updating the state of the player
  *         character.
  */
-public class C_CharacterController {
+class C_CharacterController {
     // get the blocks and the player character.
     private static final List<M_Block> blocks = M_Environment.getInstance().getBlocks();
     private static final M_Character player = M_Character.getInstance();

@@ -6,14 +6,14 @@ import java.util.List;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 4/11/16 by Isaiah Thacker
- *         Iteration 3
+ *         Last Modified: 5/9/16 by Isaiah Thacker
+ *         Iteration 4
  *         The C_EnemyController class contains the methods for updating the state of all enemies.
  */
-public class C_EnemyController {
-    private static List<M_Enemy> enemies = M_Environment.getInstance().getEnemies();
-    private static List<M_Block> MBlocks = M_Environment.getInstance().getBlocks();
-    private static List<M_Bullet> bullets = M_Environment.getInstance().getBullets();
+class C_EnemyController {
+    private static final List<M_Enemy> enemies = M_Environment.getInstance().getEnemies();
+    private static final List<M_Block> MBlocks = M_Environment.getInstance().getBlocks();
+    private static final List<M_Bullet> bullets = M_Environment.getInstance().getBullets();
 
     // updateEnemies() detects player bullet collisions with enemies, updates the location of all
     // enemies, and calls each enemy's AI function.

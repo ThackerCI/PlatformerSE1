@@ -7,13 +7,13 @@ import java.util.List;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 5/2/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Iteration 4
  *         The C_EnvironmentController class manipulates the environment and calls the methods from the other
  *         controller classes. It can load data from levels into the environment's fields,
  *         and update the environment's current state based on the rules of the game.
  */
-public class C_EnvironmentController {
+class C_EnvironmentController {
 
     // iterationFlag used for a variety of purposes
     private static boolean iterationFlag;
@@ -147,12 +147,10 @@ public class C_EnvironmentController {
 
     // if the game is not paused, pauseGame() pauses it and returns true. Otherwise, it returns
     // false.
-    public static boolean pauseGame() {
+    public static void pauseGame() {
         if (!environment.isPaused()) {
             environment.setPaused(true);
-            return true;
         }
-        return false;
     }
 
     public static void unpause() {

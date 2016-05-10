@@ -7,13 +7,13 @@ import java.util.List;
 
 /**
  * @author Isaiah Thacker
- *         Last Modified: 5/09/16 by Isaiah Thacker
+ *         Last Modified: 5/9/16 by Isaiah Thacker
  *         Edit by Tayo Elelu 04.28  - adding in additional tutorial level
  *         Iteration 4
  *         Records the layouts for all of the levels in the game.
  */
 
-public class M_LevelVault {
+class M_LevelVault {
     // constant dimensions of blocks. May be set to vary later
     private static final Point blockDimensions = new Point(20, 20);
 
@@ -28,7 +28,7 @@ public class M_LevelVault {
     }
 
     // defining level one
-    public static M_Level levelOne() {
+    private static M_Level levelOne() {
         int id = 1;
         List<M_Block> blocks1 = blocksOne();
         M_Record goal1 = new M_Record(new Point(26, 3), false);
@@ -40,7 +40,7 @@ public class M_LevelVault {
     }
 
     //Tutorial Level
-    public static M_Level tutorial() {
+    private static M_Level tutorial() {
         List<M_Block> blocksTut = blocksTutorial();
         M_Record goal1 = new M_Record(new Point(22, 5), false);
 
